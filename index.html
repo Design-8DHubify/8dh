@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>8D Hubify — Design System & Brand Book</title>
-<meta name="robots" content="noindex">
+
+  <meta name="robots" content="noindex">
+
 <!-- Tipografia da marca embutida (base64) -->
 <style>
   @font-face {
@@ -243,6 +245,87 @@ body::after {
   width: 36px; height: 36px; transition: all 0.2s ease;
 }
 .theme-toggle:hover { border-color: var(--cometa); color: var(--cometa-light); background: var(--cometa-dim); }
+
+/* Hamburger button (mobile only) */
+.nav-hamburger {
+  display: none; background: var(--bg-surface); border: 1px solid var(--border);
+  width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+  flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  padding: 0; transition: all 0.2s ease;
+}
+.nav-hamburger span {
+  display: block; width: 14px; height: 1.5px;
+  background: var(--text-pure); border-radius: 2px; transition: all 0.3s ease;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+/* Backdrop + Drawer */
+.drawer-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,15,.6); backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); z-index: 199; opacity: 0; pointer-events: none;
+  transition: opacity .4s ease;
+}
+.drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+
+.mobile-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: min(86vw, 380px);
+  background: var(--bg-deep); border-left: 1px solid var(--border);
+  z-index: 200; padding: 1.5rem;
+  display: flex; flex-direction: column; gap: 1.5rem;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  background-image: var(--grad-mesh);
+}
+.mobile-drawer.open { transform: translateX(0); }
+
+.drawer-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 1rem; border-bottom: 1px solid var(--border);
+}
+.drawer-brand {
+  display: flex; align-items: center; gap: .75rem;
+  font-family: var(--font-display); font-size: 1rem; font-weight: 400;
+  letter-spacing: -.01em;
+}
+.drawer-brand svg { fill: var(--cometa-light); filter: drop-shadow(0 0 12px var(--cometa)); }
+.drawer-close {
+  background: var(--bg-surface); border: 1px solid var(--border);
+  width: 38px; height: 38px; border-radius: 50%; cursor: pointer;
+  color: var(--text-pure); display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+}
+.drawer-close:hover { border-color: var(--cometa); color: var(--cometa-light); background: var(--cometa-dim); }
+
+.drawer-links {
+  display: flex; flex-direction: column; gap: 2px; flex: 1; padding-top: .5rem;
+}
+.drawer-links a {
+  display: flex; align-items: baseline; gap: 1.25rem;
+  padding: 1rem .5rem; color: var(--text-pure); text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-display); font-size: 1.5rem; font-weight: 400;
+  letter-spacing: -.01em; transition: color .25s, transform .25s;
+}
+.drawer-links a:hover { color: var(--cometa-light); transform: translateX(4px); }
+.drawer-links a:last-child { border-bottom: none; }
+.drawer-num {
+  font-family: var(--font-mono); font-size: .7rem; color: var(--cometa);
+  letter-spacing: .12em; font-weight: 600; min-width: 28px;
+}
+
+.drawer-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 1rem; border-top: 1px solid var(--border);
+  font-family: var(--font-mono); font-size: .6rem; color: var(--text-muted);
+  letter-spacing: .15em; text-transform: uppercase;
+}
+.drawer-pulse { display: inline-flex; align-items: center; gap: 8px; color: var(--success); }
+.drawer-pulse::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--success);
+  box-shadow: 0 0 10px var(--success); animation: pulseDot 1.6s ease-in-out infinite;
+}
 
 /* ── 4. SECTIONS ── */
 .section { padding: 7vh 0; border-bottom: 1px solid var(--border); position: relative; }
@@ -828,41 +911,71 @@ body::after {
   .lab-controls { border-left: none; border-top: 1px solid var(--border); }
   .hero-meta { display: none; }
 }
+/* ─────── TABLET (≤992px) ─────── */
+@media (max-width: 992px) {
+  .wrap, .wrap-wide { padding: 0 5vw; max-width: 100%; }
+  .hero-meta { font-size: .55rem; right: 5vw; top: 6rem; }
+  .hero-title { font-size: clamp(2.6rem, 7vw, 4rem); }
+}
+
+/* ─────── MOBILE (≤768px) ─────── */
 @media (max-width: 768px) {
-  .ds-nav { gap: 0.75rem; padding: 0.5rem 1rem; border-radius: 24px; max-width: calc(100vw - 24px); overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-  .ds-nav::-webkit-scrollbar { display: none; }
-  .ds-nav-links { flex-wrap: nowrap; gap: 1rem; }
-  .ds-nav-links a { white-space: nowrap; font-size: 0.7rem; }
-  .nav-brand svg { height: 22px; }
-  .theme-toggle { width: 30px; height: 30px; flex-shrink: 0; }
+  /* Cursor desktop é ruim em touch */
+  body { -webkit-tap-highlight-color: transparent; }
 
-  .wrap, .wrap-wide { padding: 0 5vw; }
+  /* NAV — pílula compacta + hamburger */
+  .ds-nav-wrapper { top: 1rem; padding: 0 12px; }
+  .ds-nav { gap: 0.6rem; padding: 0.5rem 0.65rem 0.5rem 1rem; border-radius: var(--radius-pill); }
+  .ds-nav-links { display: none; }
+  .nav-brand svg { height: 20px; }
+  .theme-toggle { width: 34px; height: 34px; }
+  .nav-hamburger { display: flex; }
 
-  .hero { padding: 100px 5vw 60px; }
-  .hero-title { font-size: clamp(2rem, 9vw, 3.2rem); max-width: 100%; }
-  .hero-eyebrow { font-size: .55rem; padding: 5px 12px; }
+  /* HERO */
+  .hero { padding: 90px 5vw 50px; }
+  .hero-title { font-size: clamp(2rem, 9vw, 3.2rem); max-width: 100%; line-height: .95; }
+  .hero-title .outline { -webkit-text-stroke-width: 1px; }
+  .hero-eyebrow { font-size: .55rem; padding: 5px 12px; margin-bottom: 1rem; letter-spacing: .2em; gap: 8px; }
+  .hero-eyebrow::before { width: 5px; height: 5px; }
+  .hero-desc { font-size: .88rem; line-height: 1.55; }
   .hero-meta { display: none; }
 
-  .section { padding: 5vh 0; }
-  .section-header { margin-bottom: 1.75rem; }
+  /* SECTIONS */
+  .section { padding: 4.5vh 0; }
+  .section-header { margin-bottom: 1.5rem; }
   .section-num-bg { font-size: clamp(4rem, 18vw, 6rem); top: -.5rem; }
-  .section-title { font-size: clamp(1.4rem, 6vw, 1.9rem); }
+  .section-title { font-size: clamp(1.4rem, 6vw, 1.9rem); margin-bottom: .6rem; }
+  .section-desc { font-size: .85rem; }
+  .section-eyebrow { font-size: .55rem; }
+  .subsection-title { font-size: 1.1rem; margin: 2rem 0 1rem; }
 
-  .typo-row { grid-template-columns: 1fr; gap: 0.5rem; }
-  .icon-controls { flex-direction: column; align-items: stretch; gap: 1rem; padding: 1rem; }
-  .search-input { width: 100%; }
-  .floating-action { flex-direction: column; gap: 0.75rem; padding: 1rem; border-radius: var(--radius-md); width: calc(100% - 40px); bottom: 20px; }
-
-  .type-specimens { grid-template-columns: 1fr; }
+  /* TYPO */
+  .typo-row { grid-template-columns: 1fr; gap: 0.4rem; padding: 1.25rem 0; }
+  .type-specimens { grid-template-columns: 1fr; gap: .75rem; margin-bottom: 1.5rem; }
+  .type-specimen { padding: 1.25rem; min-height: 160px; }
   .type-specimen-Aa { font-size: clamp(3rem, 14vw, 4rem); }
+  .type-specimen-name { font-size: 1.05rem; }
+
+  /* ICONS */
+  .icon-controls { flex-direction: column; align-items: stretch; gap: .85rem; padding: 1rem; }
+  .search-input { width: 100%; font-size: 16px; }
+  .icon-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 0.5rem; max-height: 360px; }
+  .icon-box { height: 76px; }
+  .icon-box i { font-size: 20px; }
+  .floating-action {
+    flex-direction: column; gap: 0.65rem; padding: .85rem;
+    border-radius: var(--radius-md);
+    left: 12px; right: 12px; bottom: 12px;
+    width: auto; transform: translateY(150px);
+  }
+  .floating-action.visible { transform: translateY(0); }
 
   /* === CARROSSÉIS MOBILE === */
-  /* Color, Logo, GSAP, Scroll demos viram scroll horizontal com snap */
   .color-grid, .logo-grid, .gsap-gallery {
     display: flex !important; gap: 12px;
     overflow-x: auto; overflow-y: hidden;
     scroll-snap-type: x mandatory;
-    padding: 0 5vw 1rem; margin: 0 -5vw;
+    padding: .25rem 5vw 1rem; margin: 0 -5vw;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
@@ -872,29 +985,93 @@ body::after {
   .color-card, .logo-card, .gsap-box {
     flex: 0 0 78%;
     scroll-snap-align: center;
-    min-width: 240px; max-width: 320px;
+    min-width: 220px; max-width: 300px;
   }
-  .gsap-box { flex: 0 0 65%; min-width: 200px; max-width: 260px; }
+  .gsap-box { flex: 0 0 65%; min-width: 190px; max-width: 240px; height: 150px; }
+  .logo-stage { height: 100px; }
 
-  .scroll-demo { flex-direction: column; align-items: flex-start; padding: 1.5rem; min-height: auto; gap: 1.25rem; }
-  .scroll-demo .demo-stage { flex: 1 1 auto; width: 100%; height: 100px; }
-
-  .lab-container { grid-template-columns: 1fr; }
-  .lab-canvas-wrapper { height: 360px; }
-  .lab-controls { max-height: none; border-left: none; border-top: 1px solid var(--border); }
-  .lab-row { grid-template-columns: 70px 1fr 32px; gap: 6px; }
-
+  /* SCROLL DEMOS */
+  .scroll-demo { flex-direction: column; align-items: flex-start; padding: 1.25rem; min-height: auto; gap: 1rem; margin-bottom: .75rem; }
+  .scroll-demo h4 { font-size: 1.1rem; }
+  .scroll-demo p { font-size: .8rem; }
+  .scroll-demo .demo-stage { flex: 0 0 auto; width: 100%; height: 80px; }
   .scroll-obj-stage { height: 80vh; }
-  .scroll-obj-content { bottom: 6vh; }
+  .scroll-obj-content { bottom: 5vh; }
   .scroll-obj-content h3 { font-size: 1.3rem; }
+  .scroll-obj-content p { font-size: .8rem; }
 
-  /* Carousel hint helper bar */
+  /* LAB / BUILDER */
+  .lab-container { grid-template-columns: 1fr; }
+  .lab-canvas-wrapper { height: 320px; }
+  .lab-controls { max-height: none; border-left: none; border-top: 1px solid var(--border); padding: 1rem; }
+  .lab-row { grid-template-columns: 70px 1fr 32px; gap: 6px; }
+  .lab-section-title { font-size: .55rem; }
+  .lab-pill { font-size: .58rem; padding: 4px 8px; }
+  .lab-code-block { font-size: .58rem; max-height: 200px; }
+
+  /* COMPONENTS LIBRARY */
+  .comp-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+  .comp-sidebar {
+    position: sticky; top: 70px; max-height: none;
+    background: var(--bg-deep); backdrop-filter: blur(20px);
+    margin: 0 -5vw; padding: .75rem 5vw;
+    border-bottom: 1px solid var(--border); z-index: 50;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    display: flex; gap: 1.25rem; flex-wrap: nowrap; align-items: center;
+  }
+  .comp-sidebar::-webkit-scrollbar { display: none; }
+  .comp-sidebar h4 { display: none; }
+  .comp-sidebar ul { display: flex; flex-wrap: nowrap; gap: .35rem; }
+  .comp-sidebar a { white-space: nowrap; font-size: .75rem; padding: .35rem .85rem; border-left: none !important; border-bottom: 2px solid transparent; }
+  .comp-sidebar a.active { border-bottom-color: var(--cometa); }
+  .comp-viewer { margin-bottom: 1.5rem; }
+  .comp-header { padding: 1.25rem 1.25rem .85rem; }
+  .comp-header h3 { font-size: 1.2rem; }
+  .comp-header p { font-size: .82rem; }
+  .comp-preview { padding: 2rem 1.25rem; gap: 1.25rem; }
+  .comp-code { padding: 1rem 1.25rem; font-size: .7rem; }
+
+  /* MARQUEE */
+  .marquee span { font-size: clamp(1.5rem, 5vw, 2.4rem); gap: 24px; }
+
+  /* FOOTER */
+  footer { padding: 4rem 0 2.5rem !important; }
+  footer h2 { font-size: 1.2rem !important; }
+
+  /* TOAST */
+  #toast { bottom: 80px; right: 12px; left: 12px; padding: .85rem 1rem; font-size: .72rem; text-align: center; }
+
+  /* FORM INPUTS — evita zoom iOS */
+  input, textarea, select, button { font-size: 16px; }
+  .btn { font-size: .82rem; padding: .7rem 1.4rem; min-height: 44px; }
+  .btn-copy { min-height: 36px; }
+
+  /* Swipe hints */
   .mobile-swipe-hint {
     display: block; font-family: var(--font-mono); font-size: .55rem;
     color: var(--text-dim); letter-spacing: .15em; text-transform: uppercase;
-    margin: -.5rem 0 .75rem; padding-left: 5vw;
+    margin: -.25rem 0 .75rem; padding-left: 5vw;
   }
+
+  /* Tokens não exibe stats grid em hero */
+  .hero-stats { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
 }
+
+/* ─────── PHONES PEQUENOS (≤420px) ─────── */
+@media (max-width: 420px) {
+  .hero-title { font-size: clamp(1.8rem, 10vw, 2.6rem); }
+  .hero { padding: 80px 5vw 40px; }
+  .section-title { font-size: clamp(1.25rem, 6vw, 1.6rem); }
+  .ds-nav { padding: 0.5rem 0.55rem 0.5rem .85rem; gap: .4rem; }
+  .nav-brand svg { height: 18px; }
+  .icon-grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); }
+  .icon-box { height: 68px; }
+  .icon-box i { font-size: 18px; }
+  .lab-canvas-wrapper { height: 280px; }
+  .mobile-drawer { width: 100vw; }
+}
+
 @media (min-width: 769px) {
   .mobile-swipe-hint { display: none; }
 }
@@ -918,7 +1095,7 @@ body::after {
 <!-- NAV -->
 <div class="ds-nav-wrapper">
   <nav class="ds-nav">
-    <a href="#" class="nav-brand">
+    <a href="#" class="nav-brand" aria-label="8D Hubify">
       <svg viewBox="0 0 469.28 333.7"><path d="M298.45,295.98c-8.94-64.31-58.65-115.58-122.2-126.82,63.55-11.25,113.26-62.51,122.2-126.82,8.94,64.31,58.65,115.58,122.2,126.82-63.54,11.25-113.26,62.51-122.2,126.82M313.01,0h-14.46c-.03.25-.06.51-.09.76-.03-.25-.06-.51-.1-.76H1.54C.53,7.02,0,14.2,0,21.51c0,73.84,53.37,135.21,123.64,147.65C53.37,181.59,0,242.96,0,316.8c0,5.71.33,11.35.95,16.9h312.08c86.3-.01,156.25-69.97,156.25-156.28v-21.15C469.28,69.97,399.32,0,313.01,0"/></svg>
     </a>
     <div class="ds-nav-links">
@@ -928,16 +1105,48 @@ body::after {
       <a href="#3d-lab">Cinética 3D</a>
       <a href="#components">Componentes</a>
     </div>
-    <button class="theme-toggle" id="themeToggle" title="Alternar Tema">
+    <button class="theme-toggle" id="themeToggle" title="Alternar Tema" aria-label="Alternar tema">
       <i class="fi fi-rc-moon"></i>
+    </button>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
     </button>
   </nav>
 </div>
+
+<!-- Mobile Drawer -->
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<aside class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <div class="drawer-head">
+    <div class="drawer-brand">
+      <svg viewBox="0 0 469.28 333.7" width="32"><path d="M298.45,295.98c-8.94-64.31-58.65-115.58-122.2-126.82,63.55-11.25,113.26-62.51,122.2-126.82,8.94,64.31,58.65,115.58,122.2,126.82-63.54,11.25-113.26,62.51-122.2,126.82M313.01,0h-14.46c-.03.25-.06.51-.09.76-.03-.25-.06-.51-.1-.76H1.54C.53,7.02,0,14.2,0,21.51c0,73.84,53.37,135.21,123.64,147.65C53.37,181.59,0,242.96,0,316.8c0,5.71.33,11.35.95,16.9h312.08c86.3-.01,156.25-69.97,156.25-156.28v-21.15C469.28,69.97,399.32,0,313.01,0"/></svg>
+      <span>8D Hubify · DS</span>
+    </div>
+    <button class="drawer-close" id="drawerClose" aria-label="Fechar menu">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <nav class="drawer-links">
+    <a href="#foundations" data-drawer-link><span class="drawer-num">01</span><span>Fundamentos</span></a>
+    <a href="#assets" data-drawer-link><span class="drawer-num">02</span><span>Ativos</span></a>
+    <a href="#scroll-fx" data-drawer-link><span class="drawer-num">03</span><span>Scroll FX</span></a>
+    <a href="#3d-lab" data-drawer-link><span class="drawer-num">04</span><span>Cinética 3D</span></a>
+    <a href="#components" data-drawer-link><span class="drawer-num">05</span><span>Componentes</span></a>
+  </nav>
+  <div class="drawer-footer">
+    <span>v4.0 — 2025</span>
+    <span class="drawer-pulse">Sistema Live</span>
+  </div>
+</aside>
 
 <!-- HERO (preserved) -->
 <section class="hero" id="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-gradient"></div>
+  <div class="hero-meta">
+    <span><em>v4.0</em> ✦ Edição 2025</span>
+    <span>SP / BR ↘ Sistema Live</span>
+  </div>
   <div class="hero-content wrap">
     <div class="hero-eyebrow">Manual da Marca & Design System</div>
     <h1 class="hero-title">
@@ -1368,6 +1577,50 @@ themeToggle.addEventListener('click', () => {
   renderColors();
 });
 
+/* ── 2b. MOBILE DRAWER ── */
+(function initDrawer() {
+  const hamburger = document.getElementById('navHamburger');
+  const drawer = document.getElementById('mobileDrawer');
+  const backdrop = document.getElementById('drawerBackdrop');
+  const closeBtn = document.getElementById('drawerClose');
+  if (!hamburger || !drawer) return;
+
+  function open() {
+    drawer.classList.add('open');
+    backdrop.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    drawer.classList.remove('open');
+    backdrop.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', () => {
+    drawer.classList.contains('open') ? close() : open();
+  });
+  closeBtn.addEventListener('click', close);
+  backdrop.addEventListener('click', close);
+  // Close on link tap
+  document.querySelectorAll('[data-drawer-link]').forEach(link => {
+    link.addEventListener('click', () => setTimeout(close, 150));
+  });
+  // Close on resize to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && drawer.classList.contains('open')) close();
+  });
+  // Close on ESC
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) close();
+  });
+})();
+
 /* ══════════════════════════════════════════════════════════
    3. THREE.JS HERO — Ampulheta (preserved as user wanted)
    ══════════════════════════════════════════════════════════ */
@@ -1671,7 +1924,7 @@ const fullLogoAnimations = [
   {
     name: "Horizontal Compact",
     desc: "Versão horizontal (símbolo + texto) com pulso da marca.",
-    html: `<div style="max-width:200px"><div style="animation:hPulse 2.5s ease-in-out infinite">${buildHorizSvg()}</div><style>@keyframes hPulse{0%,100%{transform:scale(1);filter:none}50%{transform:scale(1.03);filter:drop-shadow(0 0 24px rgba(102,51,255,.6))}}div svg{fill:#fff;}</style></div>`,
+    html: `<div style="max-width:200px"><div style="animation:hPulse 2.5s ease-in-out infinite">${buildHorizSvg()}</div><style>@keyframes hPulse{0%,100%{transform:scale(1);filter:none}50%{transform:scale(1.03);filter:drop-shadow(0 0 24px rgba(102,51,255,.6))}}div svg{fill:#fff;width:auto !important;}</style></div>`,
     css: `@keyframes hPulse { 50% { transform: scale(1.03); filter: drop-shadow(0 0 24px rgba(102,51,255,.6)); } }`
   },
   {
@@ -1711,7 +1964,7 @@ fullLogoAnimations.forEach((anim, i) => {
   const card = document.createElement('div');
   card.className = 'logo-card glass-panel';
   card.innerHTML = `
-    <div class="logo-stage" style="height:256px">${anim.html}</div>
+    <div class="logo-stage" style="height:120px">${anim.html}</div>
     <div class="logo-info">
       <span class="badge-tag">Logotipo Completo</span>
       <h4>${anim.name}</h4>
