@@ -2,12 +2,11 @@
 <html lang="pt-BR" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>8D Hubify — Design System & Brand Book</title>
-
   <meta name="robots" content="noindex">
 
-<!-- Tipografia da marca embutida (base64) -->
+<!-- Tipografia da marca (Links externos substituídos) -->
 <style>
   @font-face {
     font-family: 'Hugein';
@@ -120,7 +119,6 @@ body {
   font-variation-settings: 'wdth' 100;
 }
 
-/* Subtle film grain overlay */
 body::after {
   content: ''; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
@@ -130,7 +128,7 @@ body::after {
 
 .wrap { max-width: 1440px; margin: 0 auto; padding: 0 5vw; }
 
-/* GLASS PANEL — refined glassmorphism */
+/* GLASS PANEL */
 .glass-panel {
   background: var(--bg-surface);
   backdrop-filter: blur(28px) saturate(180%);
@@ -143,7 +141,6 @@ body::after {
   backdrop-filter: blur(40px) saturate(200%);
   -webkit-backdrop-filter: blur(40px) saturate(200%);
   border: 1px solid var(--border-strong);
-  box-shadow: var(--shadow-2), var(--shadow-inner);
 }
 
 /* ── 2. LOADER ── */
@@ -159,7 +156,7 @@ body::after {
 
 /* ── 3. HERO & NAV ── */
 #hero-canvas { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; outline: none; pointer-events: none; }
-.hero { position: relative; height: 100vh; width: 100vw; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 10vh; z-index: 10; border-bottom: 1px solid var(--border); overflow: hidden; }
+.hero { position: relative; height: 100vh; width: 100vw; display: flex; flex-direction: column; justify-content: center; padding-bottom: 10vh; z-index: 10; border-bottom: 1px solid var(--border); overflow: hidden; }
 .hero-gradient { position: absolute; bottom: 0; left: 0; width: 100%; height: 70vh; background: linear-gradient(to top, var(--bg-base) 5%, rgba(5,5,29,0) 100%); z-index: 1; pointer-events: none; }
 .hero-content { position: relative; z-index: 2; }
 
@@ -210,19 +207,20 @@ body::after {
 .ds-nav-wrapper { position: sticky; top: 1.5rem; z-index: 100; display: flex; justify-content: center; pointer-events: none; padding: 0 1rem; }
 .ds-nav {
   pointer-events: auto;
-  background: rgba(5, 5, 29, 0.65);
+  background: rgba(5, 5, 29, 0.0);
   backdrop-filter: blur(28px) saturate(180%);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
   border: 1px solid var(--border-strong);
   padding: 0.7rem 1.5rem; border-radius: var(--radius-pill);
   display: flex; align-items: center; gap: 2.5rem;
-  box-shadow: var(--shadow-2), var(--shadow-inner);
   transition: all 0.4s ease;
 }
 [data-theme="light"] .ds-nav { background: rgba(245, 245, 249, 0.78); }
 .nav-brand { display: flex; align-items: center; text-decoration: none; }
 .nav-brand svg { height: 26px; fill: var(--text-pure); transition: fill 0.3s; }
-.nav-brand:hover svg { fill: var(--cometa-light); }
+@media (hover: hover) {
+  .nav-brand:hover svg { fill: var(--cometa-light); }
+}
 
 .ds-nav-links { display: flex; gap: 2rem; }
 .ds-nav-links a {
@@ -235,8 +233,10 @@ body::after {
   content: ''; position: absolute; bottom: -6px; left: 0; width: 0; height: 1px;
   background: var(--cometa); transition: width .3s ease;
 }
-.ds-nav-links a:hover { color: var(--text-pure); }
-.ds-nav-links a:hover::after { width: 100%; }
+@media (hover: hover) {
+  .ds-nav-links a:hover { color: var(--text-pure); }
+  .ds-nav-links a:hover::after { width: 100%; }
+}
 
 .theme-toggle {
   background: var(--bg-surface); border: 1px solid var(--border);
@@ -244,9 +244,11 @@ body::after {
   cursor: pointer; display: flex; align-items: center; justify-content: center;
   width: 36px; height: 36px; transition: all 0.2s ease;
 }
-.theme-toggle:hover { border-color: var(--cometa); color: var(--cometa-light); background: var(--cometa-dim); }
+@media (hover: hover) {
+  .theme-toggle:hover { border-color: var(--cometa); color: var(--cometa-light); background: var(--cometa-dim); }
+}
 
-/* Hamburger button (mobile only) */
+/* Hamburger button */
 .nav-hamburger {
   display: none; background: var(--bg-surface); border: 1px solid var(--border);
   width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
@@ -296,7 +298,6 @@ body::after {
   color: var(--text-pure); display: flex; align-items: center; justify-content: center;
   transition: all .2s;
 }
-.drawer-close:hover { border-color: var(--cometa); color: var(--cometa-light); background: var(--cometa-dim); }
 
 .drawer-links {
   display: flex; flex-direction: column; gap: 2px; flex: 1; padding-top: .5rem;
@@ -308,7 +309,6 @@ body::after {
   font-family: var(--font-display); font-size: 1.5rem; font-weight: 400;
   letter-spacing: -.01em; transition: color .25s, transform .25s;
 }
-.drawer-links a:hover { color: var(--cometa-light); transform: translateX(4px); }
 .drawer-links a:last-child { border-bottom: none; }
 .drawer-num {
   font-family: var(--font-mono); font-size: .7rem; color: var(--cometa);
@@ -402,7 +402,9 @@ body::after {
   border-radius: var(--radius-lg); overflow: hidden;
   transition: transform 0.4s cubic-bezier(.16,1,.3,1), box-shadow 0.4s ease;
 }
-.color-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-2); }
+@media (hover: hover) {
+  .color-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-2); }
+}
 .color-swatch {
   height: 110px; padding: 1.25rem; cursor: pointer;
   display: flex; align-items: flex-end; justify-content: space-between;
@@ -426,7 +428,9 @@ body::after {
   font-family: var(--font-mono); font-size: 0.55rem; font-weight: 600;
   color: rgba(255,255,255,0); transition: transform .2s, color .2s;
 }
-.tint-box:hover { transform: scale(1.08); z-index: 2; box-shadow: var(--shadow-1); color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
+@media (hover: hover) {
+  .tint-box:hover { transform: scale(1.08); z-index: 2; box-shadow: var(--shadow-1); color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
+}
 .tint-box:active { transform: scale(0.95); }
 
 /* TOAST */
@@ -451,7 +455,9 @@ body::after {
   display: flex; flex-direction: column;
   transition: transform .4s cubic-bezier(.16,1,.3,1), border-color .3s;
 }
-.logo-card:hover { transform: translateY(-4px); border-color: var(--border-hover); }
+@media (hover: hover) {
+  .logo-card:hover { transform: translateY(-4px); border-color: var(--border-hover); }
+}
 .logo-stage {
   height: 110px; display: flex; align-items: center; justify-content: center;
   background: radial-gradient(circle at 30% 30%, rgba(102,51,255,.15), transparent 60%), rgba(0,0,0,0.25);
@@ -485,7 +491,6 @@ body::after {
 .svg-orbit-ring-3 { position: absolute; inset: -12px; border: 1px solid var(--interestelar); border-radius: 50%; animation: spinOrbit 14s linear infinite; opacity: 0.25; }
 @keyframes spinOrbit { 100% { transform: rotate(360deg); } }
 
-/* NEW: Gradient sweep */
 .svg-gradient {
   background: var(--grad-conic); background-size: 200% 200%;
   animation: gradientSweep 4s linear infinite;
@@ -496,7 +501,6 @@ body::after {
 }
 @keyframes gradientSweep { 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
 
-/* NEW: Glass refraction */
 .svg-glass {
   fill: rgba(255,255,255,.2); stroke: var(--cometa); stroke-width: 1.5;
   filter: drop-shadow(0 0 18px var(--cometa-glow));
@@ -504,7 +508,6 @@ body::after {
 }
 @keyframes glassFloat { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-6px) rotate(2deg)} }
 
-/* NEW: Reveal mask scan */
 .svg-scan-container { position: relative; width: 56px; height: 40px; }
 .svg-scan-container svg { position: absolute; inset: 0; width: 100%; height: 100%; fill: var(--text-pure); }
 .svg-scan-container::after {
@@ -515,23 +518,15 @@ body::after {
 }
 @keyframes scanLine { 0%{background-position:200% 0} 100%{background-position:-100% 0} }
 
-/* NEW: Particle dust */
-.svg-particles-container { position: relative; width: 110px; height: 80px; }
-.svg-particles-container svg { fill: var(--text-pure); width: 100%; height: 100%; }
-.particle-dust { position: absolute; width: 3px; height: 3px; background: var(--cometa); border-radius: 50%; animation: floatDust 4s linear infinite; opacity: 0; }
-
-/* NEW: Rotate 3D card */
 .svg-rotate3d { fill: var(--text-pure); animation: rotate3d 4s ease-in-out infinite; transform-style: preserve-3d; }
 @keyframes rotate3d { 0%,100%{transform:rotateY(0deg) rotateX(0deg)} 25%{transform:rotateY(180deg) rotateX(0deg)} 50%{transform:rotateY(180deg) rotateX(180deg)} 75%{transform:rotateY(0deg) rotateX(180deg)} }
 
-/* NEW: Neon flicker */
 .svg-neon-flicker { fill: var(--cometa); animation: neonFlicker 3s infinite; filter: drop-shadow(0 0 8px var(--cometa)); }
 @keyframes neonFlicker {
   0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; filter: drop-shadow(0 0 12px var(--cometa)) drop-shadow(0 0 24px var(--cometa)); }
   20%, 24%, 55% { opacity: 0.4; filter: drop-shadow(0 0 2px var(--cometa)); }
 }
 
-/* NEW: Distort wobble */
 .svg-distort { fill: var(--cometa-light); animation: distort 2.5s ease-in-out infinite; transform-origin: center; }
 @keyframes distort {
   0%,100% { transform: matrix(1,0,0,1,0,0); }
@@ -540,39 +535,29 @@ body::after {
   75% { transform: matrix(1.02,0.02,0.02,0.98,0,0); }
 }
 
-/* NEW: Blur reveal */
 .svg-blur-reveal { fill: var(--text-pure); animation: blurReveal 3s ease-in-out infinite alternate; }
 @keyframes blurReveal { 0%{filter:blur(12px); opacity:.3} 100%{filter:blur(0); opacity:1} }
 
-/* NEW: Cosmic spin */
 .svg-cosmic-container { position: relative; width: 60px; height: 46px; display: flex; align-items: center; justify-content: center; }
 .svg-cosmic-bg { position: absolute; inset: -14px; border-radius: 50%; background: conic-gradient(from 0deg, var(--cometa), var(--nuvem), var(--interestelar), var(--cometa)); filter: blur(14px); opacity: .35; animation: spinOrbit 6s linear infinite; }
 .svg-cosmic-logo { fill: var(--text-pure); width: 70%; z-index: 1; }
 
-/* === FULL LOGO ANIMATIONS — additional === */
-
-/* Type-on (left to right reveal letter by letter via mask sweep) */
 .full-typeon { max-width: 200px; overflow: hidden; }
 .full-typeon svg { fill: var(--text-pure); width: 100%; height: auto; clip-path: inset(0 100% 0 0); animation: typeOnSweep 3s steps(20, end) infinite alternate; }
 @keyframes typeOnSweep { to { clip-path: inset(0 0 0 0); } }
 
-/* Letter shift hover (vertical jiggle — uses transform on full svg) */
 .full-jiggle { max-width: 200px; }
 .full-jiggle svg { fill: var(--text-pure); width: 100%; height: auto; animation: fullJiggle 2.5s ease-in-out infinite; }
 @keyframes fullJiggle { 0%,100%{transform:translateY(0) skewX(0)} 25%{transform:translateY(-3px) skewX(-1deg)} 50%{transform:translateY(0) skewX(0)} 75%{transform:translateY(2px) skewX(1deg)} }
 
-/* Holographic full */
 .full-holo { max-width: 200px; }
 .full-holo svg { fill: var(--cometa); width: 100%; height: auto; animation: fullHolo 3s linear infinite; filter: drop-shadow(0 0 8px var(--cometa)); }
 @keyframes fullHolo { 0%,100%{opacity:1; transform:skewX(0)} 5%{opacity:.4; transform:skewX(2deg)} 10%{opacity:1; transform:skewX(-2deg)} 12%{transform:skewX(0)} 50%{opacity:.85} 51%{opacity:.2} 53%{opacity:1} }
 
-/* Scale-in heartbeat */
 .full-heartbeat { max-width: 200px; }
 .full-heartbeat svg { fill: var(--text-pure); width: 100%; height: auto; transform-origin: center; animation: fullBeat 2s ease-in-out infinite; }
 @keyframes fullBeat { 0%,100%{transform:scale(1)} 14%{transform:scale(1.04)} 28%{transform:scale(1)} 42%{transform:scale(1.06)} 70%{transform:scale(1)} }
 
-/* === FULL LOGO ANIMATIONS === */
-/* Reveal slide */
 .full-reveal-container { overflow: hidden; max-width: 200px; }
 .full-reveal-container svg {
   fill: var(--text-pure); width: 100%; height: auto;
@@ -580,7 +565,6 @@ body::after {
 }
 @keyframes fullReveal { 0%{clip-path:inset(0 100% 0 0)} 50%{clip-path:inset(0 0 0 0)} 100%{clip-path:inset(0 0 0 0)} }
 
-/* Shimmer text */
 .full-shimmer {
   position: relative; max-width: 200px;
 }
@@ -594,12 +578,10 @@ body::after {
 }
 @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-100% 0} }
 
-/* Stretch */
 .full-stretch { max-width: 200px; }
 .full-stretch svg { fill: var(--text-pure); width: 100%; height: auto; transform-origin: left center; animation: stretchIn 3s ease-in-out infinite; }
 @keyframes stretchIn { 0%,100%{transform:scaleX(1)} 50%{transform:scaleX(1.04)} }
 
-/* Glow flicker */
 .full-glow { max-width: 200px; }
 .full-glow svg {
   fill: var(--cometa); width: 100%; height: auto;
@@ -611,7 +593,6 @@ body::after {
   50% { filter: drop-shadow(0 0 24px var(--cometa-light)) drop-shadow(0 0 48px var(--cometa)); }
 }
 
-/* Horizontal slide */
 .full-slide { max-width: 200px; overflow: hidden; }
 .full-slide svg { fill: var(--text-pure); width: 100%; height: auto; animation: slideHoriz 4s cubic-bezier(.16,1,.3,1) infinite; }
 @keyframes slideHoriz {
@@ -619,7 +600,6 @@ body::after {
   50% { transform: translateX(8px); }
 }
 
-/* Color wave (animated gradient fill) */
 .full-wave { max-width: 200px; }
 .full-wave svg { width: 100%; height: auto; }
 .full-wave svg .wave-target { fill: url(#waveGrad); }
@@ -651,7 +631,9 @@ body::after {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   cursor: pointer; transition: all 0.3s cubic-bezier(.16,1,.3,1);
 }
-.icon-box:hover { border-color: var(--border-hover); transform: translateY(-3px); }
+@media (hover: hover) {
+  .icon-box:hover { border-color: var(--border-hover); transform: translateY(-3px); }
+}
 .icon-box.selected { border-color: var(--cometa); background: var(--cometa-dim); box-shadow: 0 0 0 1px var(--cometa), 0 8px 24px rgba(102,51,255,.25); }
 .icon-box i { font-size: 22px; color: var(--text-pure); transition: color 0.3s; line-height: 1; pointer-events: none; }
 .icon-name { font-size: 0.55rem; font-family: var(--font-mono); color: var(--text-muted); margin-top: 0.5rem; pointer-events: none; text-align: center; padding: 0 4px; }
@@ -675,7 +657,9 @@ body::after {
 /* ── 7. GSAP GALLERY ── */
 .gsap-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; }
 .gsap-box { height: 160px; display: flex; flex-direction: column; justify-content: space-between; padding: 1rem; border-radius: var(--radius-md); overflow: hidden; position: relative; transition: border-color 0.3s; }
-.gsap-box:hover { border-color: var(--border-hover); }
+@media (hover: hover) {
+  .gsap-box:hover { border-color: var(--border-hover); }
+}
 .gsap-box span { font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-muted); z-index: 2; font-weight: 600; position: relative; letter-spacing: .08em; }
 .gsap-stage { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 1; pointer-events: none; }
 .gsap-stage svg { display: block; }
@@ -707,7 +691,7 @@ body::after {
 #hourglassScrollCanvas { width: 100%; height: 100%; display: block; }
 .scroll-obj-section { position: relative; padding: 0; min-height: 200vh; }
 .scroll-obj-stage { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; }
-.scroll-obj-content { position: absolute; bottom: 12vh; left: 50%; transform: translateX(-50%); text-align: center; z-index: 5; padding: 0 1rem; }
+.scroll-obj-content { position: absolute; bottom: 12vh; left: 50%; transform: translateX(-50%); text-align: center; z-index: 5; padding: 0 1rem; width: 100%;}
 .scroll-obj-content h3 { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.4rem); font-weight: 400; letter-spacing: -.02em; margin-bottom: .5rem; }
 .scroll-obj-content p { color: var(--text-muted); font-size: .9rem; }
 
@@ -737,7 +721,9 @@ body::after {
   border-radius: var(--radius-pill); cursor: pointer; transition: all .2s;
   letter-spacing: .08em;
 }
-.lab-section-title .reset-mini:hover { border-color: var(--cometa); color: var(--cometa-light); }
+@media (hover: hover) {
+  .lab-section-title .reset-mini:hover { border-color: var(--cometa); color: var(--cometa-light); }
+}
 
 .lab-pills { display: flex; flex-wrap: wrap; gap: 4px; }
 .lab-pill {
@@ -747,7 +733,9 @@ body::after {
   color: var(--text-muted); cursor: pointer; transition: all 0.2s;
   letter-spacing: 0.02em; line-height: 1.2;
 }
-.lab-pill:hover { border-color: var(--border-hover); color: var(--text-pure); }
+@media (hover: hover) {
+  .lab-pill:hover { border-color: var(--border-hover); color: var(--text-pure); }
+}
 .lab-pill.active {
   background: var(--cometa-dim); border-color: var(--cometa);
   color: var(--cometa-light); box-shadow: inset 0 0 0 1px var(--cometa);
@@ -772,7 +760,9 @@ body::after {
   background: var(--cometa); border: 2px solid var(--bg-deep); cursor: pointer;
   transition: transform .15s;
 }
-.lab-row input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.25); }
+@media (hover: hover) {
+  .lab-row input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.25); }
+}
 .lab-row input[type=range]::-moz-range-thumb {
   width: 14px; height: 14px; border-radius: 50%; background: var(--cometa);
   border: 2px solid var(--bg-deep); cursor: pointer;
@@ -827,7 +817,12 @@ body::after {
   display: block; padding: 0.5rem 1rem; border-radius: var(--radius-pill);
   transition: all 0.2s; border-left: 2px solid transparent;
 }
-.comp-sidebar a:hover { color: var(--text-pure); background: rgba(255,255,255,0.05); }
+
+@media(max-width: 768px) { .comp-grid { display: block; gap: 4rem; align-items: start; } }
+
+@media (hover: hover) {
+  .comp-sidebar a:hover { color: var(--text-pure); background: rgba(255,255,255,0.05); }
+}
 .comp-sidebar a.active { color: var(--cometa-light); background: var(--cometa-dim); border-left-color: var(--cometa); }
 
 .comp-viewer { border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 3rem; }
@@ -835,11 +830,11 @@ body::after {
 .comp-header h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; letter-spacing: -.01em; margin-bottom: 0.4rem; }
 .comp-header p { color: var(--text-muted); font-size: 0.9rem; }
 .comp-preview { padding: 4rem 2rem; background: transparent; display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: center; position: relative; }
-.comp-preview::before {
+/*.comp-preview::before {
   content: 'PREVIEW'; position: absolute; top: 1rem; left: 1.5rem;
   font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-dim);
   letter-spacing: 0.18em; font-weight: 600;
-}
+}*/
 .comp-code { background: #04040a; padding: 1.5rem 2rem; border-top: 1px solid var(--border); overflow-x: auto; font-family: var(--font-mono); font-size: 0.8rem; color: #a8a8b3; line-height: 1.6; position: relative; }
 .comp-code span.tag { color: #ff7b72; }
 .comp-code span.attr { color: #79c0ff; }
@@ -856,30 +851,46 @@ body::after {
   border: 1px solid transparent; gap: 0.5rem; line-height: 1;
 }
 .btn-primary { background: linear-gradient(135deg, var(--cometa) 0%, #5028e0 100%); color: #fff; box-shadow: 0 4px 16px rgba(102,51,255,.3); }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(102,51,255,.5); }
+@media (hover: hover) {
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(102,51,255,.5); }
+}
 .btn-secondary { background: var(--bg-surface); color: var(--text-pure); border-color: var(--border-strong); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-.btn-secondary:hover { border-color: var(--text-pure); background: var(--bg-surface-2); }
+@media (hover: hover) {
+  .btn-secondary:hover { border-color: var(--text-pure); background: var(--bg-surface-2); }
+}
 .btn-outline { background: transparent; border-color: var(--cometa); color: var(--cometa-light); }
-.btn-outline:hover { background: var(--cometa); color: #fff; }
+@media (hover: hover) {
+  .btn-outline:hover { background: var(--cometa); color: #fff; }
+}
 .btn-ghost { background: transparent; color: var(--text-pure); }
-.btn-ghost:hover { background: rgba(255,255,255,0.05); }
+@media (hover: hover) {
+  .btn-ghost:hover { background: rgba(255,255,255,0.05); }
+}
 .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
 
 .btn-copy { background: transparent; border-color: var(--border-strong); color: var(--text-soft); padding: 0.5rem 1rem; font-size: 0.7rem; font-family: var(--font-mono); letter-spacing: .05em; }
-.btn-copy:hover { border-color: var(--cometa); color: var(--cometa-light); background: var(--cometa-dim); }
+@media (hover: hover) {
+  .btn-copy:hover { border-color: var(--cometa); color: var(--cometa-light); background: var(--cometa-dim); }
+}
 .btn-copy.copied { background: var(--success); border-color: var(--success); color: #000; }
 
 .btn-float { background: var(--cometa); color: #fff; font-weight: 600; }
-.btn-float:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
+@media (hover: hover) {
+  .btn-float:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
+}
 .btn-float.secondary { background: transparent; color: var(--text-pure); border-color: var(--border-strong); }
 
 .lab-btn { background: transparent; border-color: var(--border); color: var(--text-muted); justify-content: space-between; width: 100%; font-family: var(--font-mono); font-size: .75rem; letter-spacing: .05em; }
-.lab-btn:hover { border-color: var(--border-hover); color: var(--text-pure); }
+@media (hover: hover) {
+  .lab-btn:hover { border-color: var(--border-hover); color: var(--text-pure); }
+}
 .lab-btn.active { background: var(--cometa-dim); border-color: var(--cometa); color: var(--cometa-light); }
 .lab-btn.active::after { content: '●'; font-size: 0.7rem; color: var(--cometa); }
 
 .gsap-btn { background: transparent; border-color: var(--border-strong); color: var(--text-pure); padding: 0.4rem 1rem; font-size: 0.65rem; font-family: var(--font-mono); position: relative; z-index: 10; letter-spacing: .08em; }
-.gsap-btn:hover { border-color: var(--cometa); color: var(--cometa-light); }
+@media (hover: hover) {
+  .gsap-btn:hover { border-color: var(--cometa); color: var(--cometa-light); }
+}
 
 .input {
   width: 100%; padding: 0.75rem 1rem; background: rgba(0,0,0,0.25);
@@ -899,6 +910,7 @@ body::after {
 .card h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: -.01em; }
 
 /* RESPONSIVE */
+/* ─────── TABLET (≤992px) ─────── */
 @media (max-width: 992px) {
   .comp-grid { grid-template-columns: 1fr; gap: 2rem; }
   .comp-sidebar { position: static; max-height: none; display: flex; flex-wrap: wrap; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
@@ -909,10 +921,6 @@ body::after {
   .lab-container { grid-template-columns: 1fr; }
   .lab-canvas-wrapper { height: 400px; }
   .lab-controls { border-left: none; border-top: 1px solid var(--border); }
-  .hero-meta { display: none; }
-}
-/* ─────── TABLET (≤992px) ─────── */
-@media (max-width: 992px) {
   .wrap, .wrap-wide { padding: 0 5vw; max-width: 100%; }
   .hero-meta { font-size: .55rem; right: 5vw; top: 6rem; }
   .hero-title { font-size: clamp(2.6rem, 7vw, 4rem); }
@@ -922,6 +930,12 @@ body::after {
 @media (max-width: 768px) {
   /* Cursor desktop é ruim em touch */
   body { -webkit-tap-highlight-color: transparent; }
+
+  /* Reduzindo blur pesado em mobile para performance */
+  .glass-panel, .glass-panel-strong {
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+  }
 
   /* NAV — pílula compacta + hamburger */
   .ds-nav-wrapper { top: 1rem; padding: 0 12px; }
@@ -1014,7 +1028,7 @@ body::after {
   .comp-sidebar {
     position: sticky; top: 70px; max-height: none;
     background: var(--bg-deep); backdrop-filter: blur(20px);
-    margin: 0 -5vw; padding: .75rem 5vw;
+    margin: 0 -5vw 1rem; padding: .75rem 5vw;
     border-bottom: 1px solid var(--border); z-index: 50;
     overflow-x: auto; -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -1032,9 +1046,6 @@ body::after {
   .comp-preview { padding: 2rem 1.25rem; gap: 1.25rem; }
   .comp-code { padding: 1rem 1.25rem; font-size: .7rem; }
 
-  /* MARQUEE */
-  .marquee span { font-size: clamp(1.5rem, 5vw, 2.4rem); gap: 24px; }
-
   /* FOOTER */
   footer { padding: 4rem 0 2.5rem !important; }
   footer h2 { font-size: 1.2rem !important; }
@@ -1044,8 +1055,10 @@ body::after {
 
   /* FORM INPUTS — evita zoom iOS */
   input, textarea, select, button { font-size: 16px; }
+  
+  /* Touch targets minimum size */
   .btn { font-size: .82rem; padding: .7rem 1.4rem; min-height: 44px; }
-  .btn-copy { min-height: 36px; }
+  .btn-copy { min-height: 44px; }
 
   /* Swipe hints */
   .mobile-swipe-hint {
@@ -1053,9 +1066,6 @@ body::after {
     color: var(--text-dim); letter-spacing: .15em; text-transform: uppercase;
     margin: -.25rem 0 .75rem; padding-left: 5vw;
   }
-
-  /* Tokens não exibe stats grid em hero */
-  .hero-stats { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
 }
 
 /* ─────── PHONES PEQUENOS (≤420px) ─────── */
@@ -1074,6 +1084,140 @@ body::after {
 
 @media (min-width: 769px) {
   .mobile-swipe-hint { display: none; }
+}
+
+/* ─────── TIPO DEMO RESPONSIVO ─────── */
+.td-h1   { font-size: clamp(2rem, 5vw, 4rem); }
+.td-h2   { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+.td-h3   { font-size: clamp(1.15rem, 3vw, 1.5rem); }
+.td-lead { font-size: clamp(.95rem, 2vw, 1.2rem); }
+.td-body { font-size: clamp(.88rem, 1.8vw, 1.05rem); line-height: 1.6; }
+.td-mono { font-size: clamp(.75rem, 1.5vw, .9rem); word-break: break-all; }
+
+/* Garante que typo-demo nunca passa do container */
+.typo-demo { overflow: hidden; max-width: 100%; }
+.typo-row > h1, .typo-row > h2, .typo-row > h3, .typo-row > p, .typo-row > span {
+  max-width: 100%; overflow-wrap: break-word; word-break: break-word;
+}
+
+/* ─────── COMPONENTS: code colapsável ─────── */
+.comp-code {
+  max-height: 56px;
+  overflow: hidden;
+  transition: max-height .45s cubic-bezier(.16,1,.3,1);
+  padding-top: 0 !important;
+}
+.comp-code.expanded {
+  max-height: 2000px;
+  padding-top: 1.5rem !important;
+}
+.code-toggle {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: .85rem 0;
+  background: transparent; border: none; cursor: pointer;
+  font-family: var(--font-mono); font-size: .65rem;
+  color: var(--cometa-light); letter-spacing: .15em;
+  text-transform: uppercase; font-weight: 600;
+  position: sticky; top: 0; z-index: 2;
+}
+@media (hover: hover) {
+  .code-toggle:hover { color: var(--text-pure); }
+}
+.code-toggle .chev { transition: transform .3s; display: inline-block; }
+.comp-code.expanded ~ .code-toggle .chev,
+.code-toggle.open .chev { transform: rotate(180deg); }
+.comp-code-wrap { position: relative; background: #04040a; border-top: 1px solid var(--border); }
+.comp-code-wrap .code-toggle { padding: .9rem 2rem; border-bottom: 1px solid transparent; transition: border-color .3s; }
+.comp-code-wrap.expanded .code-toggle { border-bottom-color: var(--border); }
+.comp-code-wrap .comp-code { padding: 0 2rem; }
+.comp-code-wrap.expanded .comp-code { padding: 1.25rem 2rem; }
+.code-toggle .copy-inline {
+  font-size: .6rem; padding: .35rem .85rem;
+  border: 1px solid var(--border-strong); border-radius: var(--radius-pill);
+  background: transparent; color: var(--text-soft); cursor: pointer;
+  font-family: var(--font-mono); letter-spacing: .08em;
+  transition: all .2s;
+}
+@media (hover: hover) {
+  .code-toggle .copy-inline:hover { border-color: var(--cometa); color: var(--cometa-light); }
+}
+.code-toggle .copy-inline.copied { background: var(--success); border-color: var(--success); color: #000; }
+
+/* ─────── COMPONENTS MOBILE — overflow + dropdown ─────── */
+.comp-mobile-trigger { display: none; }
+.comp-mobile-panel { display: none; }
+
+@media (max-width: 768px) {
+  /* Garante que preview nunca quebra o layout */
+  .comp-viewer { overflow: hidden; }
+  .comp-preview { padding: 1.5rem 1rem !important; gap: 1rem !important; }
+  .comp-preview > * {
+    max-width: 100% !important;
+    /* Somente aplica quebra de palavra se NÃO for uma tabela */
+  }
+  .comp-preview *:not(table) { overflow-wrap: break-word; word-break: break-word; }
+  
+  .comp-preview table { font-size: .7rem !important; }
+  .comp-preview table th, .comp-preview table td { padding: .5rem !important; }
+  .comp-preview .card { padding: 1rem !important; }
+  .comp-preview .btn { font-size: .75rem !important; padding: .6rem 1rem !important; }
+  .comp-preview input, .comp-preview textarea { font-size: 16px; }
+
+  .comp-header { padding: 1rem 1.25rem !important; }
+  .comp-header h3 { font-size: 1.05rem !important; }
+  .comp-header p { font-size: .78rem !important; }
+
+  /* Code wrap mobile */
+  .comp-code-wrap .code-toggle { padding: .75rem 1.25rem; font-size: .58rem; }
+  .comp-code-wrap .comp-code { padding: 0 1.25rem; font-size: .65rem !important; }
+  .comp-code-wrap.expanded .comp-code { padding: 1rem 1.25rem !important; }
+
+  /* Sidebar vira dropdown */
+  .comp-sidebar {
+    position: sticky; top: 70px; z-index: 50;
+    display: block !important;
+    background: var(--bg-deep); padding: .65rem 5vw !important;
+    margin: 0 -5vw 1rem; max-height: none !important;
+    border-bottom: 1px solid var(--border);
+    overflow: visible !important;
+  }
+  .comp-sidebar h4, .comp-sidebar ul { display: none !important; }
+  .comp-mobile-trigger {
+    display: flex; width: 100%; padding: .7rem 1rem;
+    background: var(--bg-surface); border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill); color: var(--text-pure);
+    font-family: var(--font-mono); font-size: .75rem; font-weight: 600;
+    cursor: pointer; align-items: center; justify-content: space-between;
+    letter-spacing: .05em;
+  }
+  .comp-mobile-trigger .chev { color: var(--cometa-light); transition: transform .3s; }
+  .comp-mobile-trigger.open .chev { transform: rotate(180deg); }
+  .comp-mobile-panel {
+    display: block; position: absolute; top: calc(100% + 4px);
+    left: 5vw; right: 5vw; max-height: 60vh; overflow-y: auto;
+    background: var(--bg-deep); backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid var(--border-strong); border-radius: var(--radius-md);
+    padding: .5rem; z-index: 100; box-shadow: var(--shadow-2);
+    transform: translateY(-10px) scale(.98); opacity: 0;
+    pointer-events: none; transition: all .3s cubic-bezier(.16,1,.3,1);
+  }
+  .comp-mobile-panel.open {
+    transform: translateY(0) scale(1); opacity: 1; pointer-events: auto;
+  }
+  .comp-mobile-panel .group-label {
+    font-family: var(--font-mono); font-size: .58rem;
+    color: var(--cometa-light); letter-spacing: .18em;
+    text-transform: uppercase; padding: .8rem .75rem .4rem; font-weight: 600;
+  }
+  .comp-mobile-panel a {
+    display: block; padding: .55rem .85rem; color: var(--text-pure);
+    text-decoration: none; font-size: .82rem; border-radius: var(--radius-sm);
+    border-bottom: 1px solid rgba(255,255,255,.04);
+  }
+  .comp-mobile-panel a:last-child { border-bottom: none; }
+  .comp-mobile-panel a.active { background: var(--cometa-dim); color: var(--cometa-light); }
+  .comp-mobile-panel a:active { background: var(--cometa); color: #fff; }
 }
 </style>
 </head>
@@ -1139,14 +1283,10 @@ body::after {
   </div>
 </aside>
 
-<!-- HERO (preserved) -->
+<!-- HERO -->
 <section class="hero" id="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-gradient"></div>
-  <div class="hero-meta">
-    <span><em>v4.0</em> ✦ Edição 2025</span>
-    <span>SP / BR ↘ Sistema Live</span>
-  </div>
   <div class="hero-content wrap">
     <div class="hero-eyebrow">Manual da Marca & Design System</div>
     <h1 class="hero-title">
@@ -1197,18 +1337,18 @@ body::after {
       </div>
     </div>
 
-    <div class="glass-panel" style="padding: 2.5rem; border-radius: var(--radius-lg); margin-bottom: 5rem;">
-      <div class="typo-row" style="border-top: none; padding-top: 0;"><div class="typo-label"><b>H1</b>Hugein 400</div><h1 style="font-family:var(--font-display); font-size: 4rem; font-weight: 400; letter-spacing: -0.04em; line-height: 1;">Dominância Digital</h1></div>
-      <div class="typo-row"><div class="typo-label"><b>H2</b>Hugein 400</div><h2 style="font-family:var(--font-display); font-size: 2.5rem; font-weight: 400; letter-spacing: -0.03em; line-height: 1.2;">Matéria Interativa</h2></div>
-      <div class="typo-row"><div class="typo-label"><b>H3</b>Henju 600</div><h3 style="font-family:var(--font-body); font-size: 1.5rem; font-weight: 600; line-height: 1.3;">Arquitetura de Sistemas</h3></div>
-      <div class="typo-row"><div class="typo-label"><b>Lead</b>Henju 300</div><p style="font-family:var(--font-body); font-size: 1.2rem; font-weight: 300; color: var(--text-soft); max-width: 60ch; line-height: 1.5;">Conectamos marcas ao cosmos digital com estratégia, dados e criatividade interativa.</p></div>
-      <div class="typo-row"><div class="typo-label"><b>Body</b>Henju 400</div><p style="font-family:var(--font-body); font-size: 1.05rem; color: var(--text-muted); max-width: 60ch;">Este é um parágrafo padrão. Demonstra altura de linha e peso ideais para conteúdos longos. O sistema depende fortemente do contraste para manter a legibilidade.</p></div>
-      <div class="typo-row" style="border-bottom: none; padding-bottom: 0;"><div class="typo-label"><b>Mono</b>JetBrains 500</div><span style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--cometa-light); font-weight: 500;">SISTEMA.INICIALIZAR({ status: 200 })</span></div>
+    <div class="glass-panel typo-demo" style="padding: 2.5rem; border-radius: var(--radius-lg); margin-bottom: 5rem;">
+      <div class="typo-row" style="border-top: none; padding-top: 0;"><div class="typo-label"><b>H1</b>Hugein 400</div><h1 class="td-h1" style="font-family:var(--font-display); font-weight: 400; letter-spacing: -0.04em; line-height: 1;">Dominância Digital</h1></div>
+      <div class="typo-row"><div class="typo-label"><b>H2</b>Hugein 400</div><h2 class="td-h2" style="font-family:var(--font-display); font-weight: 400; letter-spacing: -0.03em; line-height: 1.2;">Matéria Interativa</h2></div>
+      <div class="typo-row"><div class="typo-label"><b>H3</b>Henju 600</div><h3 class="td-h3" style="font-family:var(--font-body); font-weight: 600; line-height: 1.3;">Arquitetura de Sistemas</h3></div>
+      <div class="typo-row"><div class="typo-label"><b>Lead</b>Henju 300</div><p class="td-lead" style="font-family:var(--font-body); font-weight: 300; color: var(--text-soft); max-width: 60ch; line-height: 1.5;">Conectamos marcas ao cosmos digital com estratégia, dados e criatividade interativa.</p></div>
+      <div class="typo-row"><div class="typo-label"><b>Body</b>Henju 400</div><p class="td-body" style="font-family:var(--font-body); color: var(--text-muted); max-width: 60ch;">Este é um parágrafo padrão. Demonstra altura de linha e peso ideais para conteúdos longos. O sistema depende fortemente do contraste para manter a legibilidade.</p></div>
+      <div class="typo-row" style="border-bottom: none; padding-bottom: 0;"><div class="typo-label"><b>Mono</b>JetBrains 500</div><span class="td-mono" style="font-family: var(--font-mono); color: var(--cometa-light); font-weight: 500;">SISTEMA.INICIALIZAR({ status: 200 })</span></div>
     </div>
 
     <h3 class="subsection-title">Paleta de Cores</h3>
     <p class="section-desc" style="margin-bottom: 2.5rem;">Clique em qualquer cor ou variação de opacidade para copiar o código (HEX/RGBA) para a área de transferência.</p>
-    <div class="mobile-swipe-hint">← Deslize →</div>
+    <div class="mobile-swipe-hint">← Deslize horizontalmente no mobile →</div>
     <div class="color-grid" id="colorGrid"></div>
   </div>
 </section>
@@ -1226,13 +1366,13 @@ body::after {
     <h3 class="subsection-title">Símbolo (Cometa) — Animações</h3>
     <p class="section-desc" style="margin-bottom: 2.5rem;">Variações dinâmicas do símbolo da marca renderizadas em SVG + CSS. Clique em "Copiar Código" para obter o HTML/CSS pronto.</p>
 
-    <div class="mobile-swipe-hint">← Deslize →</div>
+    <div class="mobile-swipe-hint">← Deslize horizontalmente no mobile →</div>
     <div class="logo-grid" id="logoGrid"></div>
 
     <h3 class="subsection-title">Logotipo Completo — Animações</h3>
     <p class="section-desc" style="margin-bottom: 2.5rem;">Animações para a versão horizontal completa (símbolo + nome). Ideais para abertura, headers e splash screens.</p>
 
-    <div class="mobile-swipe-hint">← Deslize →</div>
+    <div class="mobile-swipe-hint">← Deslize horizontalmente no mobile →</div>
     <div class="logo-grid" id="logoFullGrid"></div>
 
     <h3 class="subsection-title">Iconografia (UIcons)</h3>
@@ -1268,14 +1408,12 @@ body::after {
 
     <h3 class="subsection-title">Núcleo Cinético (GSAP)</h3>
     <p class="section-desc" style="margin-bottom: 3rem;">Micro-interações e animações de interface padronizadas utilizando a biblioteca GSAP.</p>
-    <div class="mobile-swipe-hint">← Deslize →</div>
+    <div class="mobile-swipe-hint">← Deslize horizontalmente no mobile →</div>
     <div class="gsap-gallery" id="gsapGallery"></div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     SCROLL FX — 5 demos + 2 com OBJ Ampulheta
-     ══════════════════════════════════════════════════════════ -->
+<!-- SCROLL FX -->
 <section class="section" id="scroll-fx">
   <div class="wrap">
     <div class="section-header">
@@ -1399,7 +1537,7 @@ body::after {
             <button class="reset-mini" id="labResetAll">Reset</button>
           </div>
           <div class="lab-pills">
-            <button class="lab-pill active" data-preset="hero">★ Hero (Réplica Exata)</button>
+            <button class="lab-pill active" data-preset="hero">★ Hero</button>
             <button class="lab-pill" data-preset="metallic">Metálico</button>
             <button class="lab-pill" data-preset="wireframe">Wireframe</button>
             <button class="lab-pill" data-preset="holo">Holograma</button>
@@ -1513,6 +1651,11 @@ body::after {
 
     <div class="comp-grid">
       <aside class="comp-sidebar">
+        <button class="comp-mobile-trigger" id="compMobileTrigger" aria-expanded="false">
+          <span id="compMobileLabel">Escolher componente</span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="comp-mobile-panel" id="compMobilePanel"></div>
         <h4>Átomos</h4>
         <ul id="nav-atoms"></ul>
         <h4>Moléculas</h4>
@@ -1622,7 +1765,7 @@ themeToggle.addEventListener('click', () => {
 })();
 
 /* ══════════════════════════════════════════════════════════
-   3. THREE.JS HERO — Ampulheta (preserved as user wanted)
+   3. THREE.JS HERO — Ampulheta
    ══════════════════════════════════════════════════════════ */
 let heroCamera, heroHourglass;
 (function initHero3D() {
@@ -1924,7 +2067,7 @@ const fullLogoAnimations = [
   {
     name: "Horizontal Compact",
     desc: "Versão horizontal (símbolo + texto) com pulso da marca.",
-    html: `<div style="max-width:200px"><div style="animation:hPulse 2.5s ease-in-out infinite">${buildHorizSvg()}</div><style>@keyframes hPulse{0%,100%{transform:scale(1);filter:none}50%{transform:scale(1.03);filter:drop-shadow(0 0 24px rgba(102,51,255,.6))}}div svg{fill:#fff;width:auto !important;}</style></div>`,
+    html: `<div style="max-width:200px"><div style="animation:hPulse 2.5s ease-in-out infinite">${buildHorizSvg()}</div><style>@keyframes hPulse{0%,100%{transform:scale(1);filter:none}50%{transform:scale(1.03);filter:drop-shadow(0 0 24px rgba(102,51,255,.6))}}div svg{fill:#fff;width:auto;}</style></div>`,
     css: `@keyframes hPulse { 50% { transform: scale(1.03); filter: drop-shadow(0 0 24px rgba(102,51,255,.6)); } }`
   },
   {
@@ -2188,7 +2331,6 @@ document.fonts.ready.then(() => renderIcons());
     btn.addEventListener('click', () => { const idx = +btn.dataset.id - 1; if(FX[idx]) FX[idx].run(); });
   });
 
-  // Auto-play on view (staggered)
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -2196,7 +2338,7 @@ document.fonts.ready.then(() => renderIcons());
         obs.disconnect();
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0, rootMargin: '-30% 0px -30% 0px' });
   obs.observe(gallery);
 })();
 
@@ -2386,7 +2528,6 @@ function applyLights() {
 function applyTransform() {
   if (!labObj) return;
   const t = labConfig.transform;
-  // Find the actual mesh holder (the loaded obj group, not the wireframe)
   if (labMesh) {
     labMesh.scale.set(labBaseScale * t.scaleX, labBaseScale * t.scaleY, labBaseScale * t.scaleZ);
   }
@@ -2512,11 +2653,9 @@ function applyCamera() {
     const baseRotZ = labConfig.transform.rotZ * Math.PI / 180;
 
     if (labObj) {
-      // Reset position when not in modes that move it
       if (!['pendulum', 'quake'].includes(labConfig.motion.type)) labObj.position.x = 0;
       if (labConfig.motion.type === 'none') labObj.position.y = 0;
 
-      // STATIC motion
       if (labConfig.motion.type === 'float') {
         labObj.rotation.y += 0.005 * sp;
         labObj.position.y = Math.sin(t * 2 * sp) * 0.1;
@@ -2540,11 +2679,9 @@ function applyCamera() {
         labObj.rotation.z = baseRotZ + (Math.random() - .5) * 0.02;
       }
 
-      // Apply base tilt rotations on top
       if (labConfig.motion.type !== 'pendulum' && labConfig.motion.type !== 'quake') labObj.rotation.z = baseRotZ;
       if (!labHovering || (labConfig.hover.type !== 'magnetic' && labConfig.hover.type !== 'tilt')) labObj.rotation.x = baseRotX;
 
-      // HOVER continuous
       if (labHovering) {
         const k = labConfig.hover.intensity;
         if (labConfig.hover.type === 'magnetic') {
@@ -2563,7 +2700,6 @@ function applyCamera() {
         }
       }
 
-      // Always orbit second light (cosmos)
       labLight2.position.x = Math.cos(t) * 2;
       labLight2.position.z = Math.sin(t) * 2 - 2;
     }
@@ -2575,11 +2711,9 @@ function applyCamera() {
 const labCodeBlock = document.getElementById('labCode');
 function updateLabCode() { labCodeBlock.innerText = buildCode(); }
 
-/* ── Apply preset to all controls + scene ── */
 function applyPreset(name) {
   const p = PRESETS[name];
   if (!p) return;
-  // Merge into config
   Object.assign(labConfig.material, p.material);
   Object.assign(labConfig.wire, p.wire);
   Object.assign(labConfig.lights, p.lights);
@@ -2587,9 +2721,7 @@ function applyPreset(name) {
   Object.assign(labConfig.hover, p.hover);
   Object.assign(labConfig.bg, p.bg);
   labConfig.preset = name;
-  // Sync UI controls
   syncControlsFromConfig();
-  // Apply to scene
   applyMaterialToMesh();
   applyLights();
   applyBg();
@@ -2621,13 +2753,11 @@ function syncControlsFromConfig() {
       el.value = val;
     }
   });
-  // Sync motion + hover pills
   document.querySelectorAll('.lab-pill[data-static]').forEach(b => b.classList.toggle('active', b.dataset.static === labConfig.motion.type));
   document.querySelectorAll('.lab-pill[data-hover]').forEach(b => b.classList.toggle('active', b.dataset.hover === labConfig.hover.type));
   document.querySelectorAll('.lab-pill[data-preset]').forEach(b => b.classList.toggle('active', b.dataset.preset === labConfig.preset));
 }
 
-/* ── Bind controls ── */
 document.querySelectorAll('.lab-pill[data-preset]').forEach(btn => {
   btn.addEventListener('click', () => applyPreset(btn.dataset.preset));
 });
@@ -2656,7 +2786,6 @@ document.querySelectorAll('.lab-pill[data-hover]').forEach(btn => {
   });
 });
 
-/* Range + color + toggle controls */
 document.querySelectorAll('input[type=range][data-prop]').forEach(el => {
   el.addEventListener('input', () => {
     const v = parseFloat(el.value);
@@ -2666,7 +2795,6 @@ document.querySelectorAll('input[type=range][data-prop]').forEach(el => {
       const isDeg = el.dataset.prop.endsWith('rotX') || el.dataset.prop.endsWith('rotZ');
       valEl.textContent = isDeg ? Math.round(v) + '°' : (Math.round(v * 100) / 100);
     }
-    // Apply changes by category
     const cat = el.dataset.prop.split('.')[0];
     if (cat === 'material' || cat === 'wire') applyMaterialToMesh();
     else if (cat === 'lights') applyLights();
@@ -2698,17 +2826,14 @@ document.querySelectorAll('.lab-toggle[data-prop]').forEach(el => {
   });
 });
 
-/* Reset */
 document.getElementById('labResetAll').addEventListener('click', () => applyPreset('hero'));
 
-/* Copy code */
 document.getElementById('btnCopy3D').addEventListener('click', (e) => {
   copyToClipboard(buildCode(), "Código completo copiado!");
   e.currentTarget.innerHTML = '<i class="fi fi-rc-check"></i> Copiado!';
   setTimeout(() => e.currentTarget.innerHTML = '<i class="fi fi-rc-document"></i> Copiar', 2000);
 });
 
-/* Export config JSON */
 document.getElementById('btnExportConfig').addEventListener('click', () => {
   const blob = new Blob([JSON.stringify(labConfig, null, 2)], { type: 'application/json' });
   const a = Object.assign(document.createElement('a'), {
@@ -2718,13 +2843,95 @@ document.getElementById('btnExportConfig').addEventListener('click', () => {
   showToast("Config baixada!");
 });
 
-/* Initial */
 syncControlsFromConfig();
 updateLabCode();
 
 /* ══════════════════════════════════════════════════════════
    10. COMPONENT LIBRARY
    ══════════════════════════════════════════════════════════ */
+
+// 1. INJEÇÃO DO CSS PARA CORREÇÃO RESPONSIVA E NOVO MENU MOBILE
+document.head.insertAdjacentHTML('beforeend', `
+<style>
+/* Estilo dos cabeçalhos de categoria */
+.comp-cat-header {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: var(--text-pure);
+  margin: 2rem 0 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  scroll-margin-top: 140px; /* Compensa menus fixos */
+}
+.comp-mobile-nav { display: none; }
+
+@media (max-width: 992px) {
+  .comp-sidebar { display: none !important; } /* Esconde sidebar no mobile */
+  .comp-grid { grid-template-columns: 1fr; gap: 1rem; }
+
+  /* Novo Menu Horizontal Sticky para Mobile */
+  .comp-mobile-nav {
+    display: flex;
+    position: sticky;
+    top: 65px;
+    z-index: 100;
+    /*background: rgba(5, 5, 29, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);*/
+    padding: 0.75rem 5vw;
+    margin: 0 -5vw 1.5rem;
+    gap: 0.75rem;
+    overflow-x: auto;
+    scrollbar-width: none; /* Oculta scrollbar no Firefox */
+    -webkit-overflow-scrolling: touch;
+    /*border-bottom: 1px solid var(--border);*/
+    justify-content: center !important;
+  }
+  .comp-mobile-nav::-webkit-scrollbar { display: none; } /* Oculta scrollbar Chrome/Safari */
+  
+  .comp-mobile-nav a {
+     background: rgba(5, 5, 29, 0.5) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+    transition: all 0.3s;
+    background: var(--bg-surface);
+  }
+  .comp-mobile-nav a.active {
+    background: var(--cometa-dim);
+    color: var(--cometa-light);
+    border-color: var(--cometa);
+  }
+
+  /* Ajustes de Responsividade dos Componentes Individuais */
+  .comp-cat-header { font-size: 1.8rem; margin-top: 1rem; scroll-margin-top: 130px; }
+  .comp-viewer { scroll-margin-top: 130px; margin-bottom: 1.5rem; }
+  .comp-preview { 
+    padding: 1.5rem 1rem !important; 
+    overflow-x: auto; /* Permite scroll em tabelas/sliders */
+  }
+  .comp-preview > div { 
+    max-width: 100% !important; /* Força cards e forms a caberem na tela */
+  }
+  .comp-preview > div.dropdown-comp { 
+    width: fit-content !important; /* Exceção para o dropdown não esticar */
+  }
+}
+</style>
+`);
+
+// 2. BANCO DE DADOS DE COMPONENTES
 const componentsData = [
   // ÁTOMOS
   { id: 'btn-primary', cat: 'Átomos', name: 'Botão Primário', html: `<button class="btn btn-primary">Ação Primária</button>`, usage: 'Ação principal da página. Use com moderação (máx 1-2 por tela).' },
@@ -2767,7 +2974,7 @@ const componentsData = [
   // ORGANISMOS
   { id: 'modal', cat: 'Organismos', name: 'Caixa de Diálogo (Modal)', html: `<div style="position:relative; width:100%; max-width:420px; background:var(--bg-surface-2); backdrop-filter:blur(28px); border:1px solid var(--border-strong); border-radius:var(--radius-lg); box-shadow:var(--shadow-2); padding:2rem; z-index:10;"><h3 style="font-family:var(--font-display); font-size:1.6rem; font-weight:400; margin-bottom:1rem;">Confirmar Ação</h3><p style="color:var(--text-muted); margin-bottom:2rem; font-size:0.9rem;">Tem certeza de que deseja excluir este log do sistema? Isso não pode ser desfeito.</p><div style="display:flex; justify-content:flex-end; gap:1rem;"><button class="btn btn-ghost">Cancelar</button><button class="btn btn-primary" style="background:var(--danger)">Excluir</button></div></div>`, usage: 'Interrompe o fluxo do usuário para entrada crítica.' },
   { id: 'navbar', cat: 'Organismos', name: 'Barra de Navegação', html: `<div style="width:100%; display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; background:var(--bg-surface-2); backdrop-filter:blur(20px); border:1px solid var(--border); border-radius:50px;"><div style="font-weight:bold; color:var(--cometa-light); font-family:var(--font-display); font-size:1.1rem">8D HUB</div><div style="display:flex; gap:1.5rem; font-size:0.85rem;"><a href="#" style="color:var(--text-pure); text-decoration:none;">Painel</a><a href="#" style="color:var(--text-muted); text-decoration:none;">Análises</a></div><button class="btn btn-outline" style="padding:0.5rem 1rem;">Sair</button></div>`, usage: 'Navegação de página de nível superior.' },
-  { id: 'data-table', cat: 'Organismos', name: 'Tabela de Dados', html: `<table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.9rem;"><tr style="border-bottom:1px solid var(--border);"><th style="padding:1rem; color:var(--text-muted); font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em">ID</th><th style="padding:1rem; color:var(--text-muted); font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em">STATUS</th><th style="padding:1rem; color:var(--text-muted); font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em">AÇÃO</th></tr><tr style="border-bottom:1px solid var(--border);"><td style="padding:1rem; font-family:var(--font-mono)">#8D-01</td><td style="padding:1rem;"><span class="badge">Ativo</span></td><td style="padding:1rem;"><a href="#" style="color:var(--cometa-light);">Editar</a></td></tr><tr><td style="padding:1rem; font-family:var(--font-mono)">#8D-02</td><td style="padding:1rem;"><span class="badge" style="background:rgba(255,74,74,0.1); color:var(--danger); border-color:rgba(255,74,74,0.3);">Falha</span></td><td style="padding:1rem;"><a href="#" style="color:var(--cometa-light);">Tentar</a></td></tr></table>`, usage: 'Exibição de conjuntos de dados estruturados.' },
+  { id: 'data-table', cat: 'Organismos', name: 'Tabela de Dados', html: `<div style="width:100%; overflow-x:auto;"><table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.9rem; min-width:400px;"><tr style="border-bottom:1px solid var(--border);"><th style="padding:1rem; color:var(--text-muted); font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em">ID</th><th style="padding:1rem; color:var(--text-muted); font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em">STATUS</th><th style="padding:1rem; color:var(--text-muted); font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em">AÇÃO</th></tr><tr style="border-bottom:1px solid var(--border);"><td style="padding:1rem; font-family:var(--font-mono)">#8D-01</td><td style="padding:1rem;"><span class="badge">Ativo</span></td><td style="padding:1rem;"><a href="#" style="color:var(--cometa-light);">Editar</a></td></tr><tr><td style="padding:1rem; font-family:var(--font-mono)">#8D-02</td><td style="padding:1rem;"><span class="badge" style="background:rgba(255,74,74,0.1); color:var(--danger); border-color:rgba(255,74,74,0.3);">Falha</span></td><td style="padding:1rem;"><a href="#" style="color:var(--cometa-light);">Tentar</a></td></tr></table></div>`, usage: 'Exibição de conjuntos de dados estruturados. Embrulhado em div com scroll horizontal para mobile.' },
   { id: 'hero-banner', cat: 'Organismos', name: 'Banner Principal', html: `<div style="width:100%; padding:4rem 2rem; background:radial-gradient(circle at top right, rgba(102,51,255,0.25), transparent), var(--bg-surface-2); border-radius:var(--radius-lg); text-align:center; border: 1px solid var(--border);"><h2 style="font-family:var(--font-display); font-size:2rem; font-weight:400; letter-spacing:-.02em">Bem-vindo ao Sistema</h2><p style="color:var(--text-muted); margin:1rem auto 2rem; max-width:400px;">Inicialize sua presença digital com nossas ferramentas autônomas.</p><button class="btn btn-primary">Começar Agora</button></div>`, usage: 'Introdução proeminente da página.' },
   { id: 'footer-simple', cat: 'Organismos', name: 'Rodapé Simples', html: `<div style="width:100%; padding:2rem; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono); letter-spacing:.08em"><span>© 2025 8D HUBIFY</span><div style="display:flex; gap:1rem;"><a href="#" style="color:var(--text-muted); text-decoration:none;">PRIVACIDADE</a><a href="#" style="color:var(--text-muted); text-decoration:none;">TERMOS</a></div></div>`, usage: 'Metadados e links da parte inferior da página.' },
   { id: 'carousel', cat: 'Organismos', name: 'Carrossel com Controles', html: `<div class="carousel-comp" style="width:100%;max-width:480px;position:relative"><div class="carousel-track" style="display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0;scrollbar-width:none">${['#6633FF','#ED694B','#FFCE44','#DADBFD'].map((c,i)=>`<div style="flex:0 0 100%;scroll-snap-align:center;height:200px;border-radius:var(--radius-md);background:linear-gradient(135deg,${c},rgba(0,0,0,.4));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:3rem;font-weight:400;color:#fff;letter-spacing:-.03em">Slide ${i+1}</div>`).join('')}</div><div style="display:flex;justify-content:center;gap:6px;margin-top:.85rem">${[0,1,2,3].map((i)=>`<div style="width:${i===0?'24px':'8px'};height:8px;border-radius:9999px;background:${i===0?'var(--cometa)':'rgba(255,255,255,.2)'};transition:all .3s"></div>`).join('')}</div><style>.carousel-track::-webkit-scrollbar{display:none}</style></div>`, usage: 'Carrossel horizontal com snap-scroll nativo + indicadores de página.' },
@@ -2789,13 +2996,46 @@ const navAtoms = document.getElementById('nav-atoms');
 const navMolecules = document.getElementById('nav-molecules');
 const navOrganisms = document.getElementById('nav-organisms');
 
+// Remove possíveis gatilhos do menu dropdown antigo (se tiverem sobrado no HTML)
+const oldTrigger = document.getElementById('compMobileTrigger');
+const oldPanel = document.getElementById('compMobilePanel');
+if(oldTrigger) oldTrigger.remove();
+if(oldPanel) oldPanel.remove();
+
+// Cria o Novo Menu Mobile (Pílulas Horizontais)
+const mobileNav = document.createElement('nav');
+mobileNav.className = 'comp-mobile-nav';
+mobileNav.id = 'compMobileNav';
+mobileNav.innerHTML = `
+  <a href="#cat-atomos" class="active">Átomos</a>
+  <a href="#cat-moleculas">Moléculas</a>
+  <a href="#cat-organismos">Organismos</a>
+`;
+compContainer.appendChild(mobileNav);
+
+let currentCat = '';
+
+// Gera os componentes e os Headers de Categorias
 componentsData.forEach(comp => {
+  // Sidebar Desktop
   const li = document.createElement('li');
   li.innerHTML = `<a href="#${comp.id}">${comp.name}</a>`;
   if(comp.cat === 'Átomos') navAtoms.appendChild(li);
   if(comp.cat === 'Moléculas') navMolecules.appendChild(li);
   if(comp.cat === 'Organismos') navOrganisms.appendChild(li);
 
+  // Cabeçalhos de Categoria (aparecem no fluxo principal)
+  if (comp.cat !== currentCat) {
+    currentCat = comp.cat;
+    const catId = 'cat-' + comp.cat.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const catHeader = document.createElement('h3');
+    catHeader.className = 'comp-cat-header';
+    catHeader.id = catId;
+    catHeader.innerHTML = `${comp.cat}`;
+    compContainer.appendChild(catHeader);
+  }
+
+  // Bloco do Componente
   const block = document.createElement('div');
   block.className = 'comp-viewer glass-panel';
   block.id = comp.id;
@@ -2805,15 +3045,62 @@ componentsData.forEach(comp => {
       <p><strong style="color:var(--text-soft)">Uso:</strong> ${comp.usage}</p>
     </div>
     <div class="comp-preview">${comp.html}</div>
-    <div class="comp-code">
-      <button class="btn-copy" style="float: right; margin-bottom: 10px;" onclick="copyToClipboard(\`${comp.html.replace(/`/g, '\\`').replace(/"/g, '&quot;')}\`, 'Componente copiado!')"><i class="fi fi-rc-document"></i> Copiar</button>
-      <div style="clear:both;"></div>
-      <code>${highlightHtml(comp.html)}</code>
+    <div class="comp-code-wrap" data-comp-id="${comp.id}">
+      <button class="code-toggle" data-toggle-code aria-expanded="false">
+        <span><i class="fi fi-rc-angle-small-down chev" style="margin-right:.4rem;font-size:.9rem;vertical-align:-2px"></i>Ver código</span>
+        <span class="copy-inline" data-copy-html><i class="fi fi-rc-document"></i> Copiar</span>
+      </button>
+      <div class="comp-code"><code>${highlightHtml(comp.html)}</code></div>
     </div>
   `;
   compContainer.appendChild(block);
+
+  // Funcionalidade de Expansão de Código
+  const wrap = block.querySelector('.comp-code-wrap');
+  const toggle = block.querySelector('[data-toggle-code]');
+  const codeEl = block.querySelector('.comp-code');
+  const copyBtn = block.querySelector('[data-copy-html]');
+
+  toggle.addEventListener('click', (e) => {
+    if (e.target.closest('[data-copy-html]')) return; 
+    const isOpen = wrap.classList.toggle('expanded');
+    codeEl.classList.toggle('expanded', isOpen);
+    toggle.classList.toggle('open', isOpen);
+    toggle.setAttribute('aria-expanded', isOpen);
+    toggle.querySelector('span:first-child').innerHTML =
+      `<i class="fi fi-rc-angle-small-down chev" style="margin-right:.4rem;font-size:.9rem;vertical-align:-2px;transform:${isOpen?'rotate(180deg)':'rotate(0)'};display:inline-block;transition:transform .3s"></i>${isOpen ? 'Ocultar código' : 'Ver código'}`;
+  });
+
+  copyBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    copyToClipboard(comp.html, 'Componente copiado!');
+    copyBtn.innerHTML = '<i class="fi fi-rc-check"></i> Copiado!';
+    copyBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBtn.innerHTML = '<i class="fi fi-rc-document"></i> Copiar';
+      copyBtn.classList.remove('copied');
+    }, 2000);
+  });
 });
 
+/* ── OBSERVER: MENU MOBILE (SCROLLSPY) ── */
+const catObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.comp-mobile-nav a').forEach(a => a.classList.remove('active'));
+      const activeLink = document.querySelector(`.comp-mobile-nav a[href="#${entry.target.id}"]`);
+      if(activeLink) {
+        activeLink.classList.add('active');
+        // Centraliza o link ativo no scroll horizontal da barra
+        activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+
+document.querySelectorAll('.comp-cat-header').forEach(h => catObserver.observe(h));
+
+/* ── OBSERVER: SIDEBAR DESKTOP ── */
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -2825,7 +3112,7 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.5 });
 document.querySelectorAll('.comp-viewer').forEach(viewer => observer.observe(viewer));
 
-/* Tab component interactivity */
+/* Funcionalidade do componente nativo de Abas (Tabs) */
 document.querySelectorAll('.tabs-comp [role="tablist"]').forEach(list => {
   list.addEventListener('click', e => {
     if (!e.target.matches('.tab-btn')) return;
@@ -2845,7 +3132,7 @@ document.querySelectorAll('.tabs-comp [role="tablist"]').forEach(list => {
    ══════════════════════════════════════════════════════════ */
 gsap.registerPlugin(ScrollTrigger);
 
-// 1. Progress bar tied to entire #scroll-fx section
+// 1. Progress bar
 gsap.to('#sd1-fill', {
   width: '100%',
   ease: 'none',
@@ -2855,12 +3142,12 @@ gsap.to('#sd1-fill', {
   }
 });
 
-// 2. Scrub stagger — bars fill on scroll
+// 2. Scrub stagger
 gsap.fromTo('.sd2-dot',
   { scaleY: 0.2, opacity: 0.3, transformOrigin: 'bottom' },
   {
     scaleY: 1, opacity: 1, stagger: 0.1, ease: 'none',
-    scrollTrigger: { trigger: '#sd2', start: 'top 80%', end: 'top 30%', scrub: true }
+    scrollTrigger: { trigger: '#sd2', start: 'top 70%', end: 'center 40%', scrub: true }
   }
 );
 
@@ -2869,7 +3156,7 @@ const counterObj = { v: 0 };
 gsap.to(counterObj, {
   v: 1000, ease: 'none',
   scrollTrigger: {
-    trigger: '#sd3', start: 'top 80%', end: 'top 20%', scrub: true,
+    trigger: '#sd3', start: 'top 70%', end: 'center 40%', scrub: true,
     onUpdate: () => document.getElementById('sd3-num').textContent = Math.floor(counterObj.v).toLocaleString()
   }
 });
@@ -2883,11 +3170,12 @@ document.querySelectorAll('.sd4-layer').forEach(el => {
   });
 });
 
-// 5. Pin & reveal — text changes through pin
+// 5. Pin & reveal
 const sd5Stage = document.getElementById('sd5-stage');
 const sd5Text = document.getElementById('sd5-text');
 ScrollTrigger.create({
   trigger: '#sd5', start: 'top center', end: '+=400', scrub: true,
+  pin: true,
   onUpdate: self => {
     const p = self.progress;
     if (p < 0.33) { sd5Text.textContent = '8D'; sd5Text.style.color = 'var(--cometa)'; }
@@ -2898,7 +3186,7 @@ ScrollTrigger.create({
 });
 
 /* ══════════════════════════════════════════════════════════
-   12. SCROLL OBJ — Two hourglasses tied to scroll
+   12. SCROLL OBJ — Duas ampulhetas atreladas ao scroll
    ══════════════════════════════════════════════════════════ */
 function initScrollHourglass(canvasId, sectionId, mode) {
   const canvas = document.getElementById(canvasId);
@@ -2937,6 +3225,8 @@ function initScrollHourglass(canvasId, sectionId, mode) {
     baseScale = 4 / box.getSize(new THREE.Vector3()).length();
     obj.scale.set(baseScale, baseScale, baseScale);
     objGroup.add(obj);
+    // Força recálculo do GSAP após carregamento do OBJ
+    ScrollTrigger.refresh();
   });
 
   let scrollProgress = 0;
@@ -2949,12 +3239,10 @@ function initScrollHourglass(canvasId, sectionId, mode) {
     requestAnimationFrame(animate);
     if (objGroup.children.length > 0) {
       if (mode === 'rotation') {
-        // Mode 1: rotate fully on Y + tilt on Z based on scroll
         objGroup.rotation.y = scrollProgress * Math.PI * 4;
         objGroup.rotation.z = scrollProgress * Math.PI * 0.3;
         objGroup.position.y = (0.5 - scrollProgress) * 0.6;
       } else if (mode === 'scaleopacity') {
-        // Mode 2: scale + material opacity tied to scroll
         const s = baseScale * (0.6 + scrollProgress * 0.8);
         objGroup.scale.setScalar(s);
         material.opacity = 0.3 + scrollProgress * 0.7;
@@ -2975,21 +3263,22 @@ initScrollHourglass('hourglassScrollCanvas2', 'objScroll2', 'scaleopacity');
    13. SCROLL REVEALS (site-wide)
    ══════════════════════════════════════════════════════════ */
 
+/* Triggers configurados para "top 85%" - fluidez extra no mobile */
 gsap.utils.toArray('.section-header').forEach(head => {
   gsap.from(head.querySelectorAll('.section-eyebrow, .section-title, .section-desc'), {
     y: 40, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.12,
-    scrollTrigger: { trigger: head, start: 'top 82%', toggleActions: 'play none none reverse' }
+    scrollTrigger: { trigger: head, start: 'top 85%', toggleActions: 'play none none reverse' }
   });
   gsap.from(head.querySelector('.section-num-bg'), {
     y: 80, opacity: 0, duration: 1.4, ease: 'power3.out',
-    scrollTrigger: { trigger: head, start: 'top 82%', toggleActions: 'play none none reverse' }
+    scrollTrigger: { trigger: head, start: 'top 85%', toggleActions: 'play none none reverse' }
   });
 });
 
 gsap.utils.toArray('.color-card, .logo-card, .type-specimen, .gsap-box').forEach(el => {
   gsap.from(el, {
     y: 30, opacity: 0, duration: .9, ease: 'power3.out',
-    scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none reverse' }
+    scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' }
   });
 });
 
@@ -2998,6 +3287,26 @@ gsap.utils.toArray('.subsection-title').forEach(el => {
     x: -20, opacity: 0, duration: .8, ease: 'power3.out',
     scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' }
   });
+});
+
+gsap.utils.toArray('.scroll-demo, .comp-viewer').forEach(el => {
+  gsap.from(el, {
+    y: 24, opacity: 0, duration: .8, ease: 'power3.out',
+    scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' }
+  });
+});
+
+/* ══════════════════════════════════════════════════════════
+   14. CRÍTICO: RECALCULAR SCROLLTRIGGER APÓS CARREGAMENTO
+   ══════════════════════════════════════════════════════════ */
+// Como os componentes injetam HTML massivo e as fontes vêm de rede, 
+// a altura da página muda. Recalcular o ScrollTrigger corrige elementos invisíveis.
+window.addEventListener('load', () => {
+  ScrollTrigger.refresh();
+});
+
+document.fonts.ready.then(() => {
+  ScrollTrigger.refresh();
 });
 </script>
 </body>
