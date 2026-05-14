@@ -2,11 +2,12 @@
 <html lang="pt-BR" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>8D Hubify — Design System & Brand Book</title>
-  <meta name="robots" content="noindex">
 
-<!-- Tipografia da marca (Links externos substituídos) -->
+<meta name="robots" content="noindex">
+
+<!-- Tipografia da marca embutida (base64) -->
 <style>
   @font-face {
     font-family: 'Hugein';
@@ -21,6 +22,7 @@
 </style>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
 </style>
 
 <!-- Flaticon UIcons -->
@@ -119,6 +121,7 @@ body {
   font-variation-settings: 'wdth' 100;
 }
 
+/* Subtle film grain overlay */
 body::after {
   content: ''; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
@@ -128,7 +131,7 @@ body::after {
 
 .wrap { max-width: 1440px; margin: 0 auto; padding: 0 5vw; }
 
-/* GLASS PANEL */
+/* GLASS PANEL — refined glassmorphism */
 .glass-panel {
   background: var(--bg-surface);
   backdrop-filter: blur(28px) saturate(180%);
@@ -141,6 +144,7 @@ body::after {
   backdrop-filter: blur(40px) saturate(200%);
   -webkit-backdrop-filter: blur(40px) saturate(200%);
   border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-2), var(--shadow-inner);
 }
 
 /* ── 2. LOADER ── */
@@ -207,20 +211,19 @@ body::after {
 .ds-nav-wrapper { position: sticky; top: 1.5rem; z-index: 100; display: flex; justify-content: center; pointer-events: none; padding: 0 1rem; }
 .ds-nav {
   pointer-events: auto;
-  background: rgba(5, 5, 29, 0.0);
+  background: rgba(5, 5, 29, 0.65);
   backdrop-filter: blur(28px) saturate(180%);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
   border: 1px solid var(--border-strong);
   padding: 0.7rem 1.5rem; border-radius: var(--radius-pill);
   display: flex; align-items: center; gap: 2.5rem;
+  box-shadow: var(--shadow-2), var(--shadow-inner);
   transition: all 0.4s ease;
 }
 [data-theme="light"] .ds-nav { background: rgba(245, 245, 249, 0.78); }
 .nav-brand { display: flex; align-items: center; text-decoration: none; }
 .nav-brand svg { height: 26px; fill: var(--text-pure); transition: fill 0.3s; }
-@media (hover: hover) {
-  .nav-brand:hover svg { fill: var(--cometa-light); }
-}
+.nav-brand:hover svg { fill: var(--cometa-light); }
 
 .ds-nav-links { display: flex; gap: 2rem; }
 .ds-nav-links a {
@@ -233,10 +236,8 @@ body::after {
   content: ''; position: absolute; bottom: -6px; left: 0; width: 0; height: 1px;
   background: var(--cometa); transition: width .3s ease;
 }
-@media (hover: hover) {
-  .ds-nav-links a:hover { color: var(--text-pure); }
-  .ds-nav-links a:hover::after { width: 100%; }
-}
+.ds-nav-links a:hover { color: var(--text-pure); }
+.ds-nav-links a:hover::after { width: 100%; }
 
 .theme-toggle {
   background: var(--bg-surface); border: 1px solid var(--border);
@@ -244,11 +245,9 @@ body::after {
   cursor: pointer; display: flex; align-items: center; justify-content: center;
   width: 36px; height: 36px; transition: all 0.2s ease;
 }
-@media (hover: hover) {
-  .theme-toggle:hover { border-color: var(--cometa); color: var(--cometa-light); background: var(--cometa-dim); }
-}
+.theme-toggle:hover { border-color: var(--cometa); color: var(--cometa-light); background: var(--cometa-dim); }
 
-/* Hamburger button */
+/* Hamburger button (mobile only) */
 .nav-hamburger {
   display: none; background: var(--bg-surface); border: 1px solid var(--border);
   width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
@@ -298,6 +297,7 @@ body::after {
   color: var(--text-pure); display: flex; align-items: center; justify-content: center;
   transition: all .2s;
 }
+.drawer-close:hover { border-color: var(--cometa); color: var(--cometa-light); background: var(--cometa-dim); }
 
 .drawer-links {
   display: flex; flex-direction: column; gap: 2px; flex: 1; padding-top: .5rem;
@@ -309,6 +309,7 @@ body::after {
   font-family: var(--font-display); font-size: 1.5rem; font-weight: 400;
   letter-spacing: -.01em; transition: color .25s, transform .25s;
 }
+.drawer-links a:hover { color: var(--cometa-light); transform: translateX(4px); }
 .drawer-links a:last-child { border-bottom: none; }
 .drawer-num {
   font-family: var(--font-mono); font-size: .7rem; color: var(--cometa);
@@ -402,9 +403,7 @@ body::after {
   border-radius: var(--radius-lg); overflow: hidden;
   transition: transform 0.4s cubic-bezier(.16,1,.3,1), box-shadow 0.4s ease;
 }
-@media (hover: hover) {
-  .color-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-2); }
-}
+.color-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-2); }
 .color-swatch {
   height: 110px; padding: 1.25rem; cursor: pointer;
   display: flex; align-items: flex-end; justify-content: space-between;
@@ -428,9 +427,7 @@ body::after {
   font-family: var(--font-mono); font-size: 0.55rem; font-weight: 600;
   color: rgba(255,255,255,0); transition: transform .2s, color .2s;
 }
-@media (hover: hover) {
-  .tint-box:hover { transform: scale(1.08); z-index: 2; box-shadow: var(--shadow-1); color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
-}
+.tint-box:hover { transform: scale(1.08); z-index: 2; box-shadow: var(--shadow-1); color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
 .tint-box:active { transform: scale(0.95); }
 
 /* TOAST */
@@ -455,9 +452,7 @@ body::after {
   display: flex; flex-direction: column;
   transition: transform .4s cubic-bezier(.16,1,.3,1), border-color .3s;
 }
-@media (hover: hover) {
-  .logo-card:hover { transform: translateY(-4px); border-color: var(--border-hover); }
-}
+.logo-card:hover { transform: translateY(-4px); border-color: var(--border-hover); }
 .logo-stage {
   height: 110px; display: flex; align-items: center; justify-content: center;
   background: radial-gradient(circle at 30% 30%, rgba(102,51,255,.15), transparent 60%), rgba(0,0,0,0.25);
@@ -491,6 +486,7 @@ body::after {
 .svg-orbit-ring-3 { position: absolute; inset: -12px; border: 1px solid var(--interestelar); border-radius: 50%; animation: spinOrbit 14s linear infinite; opacity: 0.25; }
 @keyframes spinOrbit { 100% { transform: rotate(360deg); } }
 
+/* NEW: Gradient sweep */
 .svg-gradient {
   background: var(--grad-conic); background-size: 200% 200%;
   animation: gradientSweep 4s linear infinite;
@@ -501,6 +497,7 @@ body::after {
 }
 @keyframes gradientSweep { 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
 
+/* NEW: Glass refraction */
 .svg-glass {
   fill: rgba(255,255,255,.2); stroke: var(--cometa); stroke-width: 1.5;
   filter: drop-shadow(0 0 18px var(--cometa-glow));
@@ -508,6 +505,7 @@ body::after {
 }
 @keyframes glassFloat { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-6px) rotate(2deg)} }
 
+/* NEW: Reveal mask scan */
 .svg-scan-container { position: relative; width: 56px; height: 40px; }
 .svg-scan-container svg { position: absolute; inset: 0; width: 100%; height: 100%; fill: var(--text-pure); }
 .svg-scan-container::after {
@@ -518,15 +516,23 @@ body::after {
 }
 @keyframes scanLine { 0%{background-position:200% 0} 100%{background-position:-100% 0} }
 
+/* NEW: Particle dust */
+.svg-particles-container { position: relative; width: 110px; height: 80px; }
+.svg-particles-container svg { fill: var(--text-pure); width: 100%; height: 100%; }
+.particle-dust { position: absolute; width: 3px; height: 3px; background: var(--cometa); border-radius: 50%; animation: floatDust 4s linear infinite; opacity: 0; }
+
+/* NEW: Rotate 3D card */
 .svg-rotate3d { fill: var(--text-pure); animation: rotate3d 4s ease-in-out infinite; transform-style: preserve-3d; }
 @keyframes rotate3d { 0%,100%{transform:rotateY(0deg) rotateX(0deg)} 25%{transform:rotateY(180deg) rotateX(0deg)} 50%{transform:rotateY(180deg) rotateX(180deg)} 75%{transform:rotateY(0deg) rotateX(180deg)} }
 
+/* NEW: Neon flicker */
 .svg-neon-flicker { fill: var(--cometa); animation: neonFlicker 3s infinite; filter: drop-shadow(0 0 8px var(--cometa)); }
 @keyframes neonFlicker {
   0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; filter: drop-shadow(0 0 12px var(--cometa)) drop-shadow(0 0 24px var(--cometa)); }
   20%, 24%, 55% { opacity: 0.4; filter: drop-shadow(0 0 2px var(--cometa)); }
 }
 
+/* NEW: Distort wobble */
 .svg-distort { fill: var(--cometa-light); animation: distort 2.5s ease-in-out infinite; transform-origin: center; }
 @keyframes distort {
   0%,100% { transform: matrix(1,0,0,1,0,0); }
@@ -535,29 +541,39 @@ body::after {
   75% { transform: matrix(1.02,0.02,0.02,0.98,0,0); }
 }
 
+/* NEW: Blur reveal */
 .svg-blur-reveal { fill: var(--text-pure); animation: blurReveal 3s ease-in-out infinite alternate; }
 @keyframes blurReveal { 0%{filter:blur(12px); opacity:.3} 100%{filter:blur(0); opacity:1} }
 
+/* NEW: Cosmic spin */
 .svg-cosmic-container { position: relative; width: 60px; height: 46px; display: flex; align-items: center; justify-content: center; }
 .svg-cosmic-bg { position: absolute; inset: -14px; border-radius: 50%; background: conic-gradient(from 0deg, var(--cometa), var(--nuvem), var(--interestelar), var(--cometa)); filter: blur(14px); opacity: .35; animation: spinOrbit 6s linear infinite; }
 .svg-cosmic-logo { fill: var(--text-pure); width: 70%; z-index: 1; }
 
+/* === FULL LOGO ANIMATIONS — additional === */
+
+/* Type-on (left to right reveal letter by letter via mask sweep) */
 .full-typeon { max-width: 200px; overflow: hidden; }
 .full-typeon svg { fill: var(--text-pure); width: 100%; height: auto; clip-path: inset(0 100% 0 0); animation: typeOnSweep 3s steps(20, end) infinite alternate; }
 @keyframes typeOnSweep { to { clip-path: inset(0 0 0 0); } }
 
+/* Letter shift hover (vertical jiggle — uses transform on full svg) */
 .full-jiggle { max-width: 200px; }
 .full-jiggle svg { fill: var(--text-pure); width: 100%; height: auto; animation: fullJiggle 2.5s ease-in-out infinite; }
 @keyframes fullJiggle { 0%,100%{transform:translateY(0) skewX(0)} 25%{transform:translateY(-3px) skewX(-1deg)} 50%{transform:translateY(0) skewX(0)} 75%{transform:translateY(2px) skewX(1deg)} }
 
+/* Holographic full */
 .full-holo { max-width: 200px; }
 .full-holo svg { fill: var(--cometa); width: 100%; height: auto; animation: fullHolo 3s linear infinite; filter: drop-shadow(0 0 8px var(--cometa)); }
 @keyframes fullHolo { 0%,100%{opacity:1; transform:skewX(0)} 5%{opacity:.4; transform:skewX(2deg)} 10%{opacity:1; transform:skewX(-2deg)} 12%{transform:skewX(0)} 50%{opacity:.85} 51%{opacity:.2} 53%{opacity:1} }
 
+/* Scale-in heartbeat */
 .full-heartbeat { max-width: 200px; }
 .full-heartbeat svg { fill: var(--text-pure); width: 100%; height: auto; transform-origin: center; animation: fullBeat 2s ease-in-out infinite; }
 @keyframes fullBeat { 0%,100%{transform:scale(1)} 14%{transform:scale(1.04)} 28%{transform:scale(1)} 42%{transform:scale(1.06)} 70%{transform:scale(1)} }
 
+/* === FULL LOGO ANIMATIONS === */
+/* Reveal slide */
 .full-reveal-container { overflow: hidden; max-width: 200px; }
 .full-reveal-container svg {
   fill: var(--text-pure); width: 100%; height: auto;
@@ -565,6 +581,7 @@ body::after {
 }
 @keyframes fullReveal { 0%{clip-path:inset(0 100% 0 0)} 50%{clip-path:inset(0 0 0 0)} 100%{clip-path:inset(0 0 0 0)} }
 
+/* Shimmer text */
 .full-shimmer {
   position: relative; max-width: 200px;
 }
@@ -578,10 +595,12 @@ body::after {
 }
 @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-100% 0} }
 
+/* Stretch */
 .full-stretch { max-width: 200px; }
 .full-stretch svg { fill: var(--text-pure); width: 100%; height: auto; transform-origin: left center; animation: stretchIn 3s ease-in-out infinite; }
 @keyframes stretchIn { 0%,100%{transform:scaleX(1)} 50%{transform:scaleX(1.04)} }
 
+/* Glow flicker */
 .full-glow { max-width: 200px; }
 .full-glow svg {
   fill: var(--cometa); width: 100%; height: auto;
@@ -593,6 +612,7 @@ body::after {
   50% { filter: drop-shadow(0 0 24px var(--cometa-light)) drop-shadow(0 0 48px var(--cometa)); }
 }
 
+/* Horizontal slide */
 .full-slide { max-width: 200px; overflow: hidden; }
 .full-slide svg { fill: var(--text-pure); width: 100%; height: auto; animation: slideHoriz 4s cubic-bezier(.16,1,.3,1) infinite; }
 @keyframes slideHoriz {
@@ -600,6 +620,7 @@ body::after {
   50% { transform: translateX(8px); }
 }
 
+/* Color wave (animated gradient fill) */
 .full-wave { max-width: 200px; }
 .full-wave svg { width: 100%; height: auto; }
 .full-wave svg .wave-target { fill: url(#waveGrad); }
@@ -631,9 +652,7 @@ body::after {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   cursor: pointer; transition: all 0.3s cubic-bezier(.16,1,.3,1);
 }
-@media (hover: hover) {
-  .icon-box:hover { border-color: var(--border-hover); transform: translateY(-3px); }
-}
+.icon-box:hover { border-color: var(--border-hover); transform: translateY(-3px); }
 .icon-box.selected { border-color: var(--cometa); background: var(--cometa-dim); box-shadow: 0 0 0 1px var(--cometa), 0 8px 24px rgba(102,51,255,.25); }
 .icon-box i { font-size: 22px; color: var(--text-pure); transition: color 0.3s; line-height: 1; pointer-events: none; }
 .icon-name { font-size: 0.55rem; font-family: var(--font-mono); color: var(--text-muted); margin-top: 0.5rem; pointer-events: none; text-align: center; padding: 0 4px; }
@@ -657,9 +676,7 @@ body::after {
 /* ── 7. GSAP GALLERY ── */
 .gsap-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; }
 .gsap-box { height: 160px; display: flex; flex-direction: column; justify-content: space-between; padding: 1rem; border-radius: var(--radius-md); overflow: hidden; position: relative; transition: border-color 0.3s; }
-@media (hover: hover) {
-  .gsap-box:hover { border-color: var(--border-hover); }
-}
+.gsap-box:hover { border-color: var(--border-hover); }
 .gsap-box span { font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-muted); z-index: 2; font-weight: 600; position: relative; letter-spacing: .08em; }
 .gsap-stage { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 1; pointer-events: none; }
 .gsap-stage svg { display: block; }
@@ -691,27 +708,44 @@ body::after {
 #hourglassScrollCanvas { width: 100%; height: 100%; display: block; }
 .scroll-obj-section { position: relative; padding: 0; min-height: 200vh; }
 .scroll-obj-stage { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; }
-.scroll-obj-content { position: absolute; bottom: 12vh; left: 50%; transform: translateX(-50%); text-align: center; z-index: 5; padding: 0 1rem; width: 100%;}
+.scroll-obj-content { position: absolute; bottom: 12vh; left: 50%; transform: translateX(-50%); text-align: center; z-index: 5; padding: 0 1rem; }
 .scroll-obj-content h3 { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.4rem); font-weight: 400; letter-spacing: -.02em; margin-bottom: .5rem; }
 .scroll-obj-content p { color: var(--text-muted); font-size: .9rem; }
 
 /* ── 8. 3D LAB / BUILDER ── */
 .lab-container {
-  display: grid; grid-template-columns: 1fr 360px;
+  display: grid; grid-template-columns: 1fr 380px;
   border-radius: var(--radius-lg); overflow: hidden;
+  width: 100%; height: 700px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
-@media(max-width: 992px) { .lab-container { grid-template-columns: 1fr; } }
-.lab-canvas-wrapper { height: 600px; background: radial-gradient(circle at 50% 50%, rgba(102,51,255,.08), transparent 70%), rgba(0,0,0,0.4); position: relative; cursor: grab; }
+@media(max-width: 992px) { .lab-container { grid-template-columns: 1fr; height: auto; } }
+
+.lab-canvas-wrapper {
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(102,51,255,.08), transparent 70%), rgba(0,0,0,0.4);
+  position: relative; cursor: grab; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+@media(max-width: 992px) { .lab-canvas-wrapper { min-height: 400px; } }
 .lab-canvas-wrapper:active { cursor: grabbing; }
-.lab-canvas-wrapper canvas { width: 100%; height: 100%; outline: none; }
-.lab-controls { padding: 1.25rem; border-left: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.85rem; background: rgba(0,0,0,0.3); max-height: 600px; overflow-y: auto; }
-.lab-controls::-webkit-scrollbar { width: 4px; }
-.lab-controls::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
-@media(max-width: 992px) { .lab-controls { max-height: none; border-left: none; border-top: 1px solid var(--border); } }
-.lab-section-block { display: flex; flex-direction: column; gap: 0.55rem; padding-bottom: 0.85rem; border-bottom: 1px dashed var(--border); }
+.lab-canvas-wrapper canvas { width: 100%; height: 100%; outline: none; display: block; }
+
+.lab-controls {
+  padding: 1.5rem; border-left: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 1rem;
+  background: rgba(0,0,0,0.3); height: 100%; overflow-y: auto;
+}
+.lab-controls::-webkit-scrollbar { width: 6px; }
+.lab-controls::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 6px; }
+.lab-controls::-webkit-scrollbar-track { background: transparent; }
+@media(max-width: 992px) { .lab-controls { height: auto; border-left: none; border-top: 1px solid var(--border); } }
+
+.lab-section-block { display: flex; flex-direction: column; gap: 0.65rem; padding-bottom: 1rem; border-bottom: 1px dashed var(--border); }
 .lab-section-block:last-child { border-bottom: none; }
+
 .lab-section-title {
-  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.18em;
+  font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--cometa-light); font-weight: 600;
   display: flex; align-items: center; justify-content: space-between;
 }
@@ -721,35 +755,24 @@ body::after {
   border-radius: var(--radius-pill); cursor: pointer; transition: all .2s;
   letter-spacing: .08em;
 }
-@media (hover: hover) {
-  .lab-section-title .reset-mini:hover { border-color: var(--cometa); color: var(--cometa-light); }
-}
+.lab-section-title .reset-mini:hover { border-color: var(--cometa); color: var(--cometa-light); }
 
-.lab-pills { display: flex; flex-wrap: wrap; gap: 4px; }
+.lab-pills { display: flex; flex-wrap: wrap; gap: 6px; }
 .lab-pill {
-  font-family: var(--font-mono); font-size: 0.62rem; font-weight: 500;
-  padding: 4px 9px; border-radius: var(--radius-pill);
+  font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
+  padding: 6px 12px; border-radius: var(--radius-pill);
   background: transparent; border: 1px solid var(--border);
   color: var(--text-muted); cursor: pointer; transition: all 0.2s;
   letter-spacing: 0.02em; line-height: 1.2;
 }
-@media (hover: hover) {
-  .lab-pill:hover { border-color: var(--border-hover); color: var(--text-pure); }
-}
+.lab-pill:hover { border-color: var(--border-hover); color: var(--text-pure); }
 .lab-pill.active {
   background: var(--cometa-dim); border-color: var(--cometa);
   color: var(--cometa-light); box-shadow: inset 0 0 0 1px var(--cometa);
 }
 
-/* Slider rows */
-.lab-row {
-  display: grid; grid-template-columns: 80px 1fr 38px;
-  align-items: center; gap: 8px;
-}
-.lab-row label {
-  font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-muted);
-  letter-spacing: 0.05em;
-}
+.lab-row { display: grid; grid-template-columns: 90px 1fr 40px; align-items: center; gap: 8px; }
+.lab-row label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.05em; }
 .lab-row input[type=range] {
   width: 100%; height: 4px; -webkit-appearance: none; appearance: none;
   background: rgba(255,255,255,0.08); border-radius: 2px; cursor: pointer;
@@ -760,50 +783,77 @@ body::after {
   background: var(--cometa); border: 2px solid var(--bg-deep); cursor: pointer;
   transition: transform .15s;
 }
-@media (hover: hover) {
-  .lab-row input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.25); }
-}
+.lab-row input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.25); }
 .lab-row input[type=range]::-moz-range-thumb {
   width: 14px; height: 14px; border-radius: 50%; background: var(--cometa);
   border: 2px solid var(--bg-deep); cursor: pointer;
 }
-.lab-row .lab-val {
-  font-family: var(--font-mono); font-size: 0.6rem; color: var(--cometa-light);
-  text-align: right; font-weight: 600;
-}
+.lab-row .lab-val { font-family: var(--font-mono); font-size: 0.65rem; color: var(--cometa-light); text-align: right; font-weight: 600; }
 
-.lab-color-row {
-  display: grid; grid-template-columns: 80px 1fr; gap: 8px; align-items: center;
+.lab-row-text { display: grid; grid-template-columns: 90px 1fr; align-items: center; gap: 8px; }
+.lab-row-text label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.05em; }
+.lab-row-text input[type=text], .lab-row-text input[type=file] {
+  width: 100%; background: rgba(255,255,255,0.08); border: 1px solid var(--border);
+  color: #fff; border-radius: 4px; padding: 4px 8px; font-family: var(--font-mono);
+  font-size: 0.75rem; outline: none; transition: border-color .2s;
 }
-.lab-color-row label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.05em; }
-.lab-color-row input[type=color] {
-  width: 100%; height: 28px; border-radius: 6px;
-  border: 1px solid var(--border); background: transparent; cursor: pointer;
-  padding: 2px;
+.lab-row-text input[type=text]:focus { border-color: var(--cometa); }
+
+.lab-color-row { display: grid; grid-template-columns: 90px 1fr; gap: 8px; align-items: center; }
+.lab-color-row label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.05em; }
+.hex-input-wrap {
+  display: flex; align-items: center; background: rgba(255,255,255,0.08);
+  border: 1px solid var(--border); border-radius: 4px; padding: 2px 6px;
+  transition: border-color .2s; width: 100%;
 }
-.lab-color-row input[type=color]::-webkit-color-swatch-wrapper { padding: 0; }
-.lab-color-row input[type=color]::-webkit-color-swatch { border: none; border-radius: 4px; }
+.hex-input-wrap:focus-within { border-color: var(--cometa); }
+.hex-swatch {
+  width: 14px; height: 14px; border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0;
+}
+.hex-color-input {
+  width: 100%; background: transparent; border: none; color: #fff;
+  padding: 2px 6px; font-family: var(--font-mono); font-size: 0.75rem;
+  outline: none; text-transform: uppercase;
+}
 
 .lab-toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.lab-toggle-row label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.05em; }
+.lab-toggle-row label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.05em; }
 .lab-toggle {
-  position: relative; width: 32px; height: 18px; border-radius: 9999px;
+  position: relative; width: 36px; height: 20px; border-radius: 9999px;
   background: rgba(255,255,255,0.1); cursor: pointer; transition: background .2s;
   flex-shrink: 0;
 }
 .lab-toggle::after {
   content: ''; position: absolute; top: 2px; left: 2px;
-  width: 14px; height: 14px; border-radius: 50%; background: var(--text-pure);
+  width: 16px; height: 16px; border-radius: 50%; background: var(--text-pure);
   transition: transform .25s cubic-bezier(.16,1,.3,1);
 }
 .lab-toggle.on { background: var(--cometa); }
-.lab-toggle.on::after { transform: translateX(14px); }
+.lab-toggle.on::after { transform: translateX(16px); }
 
-.lab-code-section { display: flex; flex-direction: column; gap: 0.5rem; }
+.lab-code-section { display: flex; flex-direction: column; gap: 0.75rem; }
 .lab-code-header { display: flex; justify-content: space-between; align-items: center; }
-.lab-code-block { background: #04040a; padding: 0.85rem; border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 0.62rem; color: #a8a8b3; overflow-x: auto; border: 1px solid var(--border); line-height: 1.55; max-height: 260px; overflow-y: auto; white-space: pre; }
-.lab-code-block::-webkit-scrollbar { width: 4px; height: 4px; }
-.lab-code-block::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+.lab-code-block {
+  background: #04040a; padding: 1rem; border-radius: var(--radius-md);
+  font-family: var(--font-mono); font-size: 0.65rem; color: #a8a8b3;
+  overflow-x: auto; border: 1px solid var(--border); line-height: 1.55;
+  max-height: 300px; overflow-y: auto; white-space: pre;
+}
+.lab-code-block::-webkit-scrollbar { width: 6px; height: 6px; }
+.lab-code-block::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 6px; }
+
+.custom-motion-block {
+  background: rgba(0,0,0,0.2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  display: none;
+}
+.custom-motion-block.active {
+  display: flex; flex-direction: column; gap: 0.65rem;
+}
 
 /* ── 9. COMPONENTS ── */
 .comp-grid { display: grid; grid-template-columns: 220px 1fr; gap: 4rem; align-items: start; }
@@ -817,12 +867,7 @@ body::after {
   display: block; padding: 0.5rem 1rem; border-radius: var(--radius-pill);
   transition: all 0.2s; border-left: 2px solid transparent;
 }
-
-@media(max-width: 768px) { .comp-grid { display: block; gap: 4rem; align-items: start; } }
-
-@media (hover: hover) {
-  .comp-sidebar a:hover { color: var(--text-pure); background: rgba(255,255,255,0.05); }
-}
+.comp-sidebar a:hover { color: var(--text-pure); background: rgba(255,255,255,0.05); }
 .comp-sidebar a.active { color: var(--cometa-light); background: var(--cometa-dim); border-left-color: var(--cometa); }
 
 .comp-viewer { border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 3rem; }
@@ -830,11 +875,11 @@ body::after {
 .comp-header h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; letter-spacing: -.01em; margin-bottom: 0.4rem; }
 .comp-header p { color: var(--text-muted); font-size: 0.9rem; }
 .comp-preview { padding: 4rem 2rem; background: transparent; display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: center; position: relative; }
-/*.comp-preview::before {
+.comp-preview::before {
   content: 'PREVIEW'; position: absolute; top: 1rem; left: 1.5rem;
   font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-dim);
   letter-spacing: 0.18em; font-weight: 600;
-}*/
+}
 .comp-code { background: #04040a; padding: 1.5rem 2rem; border-top: 1px solid var(--border); overflow-x: auto; font-family: var(--font-mono); font-size: 0.8rem; color: #a8a8b3; line-height: 1.6; position: relative; }
 .comp-code span.tag { color: #ff7b72; }
 .comp-code span.attr { color: #79c0ff; }
@@ -851,46 +896,30 @@ body::after {
   border: 1px solid transparent; gap: 0.5rem; line-height: 1;
 }
 .btn-primary { background: linear-gradient(135deg, var(--cometa) 0%, #5028e0 100%); color: #fff; box-shadow: 0 4px 16px rgba(102,51,255,.3); }
-@media (hover: hover) {
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(102,51,255,.5); }
-}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(102,51,255,.5); }
 .btn-secondary { background: var(--bg-surface); color: var(--text-pure); border-color: var(--border-strong); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-@media (hover: hover) {
-  .btn-secondary:hover { border-color: var(--text-pure); background: var(--bg-surface-2); }
-}
+.btn-secondary:hover { border-color: var(--text-pure); background: var(--bg-surface-2); }
 .btn-outline { background: transparent; border-color: var(--cometa); color: var(--cometa-light); }
-@media (hover: hover) {
-  .btn-outline:hover { background: var(--cometa); color: #fff; }
-}
+.btn-outline:hover { background: var(--cometa); color: #fff; }
 .btn-ghost { background: transparent; color: var(--text-pure); }
-@media (hover: hover) {
-  .btn-ghost:hover { background: rgba(255,255,255,0.05); }
-}
+.btn-ghost:hover { background: rgba(255,255,255,0.05); }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
 
 .btn-copy { background: transparent; border-color: var(--border-strong); color: var(--text-soft); padding: 0.5rem 1rem; font-size: 0.7rem; font-family: var(--font-mono); letter-spacing: .05em; }
-@media (hover: hover) {
-  .btn-copy:hover { border-color: var(--cometa); color: var(--cometa-light); background: var(--cometa-dim); }
-}
+.btn-copy:hover { border-color: var(--cometa); color: var(--cometa-light); background: var(--cometa-dim); }
 .btn-copy.copied { background: var(--success); border-color: var(--success); color: #000; }
 
 .btn-float { background: var(--cometa); color: #fff; font-weight: 600; }
-@media (hover: hover) {
-  .btn-float:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
-}
+.btn-float:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
 .btn-float.secondary { background: transparent; color: var(--text-pure); border-color: var(--border-strong); }
 
 .lab-btn { background: transparent; border-color: var(--border); color: var(--text-muted); justify-content: space-between; width: 100%; font-family: var(--font-mono); font-size: .75rem; letter-spacing: .05em; }
-@media (hover: hover) {
-  .lab-btn:hover { border-color: var(--border-hover); color: var(--text-pure); }
-}
+.lab-btn:hover { border-color: var(--border-hover); color: var(--text-pure); }
 .lab-btn.active { background: var(--cometa-dim); border-color: var(--cometa); color: var(--cometa-light); }
 .lab-btn.active::after { content: '●'; font-size: 0.7rem; color: var(--cometa); }
 
 .gsap-btn { background: transparent; border-color: var(--border-strong); color: var(--text-pure); padding: 0.4rem 1rem; font-size: 0.65rem; font-family: var(--font-mono); position: relative; z-index: 10; letter-spacing: .08em; }
-@media (hover: hover) {
-  .gsap-btn:hover { border-color: var(--cometa); color: var(--cometa-light); }
-}
+.gsap-btn:hover { border-color: var(--cometa); color: var(--cometa-light); }
 
 .input {
   width: 100%; padding: 0.75rem 1rem; background: rgba(0,0,0,0.25);
@@ -910,7 +939,6 @@ body::after {
 .card h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: -.01em; }
 
 /* RESPONSIVE */
-/* ─────── TABLET (≤992px) ─────── */
 @media (max-width: 992px) {
   .comp-grid { grid-template-columns: 1fr; gap: 2rem; }
   .comp-sidebar { position: static; max-height: none; display: flex; flex-wrap: wrap; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
@@ -921,6 +949,10 @@ body::after {
   .lab-container { grid-template-columns: 1fr; }
   .lab-canvas-wrapper { height: 400px; }
   .lab-controls { border-left: none; border-top: 1px solid var(--border); }
+  .hero-meta { display: none; }
+}
+/* ─────── TABLET (≤992px) ─────── */
+@media (max-width: 992px) {
   .wrap, .wrap-wide { padding: 0 5vw; max-width: 100%; }
   .hero-meta { font-size: .55rem; right: 5vw; top: 6rem; }
   .hero-title { font-size: clamp(2.6rem, 7vw, 4rem); }
@@ -930,12 +962,6 @@ body::after {
 @media (max-width: 768px) {
   /* Cursor desktop é ruim em touch */
   body { -webkit-tap-highlight-color: transparent; }
-
-  /* Reduzindo blur pesado em mobile para performance */
-  .glass-panel, .glass-panel-strong {
-    backdrop-filter: blur(10px) saturate(150%);
-    -webkit-backdrop-filter: blur(10px) saturate(150%);
-  }
 
   /* NAV — pílula compacta + hamburger */
   .ds-nav-wrapper { top: 1rem; padding: 0 12px; }
@@ -1028,7 +1054,7 @@ body::after {
   .comp-sidebar {
     position: sticky; top: 70px; max-height: none;
     background: var(--bg-deep); backdrop-filter: blur(20px);
-    margin: 0 -5vw 1rem; padding: .75rem 5vw;
+    margin: 0 -5vw; padding: .75rem 5vw;
     border-bottom: 1px solid var(--border); z-index: 50;
     overflow-x: auto; -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -1046,6 +1072,9 @@ body::after {
   .comp-preview { padding: 2rem 1.25rem; gap: 1.25rem; }
   .comp-code { padding: 1rem 1.25rem; font-size: .7rem; }
 
+  /* MARQUEE */
+  .marquee span { font-size: clamp(1.5rem, 5vw, 2.4rem); gap: 24px; }
+
   /* FOOTER */
   footer { padding: 4rem 0 2.5rem !important; }
   footer h2 { font-size: 1.2rem !important; }
@@ -1055,10 +1084,8 @@ body::after {
 
   /* FORM INPUTS — evita zoom iOS */
   input, textarea, select, button { font-size: 16px; }
-  
-  /* Touch targets minimum size */
   .btn { font-size: .82rem; padding: .7rem 1.4rem; min-height: 44px; }
-  .btn-copy { min-height: 44px; }
+  .btn-copy { min-height: 36px; }
 
   /* Swipe hints */
   .mobile-swipe-hint {
@@ -1066,6 +1093,9 @@ body::after {
     color: var(--text-dim); letter-spacing: .15em; text-transform: uppercase;
     margin: -.25rem 0 .75rem; padding-left: 5vw;
   }
+
+  /* Tokens não exibe stats grid em hero */
+  .hero-stats { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
 }
 
 /* ─────── PHONES PEQUENOS (≤420px) ─────── */
@@ -1084,140 +1114,6 @@ body::after {
 
 @media (min-width: 769px) {
   .mobile-swipe-hint { display: none; }
-}
-
-/* ─────── TIPO DEMO RESPONSIVO ─────── */
-.td-h1   { font-size: clamp(2rem, 5vw, 4rem); }
-.td-h2   { font-size: clamp(1.5rem, 4vw, 2.5rem); }
-.td-h3   { font-size: clamp(1.15rem, 3vw, 1.5rem); }
-.td-lead { font-size: clamp(.95rem, 2vw, 1.2rem); }
-.td-body { font-size: clamp(.88rem, 1.8vw, 1.05rem); line-height: 1.6; }
-.td-mono { font-size: clamp(.75rem, 1.5vw, .9rem); word-break: break-all; }
-
-/* Garante que typo-demo nunca passa do container */
-.typo-demo { overflow: hidden; max-width: 100%; }
-.typo-row > h1, .typo-row > h2, .typo-row > h3, .typo-row > p, .typo-row > span {
-  max-width: 100%; overflow-wrap: break-word; word-break: break-word;
-}
-
-/* ─────── COMPONENTS: code colapsável ─────── */
-.comp-code {
-  max-height: 56px;
-  overflow: hidden;
-  transition: max-height .45s cubic-bezier(.16,1,.3,1);
-  padding-top: 0 !important;
-}
-.comp-code.expanded {
-  max-height: 2000px;
-  padding-top: 1.5rem !important;
-}
-.code-toggle {
-  display: flex; align-items: center; justify-content: space-between;
-  width: 100%; padding: .85rem 0;
-  background: transparent; border: none; cursor: pointer;
-  font-family: var(--font-mono); font-size: .65rem;
-  color: var(--cometa-light); letter-spacing: .15em;
-  text-transform: uppercase; font-weight: 600;
-  position: sticky; top: 0; z-index: 2;
-}
-@media (hover: hover) {
-  .code-toggle:hover { color: var(--text-pure); }
-}
-.code-toggle .chev { transition: transform .3s; display: inline-block; }
-.comp-code.expanded ~ .code-toggle .chev,
-.code-toggle.open .chev { transform: rotate(180deg); }
-.comp-code-wrap { position: relative; background: #04040a; border-top: 1px solid var(--border); }
-.comp-code-wrap .code-toggle { padding: .9rem 2rem; border-bottom: 1px solid transparent; transition: border-color .3s; }
-.comp-code-wrap.expanded .code-toggle { border-bottom-color: var(--border); }
-.comp-code-wrap .comp-code { padding: 0 2rem; }
-.comp-code-wrap.expanded .comp-code { padding: 1.25rem 2rem; }
-.code-toggle .copy-inline {
-  font-size: .6rem; padding: .35rem .85rem;
-  border: 1px solid var(--border-strong); border-radius: var(--radius-pill);
-  background: transparent; color: var(--text-soft); cursor: pointer;
-  font-family: var(--font-mono); letter-spacing: .08em;
-  transition: all .2s;
-}
-@media (hover: hover) {
-  .code-toggle .copy-inline:hover { border-color: var(--cometa); color: var(--cometa-light); }
-}
-.code-toggle .copy-inline.copied { background: var(--success); border-color: var(--success); color: #000; }
-
-/* ─────── COMPONENTS MOBILE — overflow + dropdown ─────── */
-.comp-mobile-trigger { display: none; }
-.comp-mobile-panel { display: none; }
-
-@media (max-width: 768px) {
-  /* Garante que preview nunca quebra o layout */
-  .comp-viewer { overflow: hidden; }
-  .comp-preview { padding: 1.5rem 1rem !important; gap: 1rem !important; }
-  .comp-preview > * {
-    max-width: 100% !important;
-    /* Somente aplica quebra de palavra se NÃO for uma tabela */
-  }
-  .comp-preview *:not(table) { overflow-wrap: break-word; word-break: break-word; }
-  
-  .comp-preview table { font-size: .7rem !important; }
-  .comp-preview table th, .comp-preview table td { padding: .5rem !important; }
-  .comp-preview .card { padding: 1rem !important; }
-  .comp-preview .btn { font-size: .75rem !important; padding: .6rem 1rem !important; }
-  .comp-preview input, .comp-preview textarea { font-size: 16px; }
-
-  .comp-header { padding: 1rem 1.25rem !important; }
-  .comp-header h3 { font-size: 1.05rem !important; }
-  .comp-header p { font-size: .78rem !important; }
-
-  /* Code wrap mobile */
-  .comp-code-wrap .code-toggle { padding: .75rem 1.25rem; font-size: .58rem; }
-  .comp-code-wrap .comp-code { padding: 0 1.25rem; font-size: .65rem !important; }
-  .comp-code-wrap.expanded .comp-code { padding: 1rem 1.25rem !important; }
-
-  /* Sidebar vira dropdown */
-  .comp-sidebar {
-    position: sticky; top: 70px; z-index: 50;
-    display: block !important;
-    background: var(--bg-deep); padding: .65rem 5vw !important;
-    margin: 0 -5vw 1rem; max-height: none !important;
-    border-bottom: 1px solid var(--border);
-    overflow: visible !important;
-  }
-  .comp-sidebar h4, .comp-sidebar ul { display: none !important; }
-  .comp-mobile-trigger {
-    display: flex; width: 100%; padding: .7rem 1rem;
-    background: var(--bg-surface); border: 1px solid var(--border-strong);
-    border-radius: var(--radius-pill); color: var(--text-pure);
-    font-family: var(--font-mono); font-size: .75rem; font-weight: 600;
-    cursor: pointer; align-items: center; justify-content: space-between;
-    letter-spacing: .05em;
-  }
-  .comp-mobile-trigger .chev { color: var(--cometa-light); transition: transform .3s; }
-  .comp-mobile-trigger.open .chev { transform: rotate(180deg); }
-  .comp-mobile-panel {
-    display: block; position: absolute; top: calc(100% + 4px);
-    left: 5vw; right: 5vw; max-height: 60vh; overflow-y: auto;
-    background: var(--bg-deep); backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
-    border: 1px solid var(--border-strong); border-radius: var(--radius-md);
-    padding: .5rem; z-index: 100; box-shadow: var(--shadow-2);
-    transform: translateY(-10px) scale(.98); opacity: 0;
-    pointer-events: none; transition: all .3s cubic-bezier(.16,1,.3,1);
-  }
-  .comp-mobile-panel.open {
-    transform: translateY(0) scale(1); opacity: 1; pointer-events: auto;
-  }
-  .comp-mobile-panel .group-label {
-    font-family: var(--font-mono); font-size: .58rem;
-    color: var(--cometa-light); letter-spacing: .18em;
-    text-transform: uppercase; padding: .8rem .75rem .4rem; font-weight: 600;
-  }
-  .comp-mobile-panel a {
-    display: block; padding: .55rem .85rem; color: var(--text-pure);
-    text-decoration: none; font-size: .82rem; border-radius: var(--radius-sm);
-    border-bottom: 1px solid rgba(255,255,255,.04);
-  }
-  .comp-mobile-panel a:last-child { border-bottom: none; }
-  .comp-mobile-panel a.active { background: var(--cometa-dim); color: var(--cometa-light); }
-  .comp-mobile-panel a:active { background: var(--cometa); color: #fff; }
 }
 </style>
 </head>
@@ -1283,7 +1179,7 @@ body::after {
   </div>
 </aside>
 
-<!-- HERO -->
+<!-- HERO (preserved) -->
 <section class="hero" id="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-gradient"></div>
@@ -1337,18 +1233,18 @@ body::after {
       </div>
     </div>
 
-    <div class="glass-panel typo-demo" style="padding: 2.5rem; border-radius: var(--radius-lg); margin-bottom: 5rem;">
-      <div class="typo-row" style="border-top: none; padding-top: 0;"><div class="typo-label"><b>H1</b>Hugein 400</div><h1 class="td-h1" style="font-family:var(--font-display); font-weight: 400; letter-spacing: -0.04em; line-height: 1;">Dominância Digital</h1></div>
-      <div class="typo-row"><div class="typo-label"><b>H2</b>Hugein 400</div><h2 class="td-h2" style="font-family:var(--font-display); font-weight: 400; letter-spacing: -0.03em; line-height: 1.2;">Matéria Interativa</h2></div>
-      <div class="typo-row"><div class="typo-label"><b>H3</b>Henju 600</div><h3 class="td-h3" style="font-family:var(--font-body); font-weight: 600; line-height: 1.3;">Arquitetura de Sistemas</h3></div>
-      <div class="typo-row"><div class="typo-label"><b>Lead</b>Henju 300</div><p class="td-lead" style="font-family:var(--font-body); font-weight: 300; color: var(--text-soft); max-width: 60ch; line-height: 1.5;">Conectamos marcas ao cosmos digital com estratégia, dados e criatividade interativa.</p></div>
-      <div class="typo-row"><div class="typo-label"><b>Body</b>Henju 400</div><p class="td-body" style="font-family:var(--font-body); color: var(--text-muted); max-width: 60ch;">Este é um parágrafo padrão. Demonstra altura de linha e peso ideais para conteúdos longos. O sistema depende fortemente do contraste para manter a legibilidade.</p></div>
-      <div class="typo-row" style="border-bottom: none; padding-bottom: 0;"><div class="typo-label"><b>Mono</b>JetBrains 500</div><span class="td-mono" style="font-family: var(--font-mono); color: var(--cometa-light); font-weight: 500;">SISTEMA.INICIALIZAR({ status: 200 })</span></div>
+    <div class="glass-panel" style="padding: 2.5rem; border-radius: var(--radius-lg); margin-bottom: 5rem;">
+      <div class="typo-row" style="border-top: none; padding-top: 0;"><div class="typo-label"><b>H1</b>Hugein 400</div><h1 style="font-family:var(--font-display); font-size: 4rem; font-weight: 400; letter-spacing: -0.04em; line-height: 1;">Dominância Digital</h1></div>
+      <div class="typo-row"><div class="typo-label"><b>H2</b>Hugein 400</div><h2 style="font-family:var(--font-display); font-size: 2.5rem; font-weight: 400; letter-spacing: -0.03em; line-height: 1.2;">Matéria Interativa</h2></div>
+      <div class="typo-row"><div class="typo-label"><b>H3</b>Henju 600</div><h3 style="font-family:var(--font-body); font-size: 1.5rem; font-weight: 600; line-height: 1.3;">Arquitetura de Sistemas</h3></div>
+      <div class="typo-row"><div class="typo-label"><b>Lead</b>Henju 300</div><p style="font-family:var(--font-body); font-size: 1.2rem; font-weight: 300; color: var(--text-soft); max-width: 60ch; line-height: 1.5;">Conectamos marcas ao cosmos digital com estratégia, dados e criatividade interativa.</p></div>
+      <div class="typo-row"><div class="typo-label"><b>Body</b>Henju 400</div><p style="font-family:var(--font-body); font-size: 1.05rem; color: var(--text-muted); max-width: 60ch;">Este é um parágrafo padrão. Demonstra altura de linha e peso ideais para conteúdos longos. O sistema depende fortemente do contraste para manter a legibilidade.</p></div>
+      <div class="typo-row" style="border-bottom: none; padding-bottom: 0;"><div class="typo-label"><b>Mono</b>JetBrains 500</div><span style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--cometa-light); font-weight: 500;">SISTEMA.INICIALIZAR({ status: 200 })</span></div>
     </div>
 
     <h3 class="subsection-title">Paleta de Cores</h3>
     <p class="section-desc" style="margin-bottom: 2.5rem;">Clique em qualquer cor ou variação de opacidade para copiar o código (HEX/RGBA) para a área de transferência.</p>
-    <div class="mobile-swipe-hint">← Deslize horizontalmente no mobile →</div>
+    <div class="mobile-swipe-hint">← Deslize →</div>
     <div class="color-grid" id="colorGrid"></div>
   </div>
 </section>
@@ -1366,13 +1262,13 @@ body::after {
     <h3 class="subsection-title">Símbolo (Cometa) — Animações</h3>
     <p class="section-desc" style="margin-bottom: 2.5rem;">Variações dinâmicas do símbolo da marca renderizadas em SVG + CSS. Clique em "Copiar Código" para obter o HTML/CSS pronto.</p>
 
-    <div class="mobile-swipe-hint">← Deslize horizontalmente no mobile →</div>
+    <div class="mobile-swipe-hint">← Deslize →</div>
     <div class="logo-grid" id="logoGrid"></div>
 
     <h3 class="subsection-title">Logotipo Completo — Animações</h3>
     <p class="section-desc" style="margin-bottom: 2.5rem;">Animações para a versão horizontal completa (símbolo + nome). Ideais para abertura, headers e splash screens.</p>
 
-    <div class="mobile-swipe-hint">← Deslize horizontalmente no mobile →</div>
+    <div class="mobile-swipe-hint">← Deslize →</div>
     <div class="logo-grid" id="logoFullGrid"></div>
 
     <h3 class="subsection-title">Iconografia (UIcons)</h3>
@@ -1408,12 +1304,14 @@ body::after {
 
     <h3 class="subsection-title">Núcleo Cinético (GSAP)</h3>
     <p class="section-desc" style="margin-bottom: 3rem;">Micro-interações e animações de interface padronizadas utilizando a biblioteca GSAP.</p>
-    <div class="mobile-swipe-hint">← Deslize horizontalmente no mobile →</div>
+    <div class="mobile-swipe-hint">← Deslize →</div>
     <div class="gsap-gallery" id="gsapGallery"></div>
   </div>
 </section>
 
-<!-- SCROLL FX -->
+<!-- ══════════════════════════════════════════════════════════
+     SCROLL FX — 5 demos + 2 com OBJ Ampulheta
+     ══════════════════════════════════════════════════════════ -->
 <section class="section" id="scroll-fx">
   <div class="wrap">
     <div class="section-header">
@@ -1526,8 +1424,8 @@ body::after {
     </div>
 
     <div class="lab-container glass-panel-strong">
-      <div class="lab-canvas-wrapper">
-        <canvas id="lab-canvas"></canvas>
+      <div class="lab-canvas-wrapper" id="lab-canvas-wrapper">
+        <!-- O Renderer ou o Efeito ASCII será injetado aqui -->
       </div>
       <div class="lab-controls" id="labControls">
         <!-- PRESETS -->
@@ -1541,23 +1439,32 @@ body::after {
             <button class="lab-pill" data-preset="metallic">Metálico</button>
             <button class="lab-pill" data-preset="wireframe">Wireframe</button>
             <button class="lab-pill" data-preset="holo">Holograma</button>
-            <button class="lab-pill" data-preset="neon">Néon</button>
+            <button class="lab-pill" data-preset="neon">Néon (Matrix)</button>
             <button class="lab-pill" data-preset="crystal">Cristal</button>
           </div>
         </div>
 
+        <!-- ARQUIVO / MÍDIA -->
+        <div class="lab-section-block">
+          <div class="lab-section-title"><span>Objeto / Mídia</span></div>
+          <div class="lab-row-text" style="grid-template-columns: 1fr;">
+            <input type="file" id="mediaUpload" accept=".obj,image/*,video/*" title="Carregar OBJ, PNG, JPG ou MP4">
+          </div>
+          <p style="font-family:var(--font-mono); font-size:0.55rem; color:var(--text-dim); margin-top:4px;">Suporta: .OBJ, .PNG, .JPG, .MP4<br/>(Imagens/Vídeos oferecem 100% de estabilidade ao filtro ASCII)</p>
+        </div>
+
         <!-- MATERIAL -->
         <div class="lab-section-block">
-          <div class="lab-section-title"><span>Material</span></div>
-          <div class="lab-color-row"><label>Cor base</label><input type="color" data-prop="material.color" value="#111111"></div>
-          <div class="lab-row"><label>Metalness</label><input type="range" min="0" max="1" step="0.01" value="0.2" data-prop="material.metalness"><span class="lab-val">0.2</span></div>
-          <div class="lab-row"><label>Roughness</label><input type="range" min="0" max="1" step="0.01" value="0.1" data-prop="material.roughness"><span class="lab-val">0.1</span></div>
-          <div class="lab-row"><label>Transmission</label><input type="range" min="0" max="1" step="0.01" value="0.9" data-prop="material.transmission"><span class="lab-val">0.9</span></div>
-          <div class="lab-row"><label>IOR</label><input type="range" min="1" max="2.33" step="0.01" value="1.8" data-prop="material.ior"><span class="lab-val">1.8</span></div>
-          <div class="lab-row"><label>Thickness</label><input type="range" min="0" max="5" step="0.1" value="2.0" data-prop="material.thickness"><span class="lab-val">2.0</span></div>
+          <div class="lab-section-title"><span>Material (Modelos 3D)</span></div>
+          <div class="lab-color-row"><label>Cor base</label><div class="hex-input-wrap"><div class="hex-swatch" style="background:#3B22D4"></div><input type="text" class="hex-color-input" data-prop="material.color" value="#3B22D4" maxlength="9"></div></div>
+          <div class="lab-row"><label>Metalness</label><input type="range" min="0" max="1" step="0.01" value="0.1" data-prop="material.metalness"><span class="lab-val">0.1</span></div>
+          <div class="lab-row"><label>Roughness</label><input type="range" min="0" max="1" step="0.01" value="0.55" data-prop="material.roughness"><span class="lab-val">0.55</span></div>
+          <div class="lab-row"><label>Transmission</label><input type="range" min="0" max="1" step="0.01" value="0.0" data-prop="material.transmission"><span class="lab-val">0.0</span></div>
+          <div class="lab-row"><label>IOR</label><input type="range" min="1" max="2.33" step="0.01" value="1.5" data-prop="material.ior"><span class="lab-val">1.5</span></div>
+          <div class="lab-row"><label>Thickness</label><input type="range" min="0" max="5" step="0.1" value="0.0" data-prop="material.thickness"><span class="lab-val">0.0</span></div>
           <div class="lab-row"><label>Clearcoat</label><input type="range" min="0" max="1" step="0.01" value="0" data-prop="material.clearcoat"><span class="lab-val">0</span></div>
           <div class="lab-row"><label>Opacity</label><input type="range" min="0" max="1" step="0.01" value="1" data-prop="material.opacity"><span class="lab-val">1</span></div>
-          <div class="lab-color-row"><label>Emissive</label><input type="color" data-prop="material.emissive" value="#000000"></div>
+          <div class="lab-color-row"><label>Emissive</label><div class="hex-input-wrap"><div class="hex-swatch" style="background:#000000"></div><input type="text" class="hex-color-input" data-prop="material.emissive" value="#000000" maxlength="9"></div></div>
           <div class="lab-row"><label>Em. Intensity</label><input type="range" min="0" max="3" step="0.05" value="0" data-prop="material.emissiveIntensity"><span class="lab-val">0</span></div>
           <div class="lab-toggle-row"><label>Wireframe puro</label><div class="lab-toggle" data-prop="material.wireframe"></div></div>
         </div>
@@ -1565,29 +1472,71 @@ body::after {
         <!-- WIREFRAME OVERLAY -->
         <div class="lab-section-block">
           <div class="lab-section-title"><span>Wireframe Overlay</span></div>
-          <div class="lab-toggle-row"><label>Visível</label><div class="lab-toggle on" data-prop="wire.visible"></div></div>
-          <div class="lab-color-row"><label>Cor das linhas</label><input type="color" data-prop="wire.color" value="#6633FF"></div>
+          <div class="lab-toggle-row"><label>Visível</label><div class="lab-toggle" data-prop="wire.visible"></div></div>
+          <div class="lab-color-row"><label>Cor das linhas</label><div class="hex-input-wrap"><div class="hex-swatch" style="background:#6633FF"></div><input type="text" class="hex-color-input" data-prop="wire.color" value="#6633FF" maxlength="9"></div></div>
           <div class="lab-row"><label>Opacidade</label><input type="range" min="0" max="1" step="0.01" value="0.15" data-prop="wire.opacity"><span class="lab-val">0.15</span></div>
         </div>
 
         <!-- LIGHTS -->
         <div class="lab-section-block">
-          <div class="lab-section-title"><span>Iluminação</span></div>
-          <div class="lab-color-row"><label>Luz 1 cor</label><input type="color" data-prop="lights.l1Color" value="#6633FF"></div>
-          <div class="lab-row"><label>Luz 1 força</label><input type="range" min="0" max="20" step="0.5" value="5" data-prop="lights.l1Intensity"><span class="lab-val">5</span></div>
-          <div class="lab-color-row"><label>Luz 2 cor</label><input type="color" data-prop="lights.l2Color" value="#ED694B"></div>
-          <div class="lab-row"><label>Luz 2 força</label><input type="range" min="0" max="20" step="0.5" value="5" data-prop="lights.l2Intensity"><span class="lab-val">5</span></div>
-          <div class="lab-row"><label>Ambiente</label><input type="range" min="0" max="2" step="0.05" value="0.1" data-prop="lights.ambient"><span class="lab-val">0.1</span></div>
+          <div class="lab-section-title"><span>Iluminação Principal (L1)</span></div>
+          <div class="lab-toggle-row"><label>Luz Pontual (Círculo)</label><div class="lab-toggle" data-prop="lights.l1Point"></div></div>
+          <div class="lab-color-row"><label>Cor Luz 1</label><div class="hex-input-wrap"><div class="hex-swatch" style="background:#ffffff"></div><input type="text" class="hex-color-input" data-prop="lights.l1Color" value="#ffffff" maxlength="9"></div></div>
+          <div class="lab-row"><label>Força Luz 1</label><input type="range" min="0" max="20" step="0.5" value="1.5" data-prop="lights.l1Intensity"><span class="lab-val">1.5</span></div>
+          <div class="lab-row"><label>Pos X L1</label><input type="range" min="-10" max="10" step="0.5" value="5" data-prop="lights.l1PosX"><span class="lab-val">5.0</span></div>
+          <div class="lab-row"><label>Pos Y L1</label><input type="range" min="-10" max="10" step="0.5" value="5" data-prop="lights.l1PosY"><span class="lab-val">5.0</span></div>
+          <div class="lab-row"><label>Pos Z L1</label><input type="range" min="-10" max="10" step="0.5" value="5" data-prop="lights.l1PosZ"><span class="lab-val">5.0</span></div>
+
+          <div class="lab-section-title" style="margin-top: 1rem;"><span>Iluminação Secundária (L2)</span></div>
+          <div class="lab-toggle-row"><label>Luz Pontual (Círculo)</label><div class="lab-toggle" data-prop="lights.l2Point"></div></div>
+          <div class="lab-color-row"><label>Cor Luz 2</label><div class="hex-input-wrap"><div class="hex-swatch" style="background:#1F0B85"></div><input type="text" class="hex-color-input" data-prop="lights.l2Color" value="#1F0B85" maxlength="9"></div></div>
+          <div class="lab-row"><label>Força Luz 2</label><input type="range" min="0" max="20" step="0.5" value="2.0" data-prop="lights.l2Intensity"><span class="lab-val">2.0</span></div>
+          <div class="lab-toggle-row"><label>Animar Órbita</label><div class="lab-toggle" data-prop="lights.l2Orbit"></div></div>
+          <div class="lab-row"><label>Pos X L2</label><input type="range" min="-10" max="10" step="0.5" value="-5" data-prop="lights.l2PosX"><span class="lab-val">-5.0</span></div>
+          <div class="lab-row"><label>Pos Y L2</label><input type="range" min="-10" max="10" step="0.5" value="-5" data-prop="lights.l2PosY"><span class="lab-val">-5.0</span></div>
+          <div class="lab-row"><label>Pos Z L2</label><input type="range" min="-10" max="10" step="0.5" value="2" data-prop="lights.l2PosZ"><span class="lab-val">2.0</span></div>
+
+          <div class="lab-section-title" style="margin-top: 1rem;"><span>Luz de Recorte (L3 - Rim Light)</span></div>
+          <div class="lab-toggle-row"><label>Luz Pontual (Círculo)</label><div class="lab-toggle" data-prop="lights.l3Point"></div></div>
+          <div class="lab-color-row"><label>Cor Luz 3</label><div class="hex-input-wrap"><div class="hex-swatch" style="background:#A390FF"></div><input type="text" class="hex-color-input" data-prop="lights.l3Color" value="#A390FF" maxlength="9"></div></div>
+          <div class="lab-row"><label>Força Luz 3</label><input type="range" min="0" max="20" step="0.5" value="1.5" data-prop="lights.l3Intensity"><span class="lab-val">1.5</span></div>
+          <div class="lab-row"><label>Pos X L3</label><input type="range" min="-10" max="10" step="0.5" value="-2" data-prop="lights.l3PosX"><span class="lab-val">-2.0</span></div>
+          <div class="lab-row"><label>Pos Y L3</label><input type="range" min="-10" max="10" step="0.5" value="3" data-prop="lights.l3PosY"><span class="lab-val">3.0</span></div>
+          <div class="lab-row"><label>Pos Z L3</label><input type="range" min="-10" max="10" step="0.5" value="-5" data-prop="lights.l3PosZ"><span class="lab-val">-5.0</span></div>
+
+          <div class="lab-section-title" style="margin-top: 1rem;"><span>Ambiente &amp; Sombras</span></div>
+          <div class="lab-toggle-row"><label>Ativar Sombras 3D</label><div class="lab-toggle on" data-prop="bg.shadows"></div></div>
+          <div class="lab-color-row"><label>Cor do Céu</label><div class="hex-input-wrap"><div class="hex-swatch" style="background:#ffffff"></div><input type="text" class="hex-color-input" data-prop="lights.hemiSky" value="#ffffff" maxlength="9"></div></div>
+          <div class="lab-color-row"><label>Cor do Chão</label><div class="hex-input-wrap"><div class="hex-swatch" style="background:#000000"></div><input type="text" class="hex-color-input" data-prop="lights.hemiGround" value="#000000" maxlength="9"></div></div>
+          <div class="lab-row"><label>Força Ambiente</label><input type="range" min="0" max="5" step="0.05" value="0.4" data-prop="lights.hemiIntensity"><span class="lab-val">0.4</span></div>
         </div>
 
         <!-- TRANSFORM / SHAPE -->
         <div class="lab-section-block">
           <div class="lab-section-title"><span>Forma / Transform</span></div>
+          <div class="lab-row"><label>Pos X</label><input type="range" min="-5" max="5" step="0.1" value="0" data-prop="transform.posX"><span class="lab-val">0.0</span></div>
+          <div class="lab-row"><label>Pos Y</label><input type="range" min="-5" max="5" step="0.1" value="0" data-prop="transform.posY"><span class="lab-val">0.0</span></div>
+          <div class="lab-row"><label>Pos Z</label><input type="range" min="-5" max="5" step="0.1" value="0" data-prop="transform.posZ"><span class="lab-val">0.0</span></div>
           <div class="lab-row"><label>Scale X</label><input type="range" min="0.1" max="3" step="0.05" value="1" data-prop="transform.scaleX"><span class="lab-val">1.0</span></div>
           <div class="lab-row"><label>Scale Y</label><input type="range" min="0.1" max="3" step="0.05" value="1" data-prop="transform.scaleY"><span class="lab-val">1.0</span></div>
           <div class="lab-row"><label>Scale Z</label><input type="range" min="0.1" max="3" step="0.05" value="1" data-prop="transform.scaleZ"><span class="lab-val">1.0</span></div>
           <div class="lab-row"><label>Tilt X°</label><input type="range" min="-180" max="180" step="1" value="0" data-prop="transform.rotX"><span class="lab-val">0°</span></div>
+          <div class="lab-row"><label>Tilt Y°</label><input type="range" min="-180" max="180" step="1" value="0" data-prop="transform.rotY"><span class="lab-val">0°</span></div>
           <div class="lab-row"><label>Tilt Z°</label><input type="range" min="-180" max="180" step="1" value="0" data-prop="transform.rotZ"><span class="lab-val">0°</span></div>
+        </div>
+
+        <!-- TEXTURA ASCII / MATRIX -->
+        <div class="lab-section-block">
+          <div class="lab-section-title"><span>Pós-Processamento (ASCII Canvas)</span></div>
+          <div class="lab-toggle-row"><label>Ativar Filtro</label><div class="lab-toggle" data-prop="ascii.enabled"></div></div>
+          <div class="lab-row-text"><label>Paleta ASCII</label><input type="text" data-prop="ascii.chars" value="❚|YFIBUH✦yfibuhd8"></div>
+          <div class="lab-color-row"><label>Cor Texto 1</label><div class="hex-input-wrap"><div class="hex-swatch" style="background:#00e676"></div><input type="text" class="hex-color-input" data-prop="ascii.color" value="#00e676" maxlength="9"></div></div>
+          <div class="lab-color-row"><label>Cor Texto 2</label><div class="hex-input-wrap"><div class="hex-swatch" style="background:#00e676"></div><input type="text" class="hex-color-input" data-prop="ascii.color2" value="#00e676" maxlength="9"></div></div>
+          <div class="lab-color-row"><label>Cor do Fundo</label><div class="hex-input-wrap"><div class="hex-swatch" style="background:#000000"></div><input type="text" class="hex-color-input" data-prop="ascii.bg" value="#000000" maxlength="9"></div></div>
+          <div class="lab-toggle-row"><label>Usar Cores da Cena</label><div class="lab-toggle" data-prop="ascii.sceneColor"></div></div>
+          <div class="lab-toggle-row"><label>Inverter Valores</label><div class="lab-toggle on" data-prop="ascii.invert"></div></div>
+          <div class="lab-toggle-row"><label>Fundo Transparente</label><div class="lab-toggle" data-prop="ascii.transparentBg"></div></div>
+          <div class="lab-row"><label>Resolução</label><input type="range" min="0.05" max="0.5" step="0.01" value="0.15" data-prop="ascii.resolution"><span class="lab-val">0.15</span></div>
         </div>
 
         <!-- MOVEMENT -->
@@ -1599,9 +1548,25 @@ body::after {
             <button class="lab-pill" data-static="breathe">Breathe</button>
             <button class="lab-pill" data-static="pendulum">Pendulum</button>
             <button class="lab-pill" data-static="quake">Quake</button>
+            <button class="lab-pill" data-static="glitch">Glitch</button>
+            <button class="lab-pill" data-static="orbit">Órbita</button>
+            <button class="lab-pill" data-static="custom">Personalizado</button>
             <button class="lab-pill" data-static="none">Parado</button>
           </div>
-          <div class="lab-row"><label>Velocidade</label><input type="range" min="0.1" max="3" step="0.1" value="1" data-prop="motion.speed"><span class="lab-val">1.0</span></div>
+          <div class="lab-row"><label>Velocidade Geral</label><input type="range" min="0.1" max="3" step="0.1" value="1" data-prop="motion.speed"><span class="lab-val">1.0</span></div>
+
+          <div class="custom-motion-block" id="customMotionBlock">
+            <span style="font-family:var(--font-mono); font-size:0.55rem; color:var(--cometa-light); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:4px;">Construtor de Movimento</span>
+            <div class="lab-row"><label>Giro X</label><input type="range" min="-2" max="2" step="0.1" value="0" data-prop="motion.customSpinX"><span class="lab-val">0.0</span></div>
+            <div class="lab-row"><label>Giro Y</label><input type="range" min="-2" max="2" step="0.1" value="1" data-prop="motion.customSpinY"><span class="lab-val">1.0</span></div>
+            <div class="lab-row"><label>Giro Z</label><input type="range" min="-2" max="2" step="0.1" value="0" data-prop="motion.customSpinZ"><span class="lab-val">0.0</span></div>
+            <div style="height:1px; background:var(--border); margin:4px 0;"></div>
+            <div class="lab-row"><label>Balanço X</label><input type="range" min="0" max="2" step="0.1" value="0" data-prop="motion.customWobbleX"><span class="lab-val">0.0</span></div>
+            <div class="lab-row"><label>Balanço Y</label><input type="range" min="0" max="2" step="0.1" value="0.5" data-prop="motion.customWobbleY"><span class="lab-val">0.5</span></div>
+            <div class="lab-row"><label>Balanço Z</label><input type="range" min="0" max="2" step="0.1" value="0" data-prop="motion.customWobbleZ"><span class="lab-val">0.0</span></div>
+            <div style="height:1px; background:var(--border); margin:4px 0;"></div>
+            <div class="lab-row"><label>Pulso Escala</label><input type="range" min="0" max="1" step="0.05" value="0" data-prop="motion.customPulse"><span class="lab-val">0.0</span></div>
+          </div>
         </div>
 
         <!-- HOVER -->
@@ -1620,15 +1585,15 @@ body::after {
         <!-- BACKGROUND / CAMERA -->
         <div class="lab-section-block">
           <div class="lab-section-title"><span>Cena</span></div>
-          <div class="lab-color-row"><label>Fundo</label><input type="color" data-prop="bg.color" value="#000019"></div>
-          <div class="lab-toggle-row"><label>Mostrar grid</label><div class="lab-toggle on" data-prop="bg.grid"></div></div>
+          <div class="lab-color-row"><label>Fundo</label><div class="hex-input-wrap"><div class="hex-swatch" style="background:#000000"></div><input type="text" class="hex-color-input" data-prop="bg.color" value="#000000" maxlength="9"></div></div>
+          <div class="lab-toggle-row"><label>Mostrar grid</label><div class="lab-toggle" data-prop="bg.grid"></div></div>
           <div class="lab-row"><label>Câmera Z</label><input type="range" min="2" max="10" step="0.1" value="4.5" data-prop="camera.distance"><span class="lab-val">4.5</span></div>
         </div>
 
         <!-- CODE -->
         <div class="lab-code-section">
           <div class="lab-code-header">
-            <span class="lab-section-title" style="margin-bottom:0">Código gerado (Three.js + GSAP)</span>
+            <span class="lab-section-title" style="margin-bottom:0">Código (Three.js + GSAP)</span>
             <button class="btn-copy" id="btnCopy3D"><i class="fi fi-rc-document"></i> Copiar</button>
           </div>
           <div class="lab-code-block" id="labCode"></div>
@@ -1651,11 +1616,6 @@ body::after {
 
     <div class="comp-grid">
       <aside class="comp-sidebar">
-        <button class="comp-mobile-trigger" id="compMobileTrigger" aria-expanded="false">
-          <span id="compMobileLabel">Escolher componente</span>
-          <span class="chev">▾</span>
-        </button>
-        <div class="comp-mobile-panel" id="compMobilePanel"></div>
         <h4>Átomos</h4>
         <ul id="nav-atoms"></ul>
         <h4>Moléculas</h4>
@@ -1765,7 +1725,7 @@ themeToggle.addEventListener('click', () => {
 })();
 
 /* ══════════════════════════════════════════════════════════
-   3. THREE.JS HERO — Ampulheta
+   3. THREE.JS HERO — Ampulheta (preserved as user wanted)
    ══════════════════════════════════════════════════════════ */
 let heroCamera, heroHourglass;
 (function initHero3D() {
@@ -2331,6 +2291,7 @@ document.fonts.ready.then(() => renderIcons());
     btn.addEventListener('click', () => { const idx = +btn.dataset.id - 1; if(FX[idx]) FX[idx].run(); });
   });
 
+  // Auto-play on view (staggered)
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -2338,94 +2299,223 @@ document.fonts.ready.then(() => renderIcons());
         obs.disconnect();
       }
     });
-  }, { threshold: 0, rootMargin: '-30% 0px -30% 0px' });
+  }, { threshold: 0.1 });
   obs.observe(gallery);
 })();
 
 /* ══════════════════════════════════════════════════════════
-   9. 3D KINETICS LAB — Full OBJ Builder
+   9. 3D KINETICS LAB — Full OBJ Builder (FastAsciiEffect + L1/L2/L3 + Hemisphere + Custom Motion)
    ══════════════════════════════════════════════════════════ */
 let labScene, labCamera, labRenderer, labObj, labMesh;
-let labMaterial, labLight1, labLight2, labAmbient, labGrid;
+let labMaterial, labLight1, labLight2, labLight3, labAmbient, labGrid;
 let labWireOverlay = null;
+let currentEffect = null;
 let labBaseScale = 1;
 let labMouseX = 0, labMouseY = 0;
 let labHovering = false;
+let labMediaType = 'obj';
+
+// CLASSE ASCII PERSONALIZADA ULTRA-RÁPIDA (CANVAS-BASED) COM PESOS DE FONTE VARIÁVEIS (WORK SANS)
+class FastAsciiEffect {
+  constructor(renderer, chars, options) {
+    this.renderer = renderer;
+    this.chars = chars || '❚|YFIBUH✦yfibuhd8';
+    this.options = options || {};
+    this.domElement = document.createElement('canvas');
+    this.ctx = this.domElement.getContext('2d', { alpha: false });
+    this.tempCanvas = document.createElement('canvas');
+    this.tempCtx = this.tempCanvas.getContext('2d', { willReadFrequently: true });
+    this.setSize(window.innerWidth, window.innerHeight);
+  }
+  setSize(w, h) {
+    this.width = w;
+    this.height = h;
+    this.renderer.setSize(w, h);
+    this.domElement.width = w;
+    this.domElement.height = h;
+  }
+  render(scene, camera) {
+    this.renderer.render(scene, camera);
+    const res = this.options.resolution || 0.15;
+    const cols = Math.max(2, Math.floor(this.width * res));
+    const rows = Math.max(2, Math.floor(this.height * res));
+    if (this.tempCanvas.width !== cols || this.tempCanvas.height !== rows) {
+      this.tempCanvas.width = cols;
+      this.tempCanvas.height = rows;
+    }
+    this.tempCtx.clearRect(0, 0, cols, rows);
+    this.tempCtx.drawImage(this.renderer.domElement, 0, 0, cols, rows);
+    const imgData = this.tempCtx.getImageData(0, 0, cols, rows).data;
+
+    if (this.options.transparentBg) {
+      this.ctx.clearRect(0, 0, this.width, this.height);
+    } else {
+      this.ctx.fillStyle = this.options.bg || '#000';
+      this.ctx.fillRect(0, 0, this.width, this.height);
+    }
+
+    const cellW = this.width / cols;
+    const cellH = this.height / rows;
+    const fontSize = Math.max(cellW, cellH) * 1.1;
+
+    this.ctx.textAlign = 'center';
+    this.ctx.textBaseline = 'middle';
+
+    const charArray = this.chars.split('');
+    if(charArray.length === 0) charArray.push('#');
+    const len = charArray.length;
+    const invert = this.options.invert;
+    const sceneColor = this.options.sceneColor;
+    let textColor = this.options.color || '#00e676';
+
+    if (!sceneColor && this.options.color2 && this.options.color !== this.options.color2) {
+      const grad = this.ctx.createLinearGradient(0, 0, this.width, this.height);
+      grad.addColorStop(0, this.options.color);
+      grad.addColorStop(1, this.options.color2);
+      textColor = grad;
+    }
+
+    // Agrupar caracteres por peso de fonte (100 a 900) — Work Sans é a única fonte com 9 pesos completos
+    const weightBuckets = { 100:[], 200:[], 300:[], 400:[], 500:[], 600:[], 700:[], 800:[], 900:[] };
+
+    let idx = 0;
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        const r = imgData[idx++];
+        const g = imgData[idx++];
+        const b = imgData[idx++];
+        const a = imgData[idx++];
+        if (a < 10) continue;
+
+        let brightness = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        if (invert) brightness = 1 - brightness;
+
+        const charIdx = Math.floor(brightness * len);
+        const char = charArray[Math.min(charIdx, len - 1)] || charArray[0];
+
+        let wIdx = Math.floor(brightness * 9);
+        if (wIdx > 8) wIdx = 8;
+        const weight = (wIdx + 1) * 100;
+
+        const color = sceneColor ? `rgb(${r},${g},${b})` : textColor;
+        weightBuckets[weight].push({ char: char, x: x * cellW + cellW / 2, y: y * cellH + cellH / 2, color: color });
+      }
+    }
+
+    for (let w = 100; w <= 900; w += 100) {
+      const bucket = weightBuckets[w];
+      if (bucket.length > 0) {
+        // IMPORTANTE: Work Sans é load-bearing aqui — não substituir pela fonte da DS
+        this.ctx.font = w + ' ' + fontSize + 'px "Work Sans", sans-serif';
+        if (!sceneColor) {
+          this.ctx.fillStyle = textColor;
+          for (let i = 0; i < bucket.length; i++) {
+            this.ctx.fillText(bucket[i].char, bucket[i].x, bucket[i].y);
+          }
+        } else {
+          for (let i = 0; i < bucket.length; i++) {
+            this.ctx.fillStyle = bucket[i].color;
+            this.ctx.fillText(bucket[i].char, bucket[i].x, bucket[i].y);
+          }
+        }
+      }
+    }
+  }
+}
 
 const labConfig = {
   preset: 'hero',
   material: {
-    color: '#111111', metalness: 0.2, roughness: 0.1,
-    transmission: 0.9, ior: 1.8, thickness: 2.0, clearcoat: 0,
+    color: '#3B22D4', metalness: 0.1, roughness: 0.55,
+    transmission: 0.0, ior: 1.5, thickness: 0.0, clearcoat: 0,
     opacity: 1.0, emissive: '#000000', emissiveIntensity: 0,
     wireframe: false
   },
-  wire: { visible: true, color: '#6633FF', opacity: 0.15 },
+  wire: { visible: false, color: '#6633FF', opacity: 0.15 },
   lights: {
-    l1Color: '#6633FF', l1Intensity: 5,
-    l2Color: '#ED694B', l2Intensity: 5,
-    ambient: 0.1
+    l1Color: '#ffffff', l1Intensity: 1.5, l1PosX: 5, l1PosY: 5, l1PosZ: 5, l1Point: false,
+    l2Color: '#1F0B85', l2Intensity: 2.0, l2Orbit: false, l2PosX: -5, l2PosY: -5, l2PosZ: 2, l2Point: false,
+    l3Color: '#A390FF', l3Intensity: 1.5, l3PosX: -2, l3PosY: 3, l3PosZ: -5, l3Point: false,
+    hemiSky: '#ffffff', hemiGround: '#000000', hemiIntensity: 0.4
   },
-  transform: { scaleX: 1, scaleY: 1, scaleZ: 1, rotX: 0, rotZ: 0 },
-  motion: { type: 'float', speed: 1 },
+  transform: { posX: 0, posY: 0, posZ: 0, scaleX: 1, scaleY: 1, scaleZ: 1, rotX: 0, rotY: 0, rotZ: 0 },
+  ascii: { enabled: false, chars: '❚|YFIBUH✦yfibuhd8', color: '#00e676', color2: '#00e676', bg: '#000000', transparentBg: false, sceneColor: false, invert: true, resolution: 0.15 },
+  motion: { type: 'float', speed: 1, customSpinX: 0, customSpinY: 1, customSpinZ: 0, customWobbleX: 0, customWobbleY: 0.5, customWobbleZ: 0, customPulse: 0 },
   hover: { type: 'magnetic', intensity: 1 },
-  bg: { color: '#000019', grid: true },
+  bg: { color: '#000000', grid: false, shadows: true },
   camera: { distance: 4.5 }
 };
 
-/* Hero replica preset values */
 const PRESETS = {
   hero: {
-    material: { color: '#111111', metalness: 0.2, roughness: 0.1, transmission: 0.9, ior: 1.8, thickness: 2.0, clearcoat: 0, opacity: 1.0, emissive: '#000000', emissiveIntensity: 0, wireframe: false },
-    wire: { visible: true, color: '#6633FF', opacity: 0.15 },
-    lights: { l1Color: '#6633FF', l1Intensity: 5, l2Color: '#ED694B', l2Intensity: 5, ambient: 0.1 },
+    material: { color: '#3B22D4', metalness: 0.1, roughness: 0.55, transmission: 0.0, ior: 1.5, thickness: 0.0, clearcoat: 0, opacity: 1.0, emissive: '#000000', emissiveIntensity: 0, wireframe: false },
+    wire: { visible: false, color: '#6633FF', opacity: 0.15 },
+    lights: { l1Color: '#ffffff', l1Intensity: 1.5, l1PosX: 5, l1PosY: 5, l1PosZ: 5, l1Point: false, l2Color: '#1F0B85', l2Intensity: 2.0, l2Orbit: false, l2PosX: -5, l2PosY: -5, l2PosZ: 2, l2Point: false, l3Color: '#A390FF', l3Intensity: 1.5, l3PosX: -2, l3PosY: 3, l3PosZ: -5, l3Point: false, hemiSky: '#ffffff', hemiGround: '#000000', hemiIntensity: 0.4 },
     motion: { type: 'float', speed: 1 },
     hover: { type: 'magnetic', intensity: 1 },
-    bg: { color: '#000019', grid: false }
+    bg: { color: '#000000', grid: false, shadows: true },
+    ascii: { enabled: false, chars: '❚|YFIBUH✦yfibuhd8', color: '#00e676', color2: '#00e676', bg: '#000000', transparentBg: false, sceneColor: false, invert: true, resolution: 0.15 }
   },
   metallic: {
     material: { color: '#6633FF', metalness: 0.95, roughness: 0.18, transmission: 0, ior: 1.5, thickness: 0, clearcoat: 1.0, opacity: 1.0, emissive: '#000000', emissiveIntensity: 0, wireframe: false },
     wire: { visible: false, color: '#6633FF', opacity: 0.15 },
-    lights: { l1Color: '#6633FF', l1Intensity: 8, l2Color: '#ED694B', l2Intensity: 6, ambient: 0.4 },
+    lights: { l1Color: '#6633FF', l1Intensity: 8, l1PosX: 2, l1PosY: 2, l1PosZ: 2, l1Point: true, l2Color: '#ED694B', l2Intensity: 6, l2Orbit: true, l2PosX: -2, l2PosY: -2, l2PosZ: 1, l2Point: true, l3Color: '#FFCE44', l3Intensity: 0, l3PosX: 0, l3PosY: 3, l3PosZ: -4, l3Point: true, hemiSky: '#ffffff', hemiGround: '#000000', hemiIntensity: 0.4 },
     motion: { type: 'spin', speed: 1 },
     hover: { type: 'tilt', intensity: 1 },
-    bg: { color: '#0a0a1e', grid: true }
+    bg: { color: '#0a0a1e', grid: true, shadows: false },
+    ascii: { enabled: false, chars: '❚|YFIBUH✦yfibuhd8', color: '#00e676', color2: '#00e676', bg: '#000000', transparentBg: false, sceneColor: false, invert: true, resolution: 0.15 }
   },
   wireframe: {
     material: { color: '#6633FF', metalness: 0, roughness: 0.5, transmission: 0, ior: 1.5, thickness: 0, clearcoat: 0, opacity: 0.85, emissive: '#000000', emissiveIntensity: 0, wireframe: true },
     wire: { visible: false, color: '#6633FF', opacity: 0.15 },
-    lights: { l1Color: '#6633FF', l1Intensity: 5, l2Color: '#ED694B', l2Intensity: 5, ambient: 0.4 },
+    lights: { l1Color: '#6633FF', l1Intensity: 5, l1PosX: 2, l1PosY: 2, l1PosZ: 2, l1Point: false, l2Color: '#ED694B', l2Intensity: 5, l2Orbit: true, l2PosX: -2, l2PosY: -2, l2PosZ: 1, l2Point: false, l3Color: '#00e676', l3Intensity: 0, l3PosX: 0, l3PosY: 3, l3PosZ: -4, l3Point: true, hemiSky: '#ffffff', hemiGround: '#222244', hemiIntensity: 0.6 },
     motion: { type: 'spin', speed: 1.5 },
     hover: { type: 'magnetic', intensity: 1 },
-    bg: { color: '#000019', grid: true }
+    bg: { color: '#000019', grid: true, shadows: false },
+    ascii: { enabled: false, chars: '❚|YFIBUH✦yfibuhd8', color: '#00e676', color2: '#00e676', bg: '#000000', transparentBg: false, sceneColor: false, invert: true, resolution: 0.15 }
   },
   holo: {
     material: { color: '#6633FF', metalness: 0.3, roughness: 0.4, transmission: 0.6, ior: 1.4, thickness: 1.0, clearcoat: 0, opacity: 0.85, emissive: '#6633FF', emissiveIntensity: 0.4, wireframe: false },
     wire: { visible: true, color: '#FFCE44', opacity: 0.25 },
-    lights: { l1Color: '#6633FF', l1Intensity: 6, l2Color: '#DADBFD', l2Intensity: 4, ambient: 0.3 },
-    motion: { type: 'breathe', speed: 1.2 },
+    lights: { l1Color: '#6633FF', l1Intensity: 6, l1PosX: 2, l1PosY: 2, l1PosZ: 2, l1Point: false, l2Color: '#DADBFD', l2Intensity: 4, l2Orbit: true, l2PosX: -2, l2PosY: -2, l2PosZ: 1, l2Point: false, l3Color: '#00e676', l3Intensity: 4, l3PosX: 0, l3PosY: 0, l3PosZ: -4, l3Point: true, hemiSky: '#ffffff', hemiGround: '#222244', hemiIntensity: 0.8 },
+    motion: { type: 'glitch', speed: 1.2 },
     hover: { type: 'glow', intensity: 1.5 },
-    bg: { color: '#000019', grid: false }
+    bg: { color: '#000019', grid: false, shadows: false },
+    ascii: { enabled: false, chars: '❚|YFIBUH✦yfibuhd8', color: '#00e676', color2: '#00e676', bg: '#000000', transparentBg: false, sceneColor: false, invert: true, resolution: 0.15 }
   },
   neon: {
-    material: { color: '#000000', metalness: 0.1, roughness: 0.3, transmission: 0, ior: 1.5, thickness: 0, clearcoat: 0, opacity: 1.0, emissive: '#6633FF', emissiveIntensity: 1.5, wireframe: false },
+    material: { color: '#00e676', metalness: 0.1, roughness: 0.3, transmission: 0, ior: 1.5, thickness: 0, clearcoat: 0, opacity: 1.0, emissive: '#00e676', emissiveIntensity: 0.5, wireframe: false },
     wire: { visible: false, color: '#6633FF', opacity: 0.15 },
-    lights: { l1Color: '#6633FF', l1Intensity: 3, l2Color: '#ED694B', l2Intensity: 3, ambient: 0.05 },
-    motion: { type: 'pendulum', speed: 1 },
+    lights: { l1Color: '#00e676', l1Intensity: 8, l1PosX: -5, l1PosY: 4, l1PosZ: 3, l1Point: false, l2Color: '#00e676', l2Intensity: 6, l2Orbit: false, l2PosX: 5, l2PosY: -4, l2PosZ: 2, l2Point: false, l3Color: '#ff00ff', l3Intensity: 10, l3PosX: 0, l3PosY: -3, l3PosZ: -4, l3Point: true, hemiSky: '#00e676', hemiGround: '#000000', hemiIntensity: 0.3 },
+    motion: { type: 'float', speed: 1 },
     hover: { type: 'glow', intensity: 1.8 },
-    bg: { color: '#000000', grid: false }
+    bg: { color: '#000000', grid: false, shadows: true },
+    ascii: { enabled: true, chars: '❚|YFIBUH✦yfibuhd8', color: '#00e676', color2: '#6633FF', bg: '#000000', transparentBg: true, sceneColor: false, invert: true, resolution: 0.18 }
   },
   crystal: {
     material: { color: '#DADBFD', metalness: 0.0, roughness: 0.0, transmission: 1.0, ior: 2.33, thickness: 1.5, clearcoat: 1.0, opacity: 1.0, emissive: '#000000', emissiveIntensity: 0, wireframe: false },
     wire: { visible: false, color: '#FFFFFF', opacity: 0.2 },
-    lights: { l1Color: '#FFFFFF', l1Intensity: 6, l2Color: '#FFCE44', l2Intensity: 4, ambient: 0.3 },
-    motion: { type: 'float', speed: 1 },
+    lights: { l1Color: '#FFFFFF', l1Intensity: 6, l1PosX: 2, l1PosY: 2, l1PosZ: 2, l1Point: true, l2Color: '#FFCE44', l2Intensity: 4, l2Orbit: true, l2PosX: -2, l2PosY: -2, l2PosZ: 1, l2Point: true, l3Color: '#DADBFD', l3Intensity: 8, l3PosX: 0, l3PosY: 4, l3PosZ: -3, l3Point: true, hemiSky: '#ffffff', hemiGround: '#444444', hemiIntensity: 0.6 },
+    motion: { type: 'orbit', speed: 1 },
     hover: { type: 'tilt', intensity: 1 },
-    bg: { color: '#0a0a1e', grid: true }
+    bg: { color: '#0a0a1e', grid: true, shadows: false },
+    ascii: { enabled: false, chars: '❚|YFIBUH✦yfibuhd8', color: '#00e676', color2: '#00e676', bg: '#000000', transparentBg: false, sceneColor: false, invert: true, resolution: 0.15 }
   }
 };
 
-function hexToInt(hex) { return parseInt(hex.replace('#',''), 16); }
+function hexToInt(hex) {
+  if(!hex) return 0x000000;
+  let h = hex.replace('#', '');
+  if (h.length === 3 || h.length === 4) h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+  return parseInt(h.substring(0, 6), 16) || 0;
+}
+
+function formatHexForCode(hex) {
+  if(!hex) return '000000';
+  let h = hex.replace('#', '');
+  if (h.length === 3 || h.length === 4) h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+  return h.substring(0, 6).toLowerCase();
+}
 
 function buildMaterial() {
   const m = labConfig.material;
@@ -2448,55 +2538,231 @@ function buildMaterial() {
 function buildCode() {
   const c = labConfig;
   const m = c.material;
+  const rX = (c.transform.rotX * Math.PI / 180).toFixed(3);
+  const rY = (c.transform.rotY * Math.PI / 180).toFixed(3);
+  const rZ = (c.transform.rotZ * Math.PI / 180).toFixed(3);
+
+  const matColor = formatHexForCode(m.color);
+  const emColor = formatHexForCode(m.emissive);
+  const wireColor = formatHexForCode(c.wire.color);
+  const l1Color = formatHexForCode(c.lights.l1Color);
+  const l2Color = formatHexForCode(c.lights.l2Color);
+  const l3Color = formatHexForCode(c.lights.l3Color);
+  const hemiSky = formatHexForCode(c.lights.hemiSky);
+  const hemiGround = formatHexForCode(c.lights.hemiGround);
+
   const motionBody = {
-    float: `obj.rotation.y += 0.005 * speed;\n  obj.position.y = Math.sin(t * 2 * speed) * 0.1;`,
-    spin: `obj.rotation.y += 0.012 * speed;`,
-    breathe: `const s = 1 + Math.sin(t * 3 * speed) * 0.05;\n  obj.scale.setScalar(s);\n  obj.rotation.y += 0.002 * speed;`,
-    pendulum: `obj.rotation.z = Math.sin(t * 1.5 * speed) * 0.4;\n  obj.position.x = Math.sin(t * 1.5 * speed) * 0.3;`,
-    quake: `obj.position.x = (Math.random()-.5) * 0.05;\n  obj.position.y = (Math.random()-.5) * 0.05;\n  obj.rotation.z = (Math.random()-.5) * 0.02;`,
+    float: `obj.rotation.y = ${rY} + (t * 0.3 * speed);
+obj.position.y = ${c.transform.posY} + Math.sin(t * 2 * speed) * 0.1;`,
+    spin: `obj.rotation.y = ${rY} + (t * 0.72 * speed);`,
+    breathe: `const s = 1 + Math.sin(t * 3 * speed) * 0.05;
+obj.scale.setScalar(baseScale * s);
+obj.rotation.y = ${rY} + (t * 0.12 * speed);`,
+    pendulum: `obj.rotation.z = ${rZ} + Math.sin(t * 1.5 * speed) * 0.4;
+obj.position.x = ${c.transform.posX} + Math.sin(t * 1.5 * speed) * 0.3;`,
+    quake: `obj.position.x = ${c.transform.posX} + (Math.random()-.5) * 0.05;
+obj.position.y = ${c.transform.posY} + (Math.random()-.5) * 0.05;
+obj.rotation.z = ${rZ} + (Math.random()-.5) * 0.02;`,
+    glitch: `if(Math.random() > 0.95) {
+  obj.position.x = ${c.transform.posX} + (Math.random() - 0.5) * 0.5 * speed;
+  obj.position.y = ${c.transform.posY} + (Math.random() - 0.5) * 0.5 * speed;
+  obj.rotation.z = ${rZ} + (Math.random() - 0.5) * 0.5 * speed;
+  obj.scale.setScalar(baseScale * (1 + (Math.random()-0.5)*0.5));
+} else {
+  obj.position.x = ${c.transform.posX};
+  obj.position.y = ${c.transform.posY};
+  obj.rotation.z = ${rZ};
+  obj.scale.setScalar(baseScale);
+}
+obj.rotation.y = ${rY} + (t * 0.2 * speed);`,
+    orbit: `obj.position.x = ${c.transform.posX} + Math.cos(t * speed) * 2;
+obj.position.z = ${c.transform.posZ} + Math.sin(t * speed) * 2;
+obj.rotation.y = ${rY} + (t * speed);`,
+    custom: `obj.rotation.x = ${rX} + (t * ${c.motion.customSpinX} * speed) + Math.sin(t * speed) * ${c.motion.customWobbleX};
+obj.rotation.y = ${rY} + (t * ${c.motion.customSpinY} * speed) + Math.sin(t * 1.3 * speed) * ${c.motion.customWobbleY};
+obj.rotation.z = ${rZ} + (t * ${c.motion.customSpinZ} * speed) + Math.sin(t * 1.7 * speed) * ${c.motion.customWobbleZ};
+const factor = 1 + Math.sin(t * 2 * speed) * ${c.motion.customPulse};
+obj.scale.setScalar(baseScale * factor);`,
     none: `// sem movimento`
   }[c.motion.type];
 
   const hoverBody = {
-    magnetic: `light1.position.x += (mX * 3 - light1.position.x) * 0.05 * intensity;\n  light1.position.y += (mY * 3 - light1.position.y) * 0.05 * intensity;\n  obj.rotation.x = mY * 0.2 * intensity;`,
-    tilt: `gsap.to(obj.rotation, { x: mY * 0.4 * intensity, y: mX * 0.4 * intensity, duration: 0.6 });`,
-    zoom: `wrapper.addEventListener('mouseenter', () => gsap.to(obj.scale, { x: 1.15, y: 1.15, z: 1.15, duration: .5 }));\nwrapper.addEventListener('mouseleave', () => gsap.to(obj.scale, { x: 1, y: 1, z: 1, duration: .5 }));`,
-    glow: `wrapper.addEventListener('mouseenter', () => {\n  gsap.to(light1, { intensity: ${c.lights.l1Intensity * 3}, duration: .5 });\n  gsap.to(light2, { intensity: ${c.lights.l2Intensity * 2.5}, duration: .5 });\n});\nwrapper.addEventListener('mouseleave', () => {\n  gsap.to(light1, { intensity: ${c.lights.l1Intensity}, duration: .5 });\n  gsap.to(light2, { intensity: ${c.lights.l2Intensity}, duration: .5 });\n});`,
+    magnetic: `light1.position.x += (mX * 3 - light1.position.x) * 0.05 * intensity;
+light1.position.y += (mY * 3 - light1.position.y) * 0.05 * intensity;
+obj.rotation.x = ${rX} + mY * 0.2 * intensity;
+${['none', 'spin'].includes(c.motion.type) ? `obj.rotation.y = ${rY} + mX * 0.4 * intensity;` : ''}`,
+    tilt: `gsap.to(obj.rotation, { x: ${rX} + mY * 0.4 * intensity, ${['none'].includes(c.motion.type) ? `y: ${rY} + mX * 0.4 * intensity,` : ''} duration: 0.6 });`,
+    zoom: `wrapper.addEventListener('mouseenter', () => gsap.to(obj.scale, { x: baseScale*1.15, y: baseScale*1.15, z: baseScale*1.15, duration: .5 }));
+wrapper.addEventListener('mouseleave', () => gsap.to(obj.scale, { x: baseScale, y: baseScale, z: baseScale, duration: .5 }));`,
+    glow: `wrapper.addEventListener('mouseenter', () => {
+  gsap.to(light1, { intensity: ${c.lights.l1Intensity * 3}, duration: .5 });
+  gsap.to(light2, { intensity: ${c.lights.l2Intensity * 2.5}, duration: .5 });
+});
+wrapper.addEventListener('mouseleave', () => {
+  gsap.to(light1, { intensity: ${c.lights.l1Intensity}, duration: .5 });
+  gsap.to(light2, { intensity: ${c.lights.l2Intensity}, duration: .5 });
+});`,
     none: `// sem hover`
   }[c.hover.type];
 
   const matBlock = m.wireframe
-    ? `const material = new THREE.MeshBasicMaterial({\n  color: 0x${m.color.slice(1)}, wireframe: true,\n  transparent: ${m.opacity < 1}, opacity: ${m.opacity}\n});`
-    : `const material = new THREE.MeshPhysicalMaterial({\n  color: 0x${m.color.slice(1)},\n  metalness: ${m.metalness}, roughness: ${m.roughness},\n  transmission: ${m.transmission}, ior: ${m.ior}, thickness: ${m.thickness},\n  clearcoat: ${m.clearcoat}, opacity: ${m.opacity},\n  transparent: ${m.opacity < 1 || m.transmission > 0},\n  emissive: 0x${m.emissive.slice(1)}, emissiveIntensity: ${m.emissiveIntensity}\n});`;
+    ? `const material = new THREE.MeshBasicMaterial({
+  color: 0x${matColor}, wireframe: true,
+  transparent: ${m.opacity < 1}, opacity: ${m.opacity}
+});`
+    : `const material = new THREE.MeshPhysicalMaterial({
+  color: 0x${matColor},
+  metalness: ${m.metalness}, roughness: ${m.roughness},
+  transmission: ${m.transmission}, ior: ${m.ior}, thickness: ${m.thickness},
+  clearcoat: ${m.clearcoat}, opacity: ${m.opacity},
+  transparent: ${m.opacity < 1 || m.transmission > 0},
+  emissive: 0x${emColor}, emissiveIntensity: ${m.emissiveIntensity}
+});`;
 
-  const wireBlock = c.wire.visible
-    ? `\n\n// Wireframe overlay\nconst wireMat = new THREE.LineBasicMaterial({ color: 0x${c.wire.color.slice(1)}, transparent: true, opacity: ${c.wire.opacity} });\ngroup.add(new THREE.LineSegments(new THREE.EdgesGeometry(geometry), wireMat));`
-    : '';
+  let loaderBlock = '';
+  if (labMediaType === 'obj') {
+    loaderBlock = `const loader = new THREE.OBJLoader();
+loader.load('seu_modelo.obj', (loadedObj) => {
+  loadedObj.traverse(child => {
+    if (child.isMesh) {
+      child.material = material;
+      if (child.geometry.computeVertexNormals) child.geometry.computeVertexNormals();
+      child.castShadow = ${c.bg.shadows};
+      child.receiveShadow = ${c.bg.shadows};
+      const wireMat = new THREE.LineBasicMaterial({ color: 0x${wireColor}, transparent: true, opacity: ${c.wire.opacity} });
+      const wire = new THREE.LineSegments(new THREE.EdgesGeometry(child.geometry), wireMat);
+      wire.visible = ${c.wire.visible && !c.material.wireframe};
+      loadedObj.add(wire);
+    }
+  });
+  const box = new THREE.Box3().setFromObject(loadedObj);
+  const center = box.getCenter(new THREE.Vector3());
+  loadedObj.position.sub(center);
+  baseScale = 3.5 / box.getSize(new THREE.Vector3()).length();
+  loadedObj.scale.set(baseScale, baseScale, baseScale);
+  obj = loadedObj;
+  group.add(obj);
+});`;
+  } else if (labMediaType === 'image') {
+    loaderBlock = `const texLoader = new THREE.TextureLoader();
+texLoader.load('sua_imagem.png', (tex) => {
+  material.map = tex;
+  material.needsUpdate = true;
+  const aspect = tex.image.width / tex.image.height;
+  const geo = new THREE.PlaneGeometry(2 * aspect, 2);
+  const mesh = new THREE.Mesh(geo, material);
+  mesh.castShadow = ${c.bg.shadows};
+  mesh.receiveShadow = ${c.bg.shadows};
+  const wireMat = new THREE.LineBasicMaterial({ color: 0x${wireColor}, transparent: true, opacity: ${c.wire.opacity} });
+  const wire = new THREE.LineSegments(new THREE.EdgesGeometry(geo), wireMat);
+  wire.visible = ${c.wire.visible && !c.material.wireframe};
+  mesh.add(wire);
+  baseScale = 3.0 / new THREE.Box3().setFromObject(mesh).getSize(new THREE.Vector3()).length();
+  mesh.scale.set(baseScale, baseScale, baseScale);
+  obj = mesh;
+  group.add(obj);
+});`;
+  } else if (labMediaType === 'video') {
+    loaderBlock = `const video = document.createElement('video');
+video.src = 'seu_video.mp4';
+video.crossOrigin = 'anonymous';
+video.loop = true; video.muted = true; video.play();
+video.addEventListener('loadedmetadata', () => {
+  const tex = new THREE.VideoTexture(video);
+  material.map = tex;
+  material.needsUpdate = true;
+  const aspect = video.videoWidth / video.videoHeight;
+  const geo = new THREE.PlaneGeometry(2 * aspect, 2);
+  const mesh = new THREE.Mesh(geo, material);
+  mesh.castShadow = ${c.bg.shadows};
+  mesh.receiveShadow = ${c.bg.shadows};
+  const wireMat = new THREE.LineBasicMaterial({ color: 0x${wireColor}, transparent: true, opacity: ${c.wire.opacity} });
+  const wire = new THREE.LineSegments(new THREE.EdgesGeometry(geo), wireMat);
+  wire.visible = ${c.wire.visible && !c.material.wireframe};
+  mesh.add(wire);
+  baseScale = 3.0 / new THREE.Box3().setFromObject(mesh).getSize(new THREE.Vector3()).length();
+  mesh.scale.set(baseScale, baseScale, baseScale);
+  obj = mesh;
+  group.add(obj);
+});`;
+  }
 
   return `// ═══ 8DH OBJ Builder — config exportada ═══
 
+// RENDERER & SOMBRAS
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = ${c.bg.shadows};
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
 // MATERIAL
-${matBlock}${wireBlock}
+${matBlock}
+
+// OBJETO / MIDIA
+let obj = new THREE.Group();
+const group = new THREE.Group();
+let baseScale = 1;
+scene.add(group);
+${loaderBlock}
 
 // LIGHTS
-const light1 = new THREE.PointLight(0x${c.lights.l1Color.slice(1)}, ${c.lights.l1Intensity}, 20);
-const light2 = new THREE.PointLight(0x${c.lights.l2Color.slice(1)}, ${c.lights.l2Intensity}, 20);
-scene.add(light1, light2, new THREE.AmbientLight(0xffffff, ${c.lights.ambient}));
+const light1 = ${c.lights.l1Point ? `new THREE.PointLight(0x${l1Color}, ${c.lights.l1Intensity}, 20)` : `new THREE.DirectionalLight(0x${l1Color}, ${c.lights.l1Intensity})`};
+light1.position.set(${c.lights.l1PosX}, ${c.lights.l1PosY}, ${c.lights.l1PosZ});
+light1.castShadow = ${c.bg.shadows};
+light1.shadow.mapSize.width = 1024;
+light1.shadow.mapSize.height = 1024;
+light1.shadow.bias = -0.001;
 
-// TRANSFORM
-obj.scale.set(${c.transform.scaleX} * baseScale, ${c.transform.scaleY} * baseScale, ${c.transform.scaleZ} * baseScale);
-obj.rotation.x = ${(c.transform.rotX * Math.PI / 180).toFixed(3)};
-obj.rotation.z = ${(c.transform.rotZ * Math.PI / 180).toFixed(3)};
+const light2 = ${c.lights.l2Point ? `new THREE.PointLight(0x${l2Color}, ${c.lights.l2Intensity}, 20)` : `new THREE.DirectionalLight(0x${l2Color}, ${c.lights.l2Intensity})`};
+${!c.lights.l2Orbit ? `light2.position.set(${c.lights.l2PosX}, ${c.lights.l2PosY}, ${c.lights.l2PosZ});` : ''}
+light2.castShadow = ${c.bg.shadows};
+
+const light3 = ${c.lights.l3Point ? `new THREE.PointLight(0x${l3Color}, ${c.lights.l3Intensity}, 20)` : `new THREE.DirectionalLight(0x${l3Color}, ${c.lights.l3Intensity})`};
+light3.position.set(${c.lights.l3PosX}, ${c.lights.l3PosY}, ${c.lights.l3PosZ});
+
+const ambientLight = new THREE.HemisphereLight(0x${hemiSky}, 0x${hemiGround}, ${c.lights.hemiIntensity});
+scene.add(light1, light2, light3, ambientLight);
+
+// TRANSFORM (Aplicado ao grupo pai)
+group.position.set(${c.transform.posX}, ${c.transform.posY}, ${c.transform.posZ});
+group.scale.set(${c.transform.scaleX}, ${c.transform.scaleY}, ${c.transform.scaleZ});
+group.rotation.set(${rX}, ${rY}, ${rZ});
 
 // CAMERA
 camera.position.z = ${c.camera.distance};
+
+${c.ascii.enabled ? `
+// CLASSE ASCII PERSONALIZADA ULTRA-RÁPIDA (CANVAS-BASED COM WORK SANS E PESOS VARIÁVEIS)
+// (cole aqui a definição da classe FastAsciiEffect — disponível no painel do Builder)
+const effect = new FastAsciiEffect(renderer, '${c.ascii.chars.replace(/'/g, "\\'")}', {
+  invert: ${c.ascii.invert},
+  sceneColor: ${c.ascii.sceneColor},
+  resolution: ${c.ascii.resolution},
+  bg: '${c.ascii.bg}',
+  color: '${c.ascii.color}',
+  color2: '${c.ascii.color2}',
+  transparentBg: ${c.ascii.transparentBg}
+});
+effect.setSize(window.innerWidth, window.innerHeight);
+
+document.body.style.backgroundColor = '${c.ascii.transparentBg ? 'transparent' : c.ascii.bg}';
+${c.ascii.transparentBg ? `document.body.style.backgroundImage = 'radial-gradient(circle at 50% 50%, rgba(102,51,255,.08), transparent 70%), linear-gradient(${c.bg.color}, ${c.bg.color})';` : `document.body.style.backgroundImage = 'none';`}
+
+document.body.appendChild(effect.domElement);
+` : `
+document.body.appendChild(renderer.domElement);
+`}
 
 // MOTION (loop) — "${c.motion.type}" @ speed ${c.motion.speed}
 const speed = ${c.motion.speed};
 function animate() {
   const t = clock.getElapsedTime();
-  ${motionBody}
-  renderer.render(scene, camera);
+  ${c.lights.l2Orbit ? `light2.position.x = Math.cos(t) * 2;
+light2.position.z = Math.sin(t) * 2 - 2;` : ''}
+  if(obj) {
+    ${motionBody}
+  }
+  ${c.ascii.enabled ? 'effect.render(scene, camera);' : 'renderer.render(scene, camera);'}
   requestAnimationFrame(animate);
 }
 
@@ -2506,72 +2772,191 @@ ${hoverBody}`;
 }
 
 function applyMaterialToMesh() {
-  if (!labObj) return;
+  if (!labMesh) return;
   labMaterial = buildMaterial();
-  labObj.traverse(c => { if (c.isMesh) c.material = labMaterial; });
-  if (labWireOverlay) {
-    labWireOverlay.visible = labConfig.wire.visible && !labConfig.material.wireframe;
-    labWireOverlay.material.color.setHex(hexToInt(labConfig.wire.color));
-    labWireOverlay.material.opacity = labConfig.wire.opacity;
-  }
+  labMesh.traverse(c => {
+    if (c.type === 'LineSegments') {
+      c.visible = labConfig.wire.visible && !labConfig.material.wireframe;
+      c.material.color.setHex(hexToInt(labConfig.wire.color));
+      c.material.opacity = labConfig.wire.opacity;
+    } else if (c.isMesh) {
+      c.material = labMaterial;
+    }
+  });
 }
 
 function applyLights() {
-  if (!labLight1) return;
-  labLight1.color.setHex(hexToInt(labConfig.lights.l1Color));
-  labLight1.intensity = labConfig.lights.l1Intensity;
-  labLight2.color.setHex(hexToInt(labConfig.lights.l2Color));
-  labLight2.intensity = labConfig.lights.l2Intensity;
-  labAmbient.intensity = labConfig.lights.ambient;
+  if (labLight1) labScene.remove(labLight1);
+  if (labLight2) labScene.remove(labLight2);
+  if (labLight3) labScene.remove(labLight3);
+  if (labAmbient) labScene.remove(labAmbient);
+
+  const c1 = hexToInt(labConfig.lights.l1Color);
+  const i1 = labConfig.lights.l1Intensity;
+  labLight1 = labConfig.lights.l1Point ? new THREE.PointLight(c1, i1, 20) : new THREE.DirectionalLight(c1, i1);
+  labLight1.position.set(labConfig.lights.l1PosX, labConfig.lights.l1PosY, labConfig.lights.l1PosZ);
+  labLight1.castShadow = labConfig.bg.shadows;
+  if(labConfig.bg.shadows) {
+    labLight1.shadow.mapSize.width = 1024;
+    labLight1.shadow.mapSize.height = 1024;
+    labLight1.shadow.bias = -0.001;
+  }
+  labScene.add(labLight1);
+
+  const c2 = hexToInt(labConfig.lights.l2Color);
+  const i2 = labConfig.lights.l2Intensity;
+  labLight2 = labConfig.lights.l2Point ? new THREE.PointLight(c2, i2, 20) : new THREE.DirectionalLight(c2, i2);
+  if(!labConfig.lights.l2Orbit) {
+    labLight2.position.set(labConfig.lights.l2PosX, labConfig.lights.l2PosY, labConfig.lights.l2PosZ);
+  }
+  labLight2.castShadow = labConfig.bg.shadows;
+  labScene.add(labLight2);
+
+  const c3 = hexToInt(labConfig.lights.l3Color);
+  const i3 = labConfig.lights.l3Intensity;
+  labLight3 = labConfig.lights.l3Point ? new THREE.PointLight(c3, i3, 20) : new THREE.DirectionalLight(c3, i3);
+  labLight3.position.set(labConfig.lights.l3PosX, labConfig.lights.l3PosY, labConfig.lights.l3PosZ);
+  labScene.add(labLight3);
+
+  const sky = hexToInt(labConfig.lights.hemiSky);
+  const ground = hexToInt(labConfig.lights.hemiGround);
+  const hInt = labConfig.lights.hemiIntensity;
+  labAmbient = new THREE.HemisphereLight(sky, ground, hInt);
+  labScene.add(labAmbient);
 }
 
 function applyTransform() {
-  if (!labObj) return;
+  if (!labMesh) return;
   const t = labConfig.transform;
-  if (labMesh) {
-    labMesh.scale.set(labBaseScale * t.scaleX, labBaseScale * t.scaleY, labBaseScale * t.scaleZ);
-  }
-  if (labWireOverlay) {
-    labWireOverlay.scale.set(labBaseScale * t.scaleX, labBaseScale * t.scaleY, labBaseScale * t.scaleZ);
-  }
+  labMesh.scale.set(labBaseScale * t.scaleX, labBaseScale * t.scaleY, labBaseScale * t.scaleZ);
 }
 
 function applyBg() {
-  const wrapper = document.querySelector('.lab-canvas-wrapper');
-  wrapper.style.background = `radial-gradient(circle at 50% 50%, rgba(102,51,255,.08), transparent 70%), ${labConfig.bg.color}`;
+  const wrapper = document.getElementById('lab-canvas-wrapper');
+  if(!labConfig.ascii.enabled) {
+    wrapper.style.background = `radial-gradient(circle at 50% 50%, rgba(102,51,255,.08), transparent 70%), ${labConfig.bg.color}`;
+  } else {
+    wrapper.style.background = labConfig.ascii.transparentBg ? `radial-gradient(circle at 50% 50%, rgba(102,51,255,.08), transparent 70%), ${labConfig.bg.color}` : labConfig.ascii.bg;
+  }
   if (labGrid) labGrid.visible = labConfig.bg.grid;
+
+  if (labRenderer) {
+    labRenderer.shadowMap.enabled = labConfig.bg.shadows;
+  }
+  applyLights();
+
+  if (labMesh) {
+    labMesh.traverse(child => {
+      if (child.isMesh) {
+        child.castShadow = labConfig.bg.shadows;
+        child.receiveShadow = labConfig.bg.shadows;
+      }
+    });
+  }
 }
 
 function applyCamera() {
   if (labCamera) labCamera.position.z = labConfig.camera.distance;
 }
 
+function updateAsciiEffect() {
+  const wrapper = document.getElementById('lab-canvas-wrapper');
+  wrapper.innerHTML = '';
+
+  if (labConfig.ascii.enabled) {
+    currentEffect = new FastAsciiEffect(labRenderer, labConfig.ascii.chars, {
+      invert: labConfig.ascii.invert,
+      sceneColor: labConfig.ascii.sceneColor,
+      resolution: labConfig.ascii.resolution,
+      bg: labConfig.ascii.bg,
+      color: labConfig.ascii.color,
+      color2: labConfig.ascii.color2,
+      transparentBg: labConfig.ascii.transparentBg
+    });
+    currentEffect.setSize(wrapper.clientWidth, wrapper.clientHeight);
+    wrapper.appendChild(currentEffect.domElement);
+  } else {
+    currentEffect = null;
+    labRenderer.setSize(wrapper.clientWidth, wrapper.clientHeight);
+    wrapper.appendChild(labRenderer.domElement);
+  }
+  applyBg();
+}
+
+function replaceLabMesh(newTarget, isPlane) {
+  while(labObj.children.length > 0) {
+    labObj.remove(labObj.children[0]);
+  }
+
+  let targetObj = newTarget;
+  if (newTarget.isMesh) {
+    targetObj = new THREE.Group();
+    targetObj.add(newTarget);
+  }
+
+  targetObj.traverse(child => {
+    if (child.isMesh) {
+      child.material = labMaterial;
+      if (!isPlane && child.geometry.computeVertexNormals) {
+        child.geometry.computeVertexNormals();
+      }
+      child.castShadow = labConfig.bg.shadows;
+      child.receiveShadow = labConfig.bg.shadows;
+
+      const wireMat = new THREE.LineBasicMaterial({
+        color: hexToInt(labConfig.wire.color),
+        transparent: true, opacity: labConfig.wire.opacity
+      });
+      const wire = new THREE.LineSegments(new THREE.EdgesGeometry(child.geometry), wireMat);
+      wire.visible = labConfig.wire.visible && !labConfig.material.wireframe;
+      targetObj.add(wire);
+    }
+  });
+
+  const box = new THREE.Box3().setFromObject(targetObj);
+  const center = box.getCenter(new THREE.Vector3());
+  targetObj.position.sub(center);
+
+  const size = box.getSize(new THREE.Vector3()).length();
+  labBaseScale = (isPlane ? 3.0 : 3.5) / size;
+
+  targetObj.scale.set(labBaseScale, labBaseScale, labBaseScale);
+
+  labMesh = targetObj;
+  labObj.add(labMesh);
+
+  applyTransform();
+  updateLabCode();
+}
+
 (function initLab3D() {
-  const canvas = document.getElementById('lab-canvas');
-  const wrapper = document.querySelector('.lab-canvas-wrapper');
-  labRenderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  const wrapper = document.getElementById('lab-canvas-wrapper');
+  if (!wrapper) return;
+  labRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   labRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  labRenderer.shadowMap.enabled = labConfig.bg.shadows;
+  labRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   function resizeLab() {
-    const rect = wrapper.getBoundingClientRect();
-    labRenderer.setSize(rect.width, rect.height);
-    if (labCamera) { labCamera.aspect = rect.width / rect.height; labCamera.updateProjectionMatrix(); }
+    const w = wrapper.clientWidth;
+    const h = wrapper.clientHeight;
+    if (labCamera) { labCamera.aspect = w / h; labCamera.updateProjectionMatrix(); }
+    if (currentEffect) {
+      currentEffect.setSize(w, h);
+    } else {
+      labRenderer.setSize(w, h);
+    }
   }
   window.addEventListener('resize', resizeLab);
 
   labScene = new THREE.Scene();
   labCamera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
   labCamera.position.z = labConfig.camera.distance;
+
+  updateAsciiEffect();
   resizeLab();
 
-  labLight1 = new THREE.PointLight(hexToInt(labConfig.lights.l1Color), labConfig.lights.l1Intensity, 20);
-  labLight1.position.set(2, 2, 2);
-  labScene.add(labLight1);
-  labLight2 = new THREE.PointLight(hexToInt(labConfig.lights.l2Color), labConfig.lights.l2Intensity, 20);
-  labLight2.position.set(-2, -2, 1);
-  labScene.add(labLight2);
-  labAmbient = new THREE.AmbientLight(0xffffff, labConfig.lights.ambient);
-  labScene.add(labAmbient);
+  applyLights();
 
   labGrid = new THREE.GridHelper(10, 20, 0x6633FF, 0x6633FF);
   labGrid.position.y = -2;
@@ -2586,29 +2971,7 @@ function applyCamera() {
 
   const loader = new THREE.OBJLoader();
   loader.load('https://raw.githubusercontent.com/Design-8DHubify/8dh/a1c0eca014e19014154669658ac5baef1d04cec0/Ampulheta-Final.obj', (obj) => {
-    obj.traverse(child => {
-      if (child.isMesh) {
-        child.material = labMaterial;
-        child.geometry.computeVertexNormals();
-        const wireMat = new THREE.LineBasicMaterial({
-          color: hexToInt(labConfig.wire.color),
-          transparent: true, opacity: labConfig.wire.opacity
-        });
-        labWireOverlay = new THREE.LineSegments(new THREE.EdgesGeometry(child.geometry), wireMat);
-        labObj.add(labWireOverlay);
-      }
-    });
-    const box = new THREE.Box3().setFromObject(obj);
-    const center = box.getCenter(new THREE.Vector3());
-    obj.position.sub(center);
-    if (labWireOverlay) labWireOverlay.position.sub(center);
-    labBaseScale = 3.5 / box.getSize(new THREE.Vector3()).length();
-    obj.scale.set(labBaseScale, labBaseScale, labBaseScale);
-    if (labWireOverlay) labWireOverlay.scale.set(labBaseScale, labBaseScale, labBaseScale);
-    labMesh = obj;
-    labObj.add(obj);
-    applyMaterialToMesh();
-    applyTransform();
+    replaceLabMesh(obj, false);
     applyBg();
   });
 
@@ -2617,27 +2980,27 @@ function applyCamera() {
     labMouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
     labMouseY = -((e.clientY - rect.top) / rect.height) * 2 + 1;
   });
+
   wrapper.addEventListener('mouseenter', () => {
     labHovering = true;
     const k = labConfig.hover.intensity;
     if (labConfig.hover.type === 'zoom' && labMesh) {
       gsap.to(labMesh.scale, { x: labBaseScale * labConfig.transform.scaleX * (1 + .15 * k), y: labBaseScale * labConfig.transform.scaleY * (1 + .15 * k), z: labBaseScale * labConfig.transform.scaleZ * (1 + .15 * k), duration: .5, ease: 'power3.out' });
-      if (labWireOverlay) gsap.to(labWireOverlay.scale, { x: labBaseScale * labConfig.transform.scaleX * (1 + .15 * k), y: labBaseScale * labConfig.transform.scaleY * (1 + .15 * k), z: labBaseScale * labConfig.transform.scaleZ * (1 + .15 * k), duration: .5 });
     }
     if (labConfig.hover.type === 'glow') {
-      gsap.to(labLight1, { intensity: labConfig.lights.l1Intensity * (2 + k), duration: .5 });
-      gsap.to(labLight2, { intensity: labConfig.lights.l2Intensity * (1.6 + k), duration: .5 });
+      if(labLight1) gsap.to(labLight1, { intensity: labConfig.lights.l1Intensity * (2 + k), duration: .5 });
+      if(labLight2) gsap.to(labLight2, { intensity: labConfig.lights.l2Intensity * (1.6 + k), duration: .5 });
     }
   });
+
   wrapper.addEventListener('mouseleave', () => {
     labHovering = false;
     if (labConfig.hover.type === 'zoom' && labMesh) {
       gsap.to(labMesh.scale, { x: labBaseScale * labConfig.transform.scaleX, y: labBaseScale * labConfig.transform.scaleY, z: labBaseScale * labConfig.transform.scaleZ, duration: .5, ease: 'power3.out' });
-      if (labWireOverlay) gsap.to(labWireOverlay.scale, { x: labBaseScale * labConfig.transform.scaleX, y: labBaseScale * labConfig.transform.scaleY, z: labBaseScale * labConfig.transform.scaleZ, duration: .5 });
     }
     if (labConfig.hover.type === 'glow') {
-      gsap.to(labLight1, { intensity: labConfig.lights.l1Intensity, duration: .5 });
-      gsap.to(labLight2, { intensity: labConfig.lights.l2Intensity, duration: .5 });
+      if(labLight1) gsap.to(labLight1, { intensity: labConfig.lights.l1Intensity, duration: .5 });
+      if(labLight2) gsap.to(labLight2, { intensity: labConfig.lights.l2Intensity, duration: .5 });
     }
     if (labConfig.hover.type === 'tilt' || labConfig.hover.type === 'magnetic') {
       gsap.to(labObj.rotation, { x: 0, duration: .8, ease: 'power3.out' });
@@ -2650,66 +3013,165 @@ function applyCamera() {
     const t = clock.getElapsedTime();
     const sp = labConfig.motion.speed;
     const baseRotX = labConfig.transform.rotX * Math.PI / 180;
+    const baseRotY = labConfig.transform.rotY * Math.PI / 180;
     const baseRotZ = labConfig.transform.rotZ * Math.PI / 180;
+    const baseX = labConfig.transform.posX;
+    const baseY = labConfig.transform.posY;
+    const baseZ = labConfig.transform.posZ;
 
-    if (labObj) {
-      if (!['pendulum', 'quake'].includes(labConfig.motion.type)) labObj.position.x = 0;
-      if (labConfig.motion.type === 'none') labObj.position.y = 0;
+    if (labObj && labMesh) {
+      labObj.position.set(baseX, baseY, baseZ);
 
       if (labConfig.motion.type === 'float') {
-        labObj.rotation.y += 0.005 * sp;
-        labObj.position.y = Math.sin(t * 2 * sp) * 0.1;
+        labObj.rotation.y = baseRotY + (t * 0.3 * sp);
+        labObj.position.y = baseY + Math.sin(t * 2 * sp) * 0.1;
       } else if (labConfig.motion.type === 'spin') {
-        labObj.rotation.y += 0.012 * sp;
-        labObj.position.y = 0;
+        labObj.rotation.y = baseRotY + (t * 0.72 * sp);
       } else if (labConfig.motion.type === 'breathe') {
-        if (labMesh && !labHovering) {
+        if (!labHovering) {
           const factor = 1 + Math.sin(t * 3 * sp) * 0.05;
           labMesh.scale.set(labBaseScale * labConfig.transform.scaleX * factor, labBaseScale * labConfig.transform.scaleY * factor, labBaseScale * labConfig.transform.scaleZ * factor);
-          if (labWireOverlay) labWireOverlay.scale.set(labBaseScale * labConfig.transform.scaleX * factor, labBaseScale * labConfig.transform.scaleY * factor, labBaseScale * labConfig.transform.scaleZ * factor);
         }
-        labObj.rotation.y += 0.002 * sp;
+        labObj.rotation.y = baseRotY + (t * 0.12 * sp);
       } else if (labConfig.motion.type === 'pendulum') {
         labObj.rotation.z = baseRotZ + Math.sin(t * 1.5 * sp) * 0.4;
-        labObj.position.x = Math.sin(t * 1.5 * sp) * 0.3;
-        labObj.position.y = 0;
+        labObj.position.x = baseX + Math.sin(t * 1.5 * sp) * 0.3;
+        labObj.rotation.y = baseRotY;
       } else if (labConfig.motion.type === 'quake') {
-        labObj.position.x = (Math.random() - .5) * 0.05;
-        labObj.position.y = (Math.random() - .5) * 0.05;
+        labObj.position.x = baseX + (Math.random() - .5) * 0.05;
+        labObj.position.y = baseY + (Math.random() - .5) * 0.05;
         labObj.rotation.z = baseRotZ + (Math.random() - .5) * 0.02;
+        labObj.rotation.y = baseRotY;
+      } else if (labConfig.motion.type === 'glitch') {
+        if(Math.random() > 0.95) {
+          labObj.position.x = baseX + (Math.random() - 0.5) * 0.5 * sp;
+          labObj.position.y = baseY + (Math.random() - 0.5) * 0.5 * sp;
+          labObj.rotation.z = baseRotZ + (Math.random() - 0.5) * 0.5 * sp;
+          if(!labHovering) labMesh.scale.setScalar(labBaseScale * labConfig.transform.scaleX * (1 + (Math.random()-0.5)*0.5));
+        } else {
+          labObj.position.x = baseX;
+          labObj.position.y = baseY;
+          labObj.rotation.z = baseRotZ;
+          if(!labHovering) labMesh.scale.set(labBaseScale * labConfig.transform.scaleX, labBaseScale * labConfig.transform.scaleY, labBaseScale * labConfig.transform.scaleZ);
+        }
+        labObj.rotation.y = baseRotY + (t * 0.2 * sp);
+      } else if (labConfig.motion.type === 'orbit') {
+        labObj.position.x = baseX + Math.cos(t * sp) * 2;
+        labObj.position.z = baseZ + Math.sin(t * sp) * 2;
+        labObj.rotation.y = baseRotY + (t * sp);
+      } else if (labConfig.motion.type === 'custom') {
+        labObj.rotation.x = baseRotX + (t * labConfig.motion.customSpinX * sp) + Math.sin(t * sp) * labConfig.motion.customWobbleX;
+        labObj.rotation.y = baseRotY + (t * labConfig.motion.customSpinY * sp) + Math.sin(t * 1.3 * sp) * labConfig.motion.customWobbleY;
+        labObj.rotation.z = baseRotZ + (t * labConfig.motion.customSpinZ * sp) + Math.sin(t * 1.7 * sp) * labConfig.motion.customWobbleZ;
+
+        if(!labHovering && labConfig.motion.customPulse > 0) {
+          const factor = 1 + Math.sin(t * 2 * sp) * labConfig.motion.customPulse;
+          labMesh.scale.set(labBaseScale * labConfig.transform.scaleX * factor, labBaseScale * labConfig.transform.scaleY * factor, labBaseScale * labConfig.transform.scaleZ * factor);
+        }
+      } else {
+        labObj.rotation.y = baseRotY;
       }
 
-      if (labConfig.motion.type !== 'pendulum' && labConfig.motion.type !== 'quake') labObj.rotation.z = baseRotZ;
-      if (!labHovering || (labConfig.hover.type !== 'magnetic' && labConfig.hover.type !== 'tilt')) labObj.rotation.x = baseRotX;
+      if (['float', 'spin', 'breathe', 'none'].includes(labConfig.motion.type)) labObj.rotation.z = baseRotZ;
+      if (!labHovering || (labConfig.hover.type !== 'magnetic' && labConfig.hover.type !== 'tilt')) {
+        if(!['custom'].includes(labConfig.motion.type)) labObj.rotation.x = baseRotX;
+      }
 
       if (labHovering) {
         const k = labConfig.hover.intensity;
         if (labConfig.hover.type === 'magnetic') {
-          labLight1.position.x += (labMouseX * 3 - labLight1.position.x) * 0.05 * k;
-          labLight1.position.y += (labMouseY * 3 - labLight1.position.y) * 0.05 * k;
+          if (labLight1) {
+            labLight1.position.x += (labMouseX * 3 - labLight1.position.x) * 0.05 * k;
+            labLight1.position.y += (labMouseY * 3 - labLight1.position.y) * 0.05 * k;
+          }
           labObj.rotation.x = baseRotX + labMouseY * 0.2 * k;
-          if (labConfig.motion.type === 'none' || labConfig.motion.type === 'spin') labObj.rotation.y = labMouseX * 0.4 * k;
+          if (labConfig.motion.type === 'none' || labConfig.motion.type === 'spin') labObj.rotation.y = baseRotY + labMouseX * 0.4 * k;
         } else if (labConfig.hover.type === 'tilt') {
           labObj.rotation.x = baseRotX + labMouseY * 0.4 * k;
-          if (labConfig.motion.type === 'none') labObj.rotation.y = labMouseX * 0.4 * k;
+          if (labConfig.motion.type === 'none') labObj.rotation.y = baseRotY + labMouseX * 0.4 * k;
         }
       } else {
-        if (labConfig.hover.type === 'magnetic') {
-          labLight1.position.x += (2 - labLight1.position.x) * 0.02;
-          labLight1.position.y += (2 - labLight1.position.y) * 0.02;
+        if (labConfig.hover.type === 'magnetic' && labLight1) {
+          labLight1.position.x += (labConfig.lights.l1PosX - labLight1.position.x) * 0.02;
+          labLight1.position.y += (labConfig.lights.l1PosY - labLight1.position.y) * 0.02;
         }
       }
 
-      labLight2.position.x = Math.cos(t) * 2;
-      labLight2.position.z = Math.sin(t) * 2 - 2;
+      if(labConfig.lights.l2Orbit && labLight2) {
+        labLight2.position.x = Math.cos(t) * 2;
+        labLight2.position.z = Math.sin(t) * 2 - 2;
+      }
     }
-    labRenderer.render(labScene, labCamera);
+
+    if (currentEffect) {
+      currentEffect.render(labScene, labCamera);
+    } else {
+      labRenderer.render(labScene, labCamera);
+    }
   }
   animateLab();
 })();
 
+// MEDIA UPLOAD
+(function initMediaUpload() {
+  const upl = document.getElementById('mediaUpload');
+  if (!upl) return;
+  upl.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const filename = file.name.toLowerCase();
+
+    if (filename.endsWith('.obj')) {
+      labMediaType = 'obj';
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const contents = evt.target.result;
+        const obj = new THREE.OBJLoader().parse(contents);
+        if(labMaterial && labMaterial.map) { labMaterial.map = null; labMaterial.needsUpdate = true; }
+        replaceLabMesh(obj, false);
+      };
+      reader.readAsText(file);
+    }
+    else if (file.type.startsWith('image/')) {
+      labMediaType = 'image';
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        const aspect = img.width / img.height;
+        const geo = new THREE.PlaneGeometry(2 * aspect, 2);
+        const tex = new THREE.TextureLoader().load(url);
+        labMaterial.map = tex;
+        labMaterial.needsUpdate = true;
+        const mesh = new THREE.Mesh(geo, labMaterial);
+        replaceLabMesh(mesh, true);
+      };
+      img.src = url;
+    }
+    else if (file.type.startsWith('video/')) {
+      labMediaType = 'video';
+      const url = URL.createObjectURL(file);
+      const video = document.createElement('video');
+      video.src = url;
+      video.crossOrigin = 'anonymous';
+      video.loop = true;
+      video.muted = true;
+      video.play();
+      video.addEventListener('loadedmetadata', () => {
+        const aspect = video.videoWidth / video.videoHeight;
+        const geo = new THREE.PlaneGeometry(2 * aspect, 2);
+        const tex = new THREE.VideoTexture(video);
+        labMaterial.map = tex;
+        labMaterial.needsUpdate = true;
+        const mesh = new THREE.Mesh(geo, labMaterial);
+        replaceLabMesh(mesh, true);
+      });
+    }
+  });
+})();
+
 const labCodeBlock = document.getElementById('labCode');
-function updateLabCode() { labCodeBlock.innerText = buildCode(); }
+function updateLabCode() { if(labCodeBlock) labCodeBlock.innerText = buildCode(); }
 
 function applyPreset(name) {
   const p = PRESETS[name];
@@ -2720,17 +3182,21 @@ function applyPreset(name) {
   Object.assign(labConfig.motion, p.motion);
   Object.assign(labConfig.hover, p.hover);
   Object.assign(labConfig.bg, p.bg);
+  if (p.ascii) {
+    Object.assign(labConfig.ascii, p.ascii);
+  } else {
+    labConfig.ascii = { enabled: false, chars: '❚|YFIBUH✦yfibuhd8', color: '#00e676', color2: '#00e676', bg: '#000000', transparentBg: false, sceneColor: false, invert: true, resolution: 0.15 };
+  }
   labConfig.preset = name;
   syncControlsFromConfig();
   applyMaterialToMesh();
   applyLights();
   applyBg();
+  updateAsciiEffect();
   updateLabCode();
 }
 
-function getNested(obj, path) {
-  return path.split('.').reduce((o, k) => o ? o[k] : undefined, obj);
-}
+function getNested(obj, path) { return path.split('.').reduce((o, k) => o ? o[k] : undefined, obj); }
 function setNested(obj, path, val) {
   const keys = path.split('.');
   const last = keys.pop();
@@ -2739,7 +3205,7 @@ function setNested(obj, path, val) {
 }
 
 function syncControlsFromConfig() {
-  document.querySelectorAll('[data-prop]').forEach(el => {
+  document.querySelectorAll('#labControls [data-prop]').forEach(el => {
     const path = el.dataset.prop;
     const val = getNested(labConfig, path);
     if (val === undefined) return;
@@ -2748,25 +3214,51 @@ function syncControlsFromConfig() {
     } else if (el.type === 'range') {
       el.value = val;
       const valEl = el.parentElement.querySelector('.lab-val');
-      if (valEl) valEl.textContent = el.dataset.prop.endsWith('rotX') || el.dataset.prop.endsWith('rotZ') ? val + '°' : (typeof val === 'number' ? val.toFixed(2).replace(/\.?0+$/, '') || '0' : val);
-    } else if (el.type === 'color') {
+      if (valEl) valEl.textContent = el.dataset.prop.endsWith('rotX') || el.dataset.prop.endsWith('rotY') || el.dataset.prop.endsWith('rotZ') || el.dataset.prop.endsWith('rotation') ? val + '°' : (typeof val === 'number' ? val.toFixed(2).replace(/\.?0+$/, '') || '0' : val);
+    } else if (el.classList.contains('hex-color-input')) {
+      el.value = val;
+      const swatch = el.previousElementSibling;
+      if (swatch && swatch.classList.contains('hex-swatch')) {
+        swatch.style.background = val;
+      }
+    } else if (el.type === 'text') {
       el.value = val;
     }
   });
-  document.querySelectorAll('.lab-pill[data-static]').forEach(b => b.classList.toggle('active', b.dataset.static === labConfig.motion.type));
-  document.querySelectorAll('.lab-pill[data-hover]').forEach(b => b.classList.toggle('active', b.dataset.hover === labConfig.hover.type));
-  document.querySelectorAll('.lab-pill[data-preset]').forEach(b => b.classList.toggle('active', b.dataset.preset === labConfig.preset));
+
+  const customBlock = document.getElementById('customMotionBlock');
+  if(customBlock) {
+    if(labConfig.motion.type === 'custom') {
+      customBlock.classList.add('active');
+    } else {
+      customBlock.classList.remove('active');
+    }
+  }
+
+  document.querySelectorAll('#labControls .lab-pill[data-static]').forEach(b => b.classList.toggle('active', b.dataset.static === labConfig.motion.type));
+  document.querySelectorAll('#labControls .lab-pill[data-hover]').forEach(b => b.classList.toggle('active', b.dataset.hover === labConfig.hover.type));
+  document.querySelectorAll('#labControls .lab-pill[data-preset]').forEach(b => b.classList.toggle('active', b.dataset.preset === labConfig.preset));
 }
 
-document.querySelectorAll('.lab-pill[data-preset]').forEach(btn => {
+document.querySelectorAll('#labControls .lab-pill[data-preset]').forEach(btn => {
   btn.addEventListener('click', () => applyPreset(btn.dataset.preset));
 });
 
-document.querySelectorAll('.lab-pill[data-static]').forEach(btn => {
+document.querySelectorAll('#labControls .lab-pill[data-static]').forEach(btn => {
   btn.addEventListener('click', (e) => {
-    document.querySelectorAll('.lab-pill[data-static]').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#labControls .lab-pill[data-static]').forEach(b => b.classList.remove('active'));
     e.currentTarget.classList.add('active');
     labConfig.motion.type = e.currentTarget.dataset.static;
+
+    const customBlock = document.getElementById('customMotionBlock');
+    if(customBlock) {
+      if(labConfig.motion.type === 'custom') {
+        customBlock.classList.add('active');
+      } else {
+        customBlock.classList.remove('active');
+      }
+    }
+
     if (labObj) {
       gsap.to(labObj.rotation, { x: 0, z: 0, duration: 0.5 });
       if (labMesh) gsap.to(labMesh.scale, { x: labBaseScale * labConfig.transform.scaleX, y: labBaseScale * labConfig.transform.scaleY, z: labBaseScale * labConfig.transform.scaleZ, duration: 0.5 });
@@ -2775,24 +3267,67 @@ document.querySelectorAll('.lab-pill[data-static]').forEach(btn => {
   });
 });
 
-document.querySelectorAll('.lab-pill[data-hover]').forEach(btn => {
+document.querySelectorAll('#labControls .lab-pill[data-hover]').forEach(btn => {
   btn.addEventListener('click', (e) => {
-    document.querySelectorAll('.lab-pill[data-hover]').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#labControls .lab-pill[data-hover]').forEach(b => b.classList.remove('active'));
     e.currentTarget.classList.add('active');
     labConfig.hover.type = e.currentTarget.dataset.hover;
-    gsap.to(labLight1, { intensity: labConfig.lights.l1Intensity, duration: .3 });
-    gsap.to(labLight2, { intensity: labConfig.lights.l2Intensity, duration: .3 });
+
+    if (labLight1) gsap.to(labLight1, { intensity: labConfig.lights.l1Intensity, duration: .3 });
+    if (labLight2) gsap.to(labLight2, { intensity: labConfig.lights.l2Intensity, duration: .3 });
+
     updateLabCode();
   });
 });
 
-document.querySelectorAll('input[type=range][data-prop]').forEach(el => {
+document.querySelectorAll('#labControls .hex-color-input[data-prop]').forEach(el => {
+  el.addEventListener('input', (e) => {
+    let val = e.target.value.toUpperCase();
+    if (!val.startsWith('#') && val.length > 0) val = '#' + val.replace(/#/g, '');
+    val = val.replace(/[^#0-9A-F]/g, '').substring(0, 9);
+    e.target.value = val;
+
+    const swatch = el.previousElementSibling;
+    if (swatch && swatch.classList.contains('hex-swatch')) {
+      swatch.style.background = val;
+    }
+
+    if (val.length === 4 || val.length === 5 || val.length === 7 || val.length === 9) {
+      setNested(labConfig, el.dataset.prop, val);
+
+      if (val.length === 9 || val.length === 5) {
+        const alphaHex = val.length === 9 ? val.substring(7, 9) : val.substring(4, 5) + val.substring(4, 5);
+        const alphaFloat = parseInt(alphaHex, 16) / 255;
+        const prop = el.dataset.prop;
+
+        if (prop === 'material.color' || prop === 'material.emissive') {
+          labConfig.material.opacity = alphaFloat;
+          const opSlider = document.querySelector('#labControls input[data-prop="material.opacity"]');
+          if (opSlider) { opSlider.value = alphaFloat; opSlider.nextElementSibling.textContent = alphaFloat.toFixed(2); }
+        } else if (prop === 'wire.color') {
+          labConfig.wire.opacity = alphaFloat;
+          const opSlider = document.querySelector('#labControls input[data-prop="wire.opacity"]');
+          if (opSlider) { opSlider.value = alphaFloat; opSlider.nextElementSibling.textContent = alphaFloat.toFixed(2); }
+        }
+      }
+
+      const cat = el.dataset.prop.split('.')[0];
+      if (cat === 'material' || cat === 'wire') applyMaterialToMesh();
+      else if (cat === 'lights') applyLights();
+      else if (cat === 'bg') applyBg();
+      else if (cat === 'ascii') updateAsciiEffect();
+      updateLabCode();
+    }
+  });
+});
+
+document.querySelectorAll('#labControls input[type=range][data-prop]').forEach(el => {
   el.addEventListener('input', () => {
     const v = parseFloat(el.value);
     setNested(labConfig, el.dataset.prop, v);
     const valEl = el.parentElement.querySelector('.lab-val');
     if (valEl) {
-      const isDeg = el.dataset.prop.endsWith('rotX') || el.dataset.prop.endsWith('rotZ');
+      const isDeg = el.dataset.prop.endsWith('rotX') || el.dataset.prop.endsWith('rotY') || el.dataset.prop.endsWith('rotZ') || el.dataset.prop.endsWith('rotation');
       valEl.textContent = isDeg ? Math.round(v) + '°' : (Math.round(v * 100) / 100);
     }
     const cat = el.dataset.prop.split('.')[0];
@@ -2800,41 +3335,46 @@ document.querySelectorAll('input[type=range][data-prop]').forEach(el => {
     else if (cat === 'lights') applyLights();
     else if (cat === 'transform') applyTransform();
     else if (cat === 'camera') applyCamera();
+    else if (cat === 'ascii') updateAsciiEffect();
     updateLabCode();
   });
 });
 
-document.querySelectorAll('input[type=color][data-prop]').forEach(el => {
+document.querySelectorAll('#labControls input[type=text]:not(.hex-color-input)[data-prop]').forEach(el => {
   el.addEventListener('input', () => {
     setNested(labConfig, el.dataset.prop, el.value);
     const cat = el.dataset.prop.split('.')[0];
-    if (cat === 'material' || cat === 'wire') applyMaterialToMesh();
-    else if (cat === 'lights') applyLights();
-    else if (cat === 'bg') applyBg();
+    if (cat === 'ascii') updateAsciiEffect();
     updateLabCode();
   });
 });
 
-document.querySelectorAll('.lab-toggle[data-prop]').forEach(el => {
+document.querySelectorAll('#labControls .lab-toggle[data-prop]').forEach(el => {
   el.addEventListener('click', () => {
     el.classList.toggle('on');
     setNested(labConfig, el.dataset.prop, el.classList.contains('on'));
     const cat = el.dataset.prop.split('.')[0];
     if (cat === 'material' || cat === 'wire') applyMaterialToMesh();
     else if (cat === 'bg') applyBg();
+    else if (cat === 'lights') applyLights();
+    else if (cat === 'ascii') updateAsciiEffect();
     updateLabCode();
   });
 });
 
-document.getElementById('labResetAll').addEventListener('click', () => applyPreset('hero'));
+const _btnReset = document.getElementById('labResetAll');
+if (_btnReset) _btnReset.addEventListener('click', () => applyPreset('hero'));
 
-document.getElementById('btnCopy3D').addEventListener('click', (e) => {
+const _btnCopy3D = document.getElementById('btnCopy3D');
+if (_btnCopy3D) _btnCopy3D.addEventListener('click', (e) => {
   copyToClipboard(buildCode(), "Código completo copiado!");
-  e.currentTarget.innerHTML = '<i class="fi fi-rc-check"></i> Copiado!';
-  setTimeout(() => e.currentTarget.innerHTML = '<i class="fi fi-rc-document"></i> Copiar', 2000);
+  const btn = e.currentTarget;
+  btn.innerHTML = '<i class="fi fi-rc-check"></i> Copiado!';
+  setTimeout(() => btn.innerHTML = '<i class="fi fi-rc-document"></i> Copiar', 2000);
 });
 
-document.getElementById('btnExportConfig').addEventListener('click', () => {
+const _btnExportConfig = document.getElementById('btnExportConfig');
+if (_btnExportConfig) _btnExportConfig.addEventListener('click', () => {
   const blob = new Blob([JSON.stringify(labConfig, null, 2)], { type: 'application/json' });
   const a = Object.assign(document.createElement('a'), {
     href: URL.createObjectURL(blob), download: '8dh-obj-config.json'
@@ -2843,95 +3383,12 @@ document.getElementById('btnExportConfig').addEventListener('click', () => {
   showToast("Config baixada!");
 });
 
+/* Initial */
 syncControlsFromConfig();
 updateLabCode();
-
 /* ══════════════════════════════════════════════════════════
    10. COMPONENT LIBRARY
    ══════════════════════════════════════════════════════════ */
-
-// 1. INJEÇÃO DO CSS PARA CORREÇÃO RESPONSIVA E NOVO MENU MOBILE
-document.head.insertAdjacentHTML('beforeend', `
-<style>
-/* Estilo dos cabeçalhos de categoria */
-.comp-cat-header {
-  font-family: var(--font-display);
-  font-size: 2.2rem;
-  font-weight: 400;
-  color: var(--text-pure);
-  margin: 2rem 0 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
-  scroll-margin-top: 140px; /* Compensa menus fixos */
-}
-.comp-mobile-nav { display: none; }
-
-@media (max-width: 992px) {
-  .comp-sidebar { display: none !important; } /* Esconde sidebar no mobile */
-  .comp-grid { grid-template-columns: 1fr; gap: 1rem; }
-
-  /* Novo Menu Horizontal Sticky para Mobile */
-  .comp-mobile-nav {
-    display: flex;
-    position: sticky;
-    top: 65px;
-    z-index: 100;
-    /*background: rgba(5, 5, 29, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);*/
-    padding: 0.75rem 5vw;
-    margin: 0 -5vw 1.5rem;
-    gap: 0.75rem;
-    overflow-x: auto;
-    scrollbar-width: none; /* Oculta scrollbar no Firefox */
-    -webkit-overflow-scrolling: touch;
-    /*border-bottom: 1px solid var(--border);*/
-    justify-content: center !important;
-  }
-  .comp-mobile-nav::-webkit-scrollbar { display: none; } /* Oculta scrollbar Chrome/Safari */
-  
-  .comp-mobile-nav a {
-     background: rgba(5, 5, 29, 0.5) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    white-space: nowrap;
-    padding: 0.5rem 1.25rem;
-    border-radius: var(--radius-pill);
-    border: 1px solid transparent;
-    transition: all 0.3s;
-    background: var(--bg-surface);
-  }
-  .comp-mobile-nav a.active {
-    background: var(--cometa-dim);
-    color: var(--cometa-light);
-    border-color: var(--cometa);
-  }
-
-  /* Ajustes de Responsividade dos Componentes Individuais */
-  .comp-cat-header { font-size: 1.8rem; margin-top: 1rem; scroll-margin-top: 130px; }
-  .comp-viewer { scroll-margin-top: 130px; margin-bottom: 1.5rem; }
-  .comp-preview { 
-    padding: 1.5rem 1rem !important; 
-    overflow-x: auto; /* Permite scroll em tabelas/sliders */
-  }
-  .comp-preview > div { 
-    max-width: 100% !important; /* Força cards e forms a caberem na tela */
-  }
-  .comp-preview > div.dropdown-comp { 
-    width: fit-content !important; /* Exceção para o dropdown não esticar */
-  }
-}
-</style>
-`);
-
-// 2. BANCO DE DADOS DE COMPONENTES
 const componentsData = [
   // ÁTOMOS
   { id: 'btn-primary', cat: 'Átomos', name: 'Botão Primário', html: `<button class="btn btn-primary">Ação Primária</button>`, usage: 'Ação principal da página. Use com moderação (máx 1-2 por tela).' },
@@ -2974,7 +3431,7 @@ const componentsData = [
   // ORGANISMOS
   { id: 'modal', cat: 'Organismos', name: 'Caixa de Diálogo (Modal)', html: `<div style="position:relative; width:100%; max-width:420px; background:var(--bg-surface-2); backdrop-filter:blur(28px); border:1px solid var(--border-strong); border-radius:var(--radius-lg); box-shadow:var(--shadow-2); padding:2rem; z-index:10;"><h3 style="font-family:var(--font-display); font-size:1.6rem; font-weight:400; margin-bottom:1rem;">Confirmar Ação</h3><p style="color:var(--text-muted); margin-bottom:2rem; font-size:0.9rem;">Tem certeza de que deseja excluir este log do sistema? Isso não pode ser desfeito.</p><div style="display:flex; justify-content:flex-end; gap:1rem;"><button class="btn btn-ghost">Cancelar</button><button class="btn btn-primary" style="background:var(--danger)">Excluir</button></div></div>`, usage: 'Interrompe o fluxo do usuário para entrada crítica.' },
   { id: 'navbar', cat: 'Organismos', name: 'Barra de Navegação', html: `<div style="width:100%; display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; background:var(--bg-surface-2); backdrop-filter:blur(20px); border:1px solid var(--border); border-radius:50px;"><div style="font-weight:bold; color:var(--cometa-light); font-family:var(--font-display); font-size:1.1rem">8D HUB</div><div style="display:flex; gap:1.5rem; font-size:0.85rem;"><a href="#" style="color:var(--text-pure); text-decoration:none;">Painel</a><a href="#" style="color:var(--text-muted); text-decoration:none;">Análises</a></div><button class="btn btn-outline" style="padding:0.5rem 1rem;">Sair</button></div>`, usage: 'Navegação de página de nível superior.' },
-  { id: 'data-table', cat: 'Organismos', name: 'Tabela de Dados', html: `<div style="width:100%; overflow-x:auto;"><table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.9rem; min-width:400px;"><tr style="border-bottom:1px solid var(--border);"><th style="padding:1rem; color:var(--text-muted); font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em">ID</th><th style="padding:1rem; color:var(--text-muted); font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em">STATUS</th><th style="padding:1rem; color:var(--text-muted); font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em">AÇÃO</th></tr><tr style="border-bottom:1px solid var(--border);"><td style="padding:1rem; font-family:var(--font-mono)">#8D-01</td><td style="padding:1rem;"><span class="badge">Ativo</span></td><td style="padding:1rem;"><a href="#" style="color:var(--cometa-light);">Editar</a></td></tr><tr><td style="padding:1rem; font-family:var(--font-mono)">#8D-02</td><td style="padding:1rem;"><span class="badge" style="background:rgba(255,74,74,0.1); color:var(--danger); border-color:rgba(255,74,74,0.3);">Falha</span></td><td style="padding:1rem;"><a href="#" style="color:var(--cometa-light);">Tentar</a></td></tr></table></div>`, usage: 'Exibição de conjuntos de dados estruturados. Embrulhado em div com scroll horizontal para mobile.' },
+  { id: 'data-table', cat: 'Organismos', name: 'Tabela de Dados', html: `<table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.9rem;"><tr style="border-bottom:1px solid var(--border);"><th style="padding:1rem; color:var(--text-muted); font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em">ID</th><th style="padding:1rem; color:var(--text-muted); font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em">STATUS</th><th style="padding:1rem; color:var(--text-muted); font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em">AÇÃO</th></tr><tr style="border-bottom:1px solid var(--border);"><td style="padding:1rem; font-family:var(--font-mono)">#8D-01</td><td style="padding:1rem;"><span class="badge">Ativo</span></td><td style="padding:1rem;"><a href="#" style="color:var(--cometa-light);">Editar</a></td></tr><tr><td style="padding:1rem; font-family:var(--font-mono)">#8D-02</td><td style="padding:1rem;"><span class="badge" style="background:rgba(255,74,74,0.1); color:var(--danger); border-color:rgba(255,74,74,0.3);">Falha</span></td><td style="padding:1rem;"><a href="#" style="color:var(--cometa-light);">Tentar</a></td></tr></table>`, usage: 'Exibição de conjuntos de dados estruturados.' },
   { id: 'hero-banner', cat: 'Organismos', name: 'Banner Principal', html: `<div style="width:100%; padding:4rem 2rem; background:radial-gradient(circle at top right, rgba(102,51,255,0.25), transparent), var(--bg-surface-2); border-radius:var(--radius-lg); text-align:center; border: 1px solid var(--border);"><h2 style="font-family:var(--font-display); font-size:2rem; font-weight:400; letter-spacing:-.02em">Bem-vindo ao Sistema</h2><p style="color:var(--text-muted); margin:1rem auto 2rem; max-width:400px;">Inicialize sua presença digital com nossas ferramentas autônomas.</p><button class="btn btn-primary">Começar Agora</button></div>`, usage: 'Introdução proeminente da página.' },
   { id: 'footer-simple', cat: 'Organismos', name: 'Rodapé Simples', html: `<div style="width:100%; padding:2rem; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono); letter-spacing:.08em"><span>© 2025 8D HUBIFY</span><div style="display:flex; gap:1rem;"><a href="#" style="color:var(--text-muted); text-decoration:none;">PRIVACIDADE</a><a href="#" style="color:var(--text-muted); text-decoration:none;">TERMOS</a></div></div>`, usage: 'Metadados e links da parte inferior da página.' },
   { id: 'carousel', cat: 'Organismos', name: 'Carrossel com Controles', html: `<div class="carousel-comp" style="width:100%;max-width:480px;position:relative"><div class="carousel-track" style="display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0;scrollbar-width:none">${['#6633FF','#ED694B','#FFCE44','#DADBFD'].map((c,i)=>`<div style="flex:0 0 100%;scroll-snap-align:center;height:200px;border-radius:var(--radius-md);background:linear-gradient(135deg,${c},rgba(0,0,0,.4));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:3rem;font-weight:400;color:#fff;letter-spacing:-.03em">Slide ${i+1}</div>`).join('')}</div><div style="display:flex;justify-content:center;gap:6px;margin-top:.85rem">${[0,1,2,3].map((i)=>`<div style="width:${i===0?'24px':'8px'};height:8px;border-radius:9999px;background:${i===0?'var(--cometa)':'rgba(255,255,255,.2)'};transition:all .3s"></div>`).join('')}</div><style>.carousel-track::-webkit-scrollbar{display:none}</style></div>`, usage: 'Carrossel horizontal com snap-scroll nativo + indicadores de página.' },
@@ -2996,46 +3453,13 @@ const navAtoms = document.getElementById('nav-atoms');
 const navMolecules = document.getElementById('nav-molecules');
 const navOrganisms = document.getElementById('nav-organisms');
 
-// Remove possíveis gatilhos do menu dropdown antigo (se tiverem sobrado no HTML)
-const oldTrigger = document.getElementById('compMobileTrigger');
-const oldPanel = document.getElementById('compMobilePanel');
-if(oldTrigger) oldTrigger.remove();
-if(oldPanel) oldPanel.remove();
-
-// Cria o Novo Menu Mobile (Pílulas Horizontais)
-const mobileNav = document.createElement('nav');
-mobileNav.className = 'comp-mobile-nav';
-mobileNav.id = 'compMobileNav';
-mobileNav.innerHTML = `
-  <a href="#cat-atomos" class="active">Átomos</a>
-  <a href="#cat-moleculas">Moléculas</a>
-  <a href="#cat-organismos">Organismos</a>
-`;
-compContainer.appendChild(mobileNav);
-
-let currentCat = '';
-
-// Gera os componentes e os Headers de Categorias
 componentsData.forEach(comp => {
-  // Sidebar Desktop
   const li = document.createElement('li');
   li.innerHTML = `<a href="#${comp.id}">${comp.name}</a>`;
   if(comp.cat === 'Átomos') navAtoms.appendChild(li);
   if(comp.cat === 'Moléculas') navMolecules.appendChild(li);
   if(comp.cat === 'Organismos') navOrganisms.appendChild(li);
 
-  // Cabeçalhos de Categoria (aparecem no fluxo principal)
-  if (comp.cat !== currentCat) {
-    currentCat = comp.cat;
-    const catId = 'cat-' + comp.cat.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    const catHeader = document.createElement('h3');
-    catHeader.className = 'comp-cat-header';
-    catHeader.id = catId;
-    catHeader.innerHTML = `${comp.cat}`;
-    compContainer.appendChild(catHeader);
-  }
-
-  // Bloco do Componente
   const block = document.createElement('div');
   block.className = 'comp-viewer glass-panel';
   block.id = comp.id;
@@ -3045,62 +3469,15 @@ componentsData.forEach(comp => {
       <p><strong style="color:var(--text-soft)">Uso:</strong> ${comp.usage}</p>
     </div>
     <div class="comp-preview">${comp.html}</div>
-    <div class="comp-code-wrap" data-comp-id="${comp.id}">
-      <button class="code-toggle" data-toggle-code aria-expanded="false">
-        <span><i class="fi fi-rc-angle-small-down chev" style="margin-right:.4rem;font-size:.9rem;vertical-align:-2px"></i>Ver código</span>
-        <span class="copy-inline" data-copy-html><i class="fi fi-rc-document"></i> Copiar</span>
-      </button>
-      <div class="comp-code"><code>${highlightHtml(comp.html)}</code></div>
+    <div class="comp-code">
+      <button class="btn-copy" style="float: right; margin-bottom: 10px;" onclick="copyToClipboard(\`${comp.html.replace(/`/g, '\\`').replace(/"/g, '&quot;')}\`, 'Componente copiado!')"><i class="fi fi-rc-document"></i> Copiar</button>
+      <div style="clear:both;"></div>
+      <code>${highlightHtml(comp.html)}</code>
     </div>
   `;
   compContainer.appendChild(block);
-
-  // Funcionalidade de Expansão de Código
-  const wrap = block.querySelector('.comp-code-wrap');
-  const toggle = block.querySelector('[data-toggle-code]');
-  const codeEl = block.querySelector('.comp-code');
-  const copyBtn = block.querySelector('[data-copy-html]');
-
-  toggle.addEventListener('click', (e) => {
-    if (e.target.closest('[data-copy-html]')) return; 
-    const isOpen = wrap.classList.toggle('expanded');
-    codeEl.classList.toggle('expanded', isOpen);
-    toggle.classList.toggle('open', isOpen);
-    toggle.setAttribute('aria-expanded', isOpen);
-    toggle.querySelector('span:first-child').innerHTML =
-      `<i class="fi fi-rc-angle-small-down chev" style="margin-right:.4rem;font-size:.9rem;vertical-align:-2px;transform:${isOpen?'rotate(180deg)':'rotate(0)'};display:inline-block;transition:transform .3s"></i>${isOpen ? 'Ocultar código' : 'Ver código'}`;
-  });
-
-  copyBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    copyToClipboard(comp.html, 'Componente copiado!');
-    copyBtn.innerHTML = '<i class="fi fi-rc-check"></i> Copiado!';
-    copyBtn.classList.add('copied');
-    setTimeout(() => {
-      copyBtn.innerHTML = '<i class="fi fi-rc-document"></i> Copiar';
-      copyBtn.classList.remove('copied');
-    }, 2000);
-  });
 });
 
-/* ── OBSERVER: MENU MOBILE (SCROLLSPY) ── */
-const catObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      document.querySelectorAll('.comp-mobile-nav a').forEach(a => a.classList.remove('active'));
-      const activeLink = document.querySelector(`.comp-mobile-nav a[href="#${entry.target.id}"]`);
-      if(activeLink) {
-        activeLink.classList.add('active');
-        // Centraliza o link ativo no scroll horizontal da barra
-        activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      }
-    }
-  });
-}, { rootMargin: '-20% 0px -70% 0px' });
-
-document.querySelectorAll('.comp-cat-header').forEach(h => catObserver.observe(h));
-
-/* ── OBSERVER: SIDEBAR DESKTOP ── */
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -3112,7 +3489,7 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.5 });
 document.querySelectorAll('.comp-viewer').forEach(viewer => observer.observe(viewer));
 
-/* Funcionalidade do componente nativo de Abas (Tabs) */
+/* Tab component interactivity */
 document.querySelectorAll('.tabs-comp [role="tablist"]').forEach(list => {
   list.addEventListener('click', e => {
     if (!e.target.matches('.tab-btn')) return;
@@ -3132,7 +3509,7 @@ document.querySelectorAll('.tabs-comp [role="tablist"]').forEach(list => {
    ══════════════════════════════════════════════════════════ */
 gsap.registerPlugin(ScrollTrigger);
 
-// 1. Progress bar
+// 1. Progress bar tied to entire #scroll-fx section
 gsap.to('#sd1-fill', {
   width: '100%',
   ease: 'none',
@@ -3142,12 +3519,12 @@ gsap.to('#sd1-fill', {
   }
 });
 
-// 2. Scrub stagger
+// 2. Scrub stagger — bars fill on scroll
 gsap.fromTo('.sd2-dot',
   { scaleY: 0.2, opacity: 0.3, transformOrigin: 'bottom' },
   {
     scaleY: 1, opacity: 1, stagger: 0.1, ease: 'none',
-    scrollTrigger: { trigger: '#sd2', start: 'top 70%', end: 'center 40%', scrub: true }
+    scrollTrigger: { trigger: '#sd2', start: 'top 80%', end: 'top 30%', scrub: true }
   }
 );
 
@@ -3156,7 +3533,7 @@ const counterObj = { v: 0 };
 gsap.to(counterObj, {
   v: 1000, ease: 'none',
   scrollTrigger: {
-    trigger: '#sd3', start: 'top 70%', end: 'center 40%', scrub: true,
+    trigger: '#sd3', start: 'top 80%', end: 'top 20%', scrub: true,
     onUpdate: () => document.getElementById('sd3-num').textContent = Math.floor(counterObj.v).toLocaleString()
   }
 });
@@ -3170,12 +3547,11 @@ document.querySelectorAll('.sd4-layer').forEach(el => {
   });
 });
 
-// 5. Pin & reveal
+// 5. Pin & reveal — text changes through pin
 const sd5Stage = document.getElementById('sd5-stage');
 const sd5Text = document.getElementById('sd5-text');
 ScrollTrigger.create({
   trigger: '#sd5', start: 'top center', end: '+=400', scrub: true,
-  pin: true,
   onUpdate: self => {
     const p = self.progress;
     if (p < 0.33) { sd5Text.textContent = '8D'; sd5Text.style.color = 'var(--cometa)'; }
@@ -3186,7 +3562,7 @@ ScrollTrigger.create({
 });
 
 /* ══════════════════════════════════════════════════════════
-   12. SCROLL OBJ — Duas ampulhetas atreladas ao scroll
+   12. SCROLL OBJ — Two hourglasses tied to scroll
    ══════════════════════════════════════════════════════════ */
 function initScrollHourglass(canvasId, sectionId, mode) {
   const canvas = document.getElementById(canvasId);
@@ -3225,8 +3601,6 @@ function initScrollHourglass(canvasId, sectionId, mode) {
     baseScale = 4 / box.getSize(new THREE.Vector3()).length();
     obj.scale.set(baseScale, baseScale, baseScale);
     objGroup.add(obj);
-    // Força recálculo do GSAP após carregamento do OBJ
-    ScrollTrigger.refresh();
   });
 
   let scrollProgress = 0;
@@ -3239,10 +3613,12 @@ function initScrollHourglass(canvasId, sectionId, mode) {
     requestAnimationFrame(animate);
     if (objGroup.children.length > 0) {
       if (mode === 'rotation') {
+        // Mode 1: rotate fully on Y + tilt on Z based on scroll
         objGroup.rotation.y = scrollProgress * Math.PI * 4;
         objGroup.rotation.z = scrollProgress * Math.PI * 0.3;
         objGroup.position.y = (0.5 - scrollProgress) * 0.6;
       } else if (mode === 'scaleopacity') {
+        // Mode 2: scale + material opacity tied to scroll
         const s = baseScale * (0.6 + scrollProgress * 0.8);
         objGroup.scale.setScalar(s);
         material.opacity = 0.3 + scrollProgress * 0.7;
@@ -3263,22 +3639,21 @@ initScrollHourglass('hourglassScrollCanvas2', 'objScroll2', 'scaleopacity');
    13. SCROLL REVEALS (site-wide)
    ══════════════════════════════════════════════════════════ */
 
-/* Triggers configurados para "top 85%" - fluidez extra no mobile */
 gsap.utils.toArray('.section-header').forEach(head => {
   gsap.from(head.querySelectorAll('.section-eyebrow, .section-title, .section-desc'), {
     y: 40, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.12,
-    scrollTrigger: { trigger: head, start: 'top 85%', toggleActions: 'play none none reverse' }
+    scrollTrigger: { trigger: head, start: 'top 82%', toggleActions: 'play none none reverse' }
   });
   gsap.from(head.querySelector('.section-num-bg'), {
     y: 80, opacity: 0, duration: 1.4, ease: 'power3.out',
-    scrollTrigger: { trigger: head, start: 'top 85%', toggleActions: 'play none none reverse' }
+    scrollTrigger: { trigger: head, start: 'top 82%', toggleActions: 'play none none reverse' }
   });
 });
 
 gsap.utils.toArray('.color-card, .logo-card, .type-specimen, .gsap-box').forEach(el => {
   gsap.from(el, {
     y: 30, opacity: 0, duration: .9, ease: 'power3.out',
-    scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' }
+    scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none reverse' }
   });
 });
 
@@ -3287,26 +3662,6 @@ gsap.utils.toArray('.subsection-title').forEach(el => {
     x: -20, opacity: 0, duration: .8, ease: 'power3.out',
     scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' }
   });
-});
-
-gsap.utils.toArray('.scroll-demo, .comp-viewer').forEach(el => {
-  gsap.from(el, {
-    y: 24, opacity: 0, duration: .8, ease: 'power3.out',
-    scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' }
-  });
-});
-
-/* ══════════════════════════════════════════════════════════
-   14. CRÍTICO: RECALCULAR SCROLLTRIGGER APÓS CARREGAMENTO
-   ══════════════════════════════════════════════════════════ */
-// Como os componentes injetam HTML massivo e as fontes vêm de rede, 
-// a altura da página muda. Recalcular o ScrollTrigger corrige elementos invisíveis.
-window.addEventListener('load', () => {
-  ScrollTrigger.refresh();
-});
-
-document.fonts.ready.then(() => {
-  ScrollTrigger.refresh();
 });
 </script>
 </body>
